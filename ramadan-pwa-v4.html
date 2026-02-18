@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#c49a3c" id="metaThemeColor">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Рамадан">
+<meta name="description" content="Расписание Имсак и Ифтар. Рамадан 1447. Крым.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>Рамадан 1447 · Крым</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--imsak:#d94f5c;--imsak-soft:rgba(217,79,92,0.1);--iftar:#1fa86a;--iftar-soft:rgba(31,168,106,0.1);--gold:#c49a3c;--gold-soft:rgba(196,154,60,0.13);--bg:#f6f3ee;--surface:#ffffff;--surface2:#efebe4;--surface3:#e6e0d7;--text:#1a1612;--text2:#5a5248;--text3:#998f85;--border:rgba(26,22,18,0.09);--shadow-sm:0 1px 4px rgba(26,22,18,0.07),0 2px 8px rgba(26,22,18,0.05);--shadow:0 2px 12px rgba(26,22,18,0.08),0 4px 20px rgba(26,22,18,0.06);--shadow-lg:0 8px 32px rgba(26,22,18,0.12),0 2px 8px rgba(26,22,18,0.08);--r:16px;--r-sm:10px;--font-body:'Nunito',sans-serif;--font-display:'Cormorant Garamond',serif;}
+[data-theme="dark"]{--bg:#100e0c;--surface:#1b1814;--surface2:#252019;--surface3:#2e2820;--text:#f0ebe4;--text2:#a09588;--text3:#66605a;--border:rgba(240,235,228,0.08);--shadow-sm:0 1px 4px rgba(0,0,0,0.25),0 2px 8px rgba(0,0,0,0.2);--shadow:0 2px 12px rgba(0,0,0,0.35),0 4px 20px rgba(0,0,0,0.25);--shadow-lg:0 8px 32px rgba(0,0,0,0.5),0 2px 8px rgba(0,0,0,0.3);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;-webkit-font-smoothing:antialiased;overscroll-behavior:none;}
+.topbar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border);padding-top:env(safe-area-inset-top,0px);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .3s;}
+.topbar-inner{max-width:480px;margin:0 auto;padding:11px 14px;display:flex;align-items:center;gap:8px;}
+.brand{flex:1;font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--text);letter-spacing:-.01em;line-height:1.1;}
+.brand em{color:var(--gold);font-style:normal;}
+.brand small{display:block;font-family:var(--font-body);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-top:1px;}
+.topbar-actions{display:flex;gap:6px;align-items:center;}
+.city-btn{display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-family:var(--font-body);font-size:.76rem;font-weight:800;box-shadow:var(--shadow-sm);transition:all .15s;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
+.city-btn:active{transform:scale(.96);}
+.city-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.icon-btn{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:var(--shadow-sm);transition:all .15s;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+.icon-btn:active{transform:scale(.93);}
+.icon-btn.theme-active{background:var(--gold-soft);border-color:rgba(196,154,60,.3);}
+.fitir-card{background:linear-gradient(135deg,rgba(196,154,60,.13) 0%,rgba(196,154,60,.05) 100%);border:1px solid rgba(196,154,60,.22);border-radius:var(--r);padding:16px 16px 14px;margin-bottom:10px;position:relative;overflow:hidden;}
+.fitir-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(196,154,60,.15),transparent 70%);pointer-events:none;}
+.fitir-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.fitir-ico{font-size:1.3rem;flex-shrink:0;}
+.fitir-title{font-size:.78rem;font-weight:800;color:var(--gold);letter-spacing:.04em;text-transform:uppercase;}
+.fitir-title small{display:block;font-size:.65rem;font-weight:600;color:var(--text3);text-transform:none;letter-spacing:0;margin-top:1px;}
+.fitir-body{font-size:.8rem;font-weight:600;color:var(--text2);line-height:1.6;}
+.fitir-amount{display:inline-block;background:var(--gold);color:#fff;font-size:.88rem;font-weight:800;padding:4px 12px;border-radius:100px;margin-top:8px;letter-spacing:.02em;}
+.share-list{display:flex;flex-direction:column;gap:7px;}
+.share-item{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface2);cursor:pointer;transition:all .12s;-webkit-tap-highlight-color:transparent;}
+.share-item:active{transform:scale(.98);}
+.share-ico{font-size:1.3rem;flex-shrink:0;width:32px;text-align:center;}
+.share-name{font-size:.85rem;font-weight:700;color:var(--text);}
+.share-desc{font-size:.7rem;font-weight:500;color:var(--text3);}
+.share-divider{text-align:center;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:4px 0;}
+.main{max-width:480px;margin:0 auto;padding:14px 14px calc(88px + env(safe-area-inset-bottom,0px));}
+.install-banner{background:linear-gradient(135deg,var(--gold-soft),rgba(196,154,60,.06));border:1px solid rgba(196,154,60,.25);border-radius:var(--r-sm);padding:12px 13px;display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.install-banner:active{opacity:.85;}
+.ib-icon{font-size:1.4rem;flex-shrink:0;}
+.ib-text{flex:1;}
+.ib-title{font-size:.82rem;font-weight:800;color:var(--text);margin-bottom:1px;}
+.ib-sub{font-size:.7rem;font-weight:500;color:var(--text3);}
+.ib-close{background:none;border:none;cursor:pointer;font-size:1rem;color:var(--text3);padding:4px;-webkit-tap-highlight-color:transparent;}
+.day-nav{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.nav-arrow{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow-sm);transition:all .15s;flex-shrink:0;-webkit-tap-highlight-color:transparent;user-select:none;}
+.nav-arrow:disabled{opacity:.25;cursor:default;pointer-events:none;}
+.nav-arrow:not(:disabled):active{transform:scale(.92);background:var(--surface2);}
+.nav-center{flex:1;text-align:center;}
+.nav-date-main{font-size:1rem;font-weight:800;color:var(--text);line-height:1.2;}
+.nav-date-sub{font-size:.67rem;font-weight:600;color:var(--text3);letter-spacing:.04em;margin-top:1px;}
+.chip{display:inline-block;font-size:.56rem;font-weight:800;padding:1px 6px;border-radius:100px;letter-spacing:.07em;text-transform:uppercase;vertical-align:middle;margin-left:5px;}
+.chip-today{background:var(--gold);color:#fff;}
+.chip-laylat{background:rgba(196,154,60,.2);color:var(--gold);}
+.chip-bayram{background:rgba(31,168,106,.15);color:var(--iftar);}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
+.hero-card{border-radius:var(--r);padding:16px 14px 14px;cursor:pointer;position:relative;overflow:hidden;border:1px solid transparent;transition:transform .18s,box-shadow .18s;-webkit-tap-highlight-color:transparent;user-select:none;}
+.hero-card:active{transform:scale(.965);}
+.hero-card::after{content:'↗';position:absolute;top:11px;right:12px;font-size:.68rem;font-weight:700;opacity:.28;}
+.hero-card.imsak-card{background:linear-gradient(150deg,rgba(217,79,92,.11) 0%,rgba(217,79,92,.03) 100%);border-color:rgba(217,79,92,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),var(--shadow-sm);}
+.hero-card.iftar-card{background:linear-gradient(150deg,rgba(31,168,106,.11) 0%,rgba(31,168,106,.03) 100%);border-color:rgba(31,168,106,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),var(--shadow-sm);}
+[data-theme="dark"] .hero-card{box-shadow:none;}
+.card-type{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;}
+.imsak-card .card-type{color:var(--imsak);}
+.iftar-card .card-type{color:var(--iftar);}
+.card-time{font-family:var(--font-display);font-size:2.5rem;font-weight:700;letter-spacing:-.02em;line-height:1;margin-bottom:5px;}
+.imsak-card .card-time{color:var(--imsak);}
+.iftar-card .card-time{color:var(--iftar);}
+.card-name{font-size:.72rem;font-weight:700;color:var(--text2);}
+.card-tap-hint{font-size:.6rem;font-weight:600;color:var(--text3);margin-top:3px;}
+.progress-bar{background:var(--surface);border-radius:var(--r-sm);padding:12px 14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:10px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.progress-label{font-size:.75rem;font-weight:700;color:var(--text2);display:flex;align-items:center;gap:5px;}
+.live-dot{width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.progress-countdown{font-size:.85rem;font-weight:800;color:var(--gold);}
+.progress-track{height:4px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:100px;transition:width 1s linear;}
+.notice{display:flex;gap:10px;padding:11px 13px;border-radius:var(--r-sm);margin-bottom:9px;border:1px solid;}
+.notice.laylat{background:var(--gold-soft);border-color:rgba(196,154,60,.2);}
+.notice.bayram{background:var(--iftar-soft);border-color:rgba(31,168,106,.2);}
+.notice-ico{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.notice-title{font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:1px;}
+.notice-body{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.4;}
+.tabs-wrap{background:var(--surface);border-radius:var(--r-sm);padding:3px;display:flex;gap:2px;border:1px solid var(--border);margin-bottom:14px;box-shadow:var(--shadow-sm);}
+.tab{flex:1;padding:8px 4px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-family:var(--font-body);font-size:.76rem;font-weight:800;cursor:pointer;transition:all .18s;text-align:center;-webkit-tap-highlight-color:transparent;}
+.tab.active{background:var(--text);color:var(--bg);box-shadow:0 1px 6px rgba(0,0,0,.15);}
+.section-lbl{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:9px;padding-left:2px;}
+.list-card{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow-sm);}
+.list-head{display:grid;grid-template-columns:58px 1fr 1fr;padding:7px 14px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.list-head span{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);}
+.list-head .lh-imsak{color:var(--imsak);}
+.list-head .lh-iftar{color:var(--iftar);}
+.list-row{display:grid;grid-template-columns:58px 1fr 1fr;padding:11px 14px;border-bottom:1px solid var(--border);align-items:center;cursor:pointer;position:relative;transition:background .12s;-webkit-tap-highlight-color:transparent;}
+.list-row:last-child{border-bottom:none;}
+.list-row:active{background:var(--surface2);}
+.list-row.lr-today{background:linear-gradient(90deg,rgba(196,154,60,.09) 0%,transparent 70%);}
+.list-row.lr-today::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);border-radius:0 2px 2px 0;}
+.list-row.lr-laylat{background:linear-gradient(90deg,rgba(196,154,60,.09) 0%,transparent 70%);}
+.list-row.lr-bayram{background:linear-gradient(90deg,rgba(31,168,106,.07) 0%,transparent 70%);}
+.lr-date-num{font-size:1.1rem;font-weight:800;line-height:1;color:var(--text);}
+.lr-date-day{font-size:.62rem;font-weight:600;color:var(--text3);margin-top:1px;}
+.lr-badge{display:block;width:fit-content;font-size:.54rem;font-weight:800;padding:1px 5px;border-radius:4px;margin-top:2px;letter-spacing:.05em;text-transform:uppercase;}
+.b-today{background:var(--gold);color:#fff;}
+.b-laylat{background:rgba(196,154,60,.18);color:var(--gold);}
+.b-bayram{background:rgba(31,168,106,.15);color:var(--iftar);}
+.lr-imsak{font-size:.92rem;font-weight:700;color:var(--imsak);font-variant-numeric:tabular-nums;}
+.lr-iftar{font-size:.92rem;font-weight:700;color:var(--iftar);font-variant-numeric:tabular-nums;}
+.week-nav{display:flex;align-items:center;gap:8px;margin-bottom:11px;}
+.week-nav-lbl{flex:1;text-align:center;font-size:.78rem;font-weight:700;color:var(--text2);}
+.month-grid-header{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px;}
+.mgh-day{text-align:center;font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--text3);padding:2px 0;}
+.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.mg-cell{background:var(--surface);border-radius:9px;border:1px solid var(--border);padding:5px 3px;text-align:center;min-height:66px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;position:relative;transition:all .12s;-webkit-tap-highlight-color:transparent;}
+.mg-cell:active{transform:scale(.94);}
+.mg-cell.mc-today{background:var(--gold-soft);border-color:rgba(196,154,60,.3);}
+.mg-cell.mc-laylat{background:var(--gold-soft);border-color:rgba(196,154,60,.25);}
+.mg-cell.mc-bayram{background:var(--iftar-soft);border-color:rgba(31,168,106,.2);}
+.mg-cell.mc-empty{background:transparent;border-color:transparent;cursor:default;}
+.mc-num{font-size:1rem;font-weight:800;color:var(--text);line-height:1;}
+.mc-imsak{font-size:.55rem;font-weight:700;color:var(--imsak);line-height:1.3;}
+.mc-iftar{font-size:.55rem;font-weight:700;color:var(--iftar);line-height:1.3;}
+.mc-badge{position:absolute;top:2px;right:3px;font-size:.55rem;}
+.overlay{position:fixed;inset:0;background:rgba(10,8,6,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s;}
+.overlay.open{opacity:1;pointer-events:all;}
+.sheet{background:var(--surface);border-radius:22px 22px 0 0;width:100%;max-width:480px;padding:0 18px calc(24px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.overlay.open .sheet{transform:translateY(0);}
+.sheet-pull{position:sticky;top:0;background:var(--surface);padding:14px 0 10px;z-index:1;text-align:center;}
+.sheet-handle{width:36px;height:4px;background:var(--border);border-radius:100px;margin:0 auto;}
+.sheet-title{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:3px;margin-top:14px;}
+.sheet-sub{font-size:.77rem;font-weight:600;color:var(--text3);margin-bottom:18px;}
+.city-list{display:flex;flex-direction:column;gap:5px;}
+.city-item{display:flex;align-items:center;justify-content:space-between;padding:12px 13px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface2);cursor:pointer;transition:all .12s;-webkit-tap-highlight-color:transparent;}
+.city-item:active{transform:scale(.98);}
+.city-item.ci-active{background:var(--gold-soft);border-color:rgba(196,154,60,.3);}
+.ci-name{font-size:.86rem;font-weight:700;color:var(--text);}
+.ci-offset{font-size:.7rem;font-weight:500;color:var(--text3);}
+.ci-check{font-size:1rem;color:var(--gold);}
+.prayer-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:100px;font-size:.68rem;font-weight:800;margin-bottom:12px;}
+.pb-imsak{background:var(--imsak-soft);color:var(--imsak);}
+.pb-iftar{background:var(--iftar-soft);color:var(--iftar);}
+.prayer-time{font-family:var(--font-display);font-size:2.4rem;font-weight:700;line-height:1;margin-bottom:4px;}
+.prayer-city{font-size:.74rem;font-weight:600;color:var(--text3);margin-bottom:14px;}
+.prayer-card{background:var(--surface2);border-radius:var(--r-sm);padding:16px;border:1px solid var(--border);}
+.prayer-arabic{font-family:var(--font-display);font-size:1.35rem;line-height:2;text-align:right;direction:rtl;color:var(--gold);margin-bottom:12px;}
+.prayer-translit{font-size:.78rem;font-weight:600;font-style:italic;color:var(--text3);margin-bottom:10px;line-height:1.5;}
+.prayer-translation{font-size:.82rem;font-weight:600;color:var(--text2);line-height:1.65;}
+.prayer-note{margin-top:12px;padding:10px 12px;background:var(--surface3);border-radius:8px;font-size:.7rem;font-weight:600;color:var(--text3);line-height:1.5;}
+.settings-group{margin-bottom:20px;}
+.settings-group-title{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-left:2px;}
+.settings-item{display:flex;align-items:center;justify-content:space-between;padding:12px 13px;border-radius:var(--r-sm);background:var(--surface2);border:1px solid var(--border);margin-bottom:5px;}
+.si-label{font-size:.84rem;font-weight:700;color:var(--text);}
+.si-sub{font-size:.7rem;font-weight:500;color:var(--text3);}
+.si-right{display:flex;gap:5px;}
+.app-footer{max-width:480px;margin:0 auto;padding:0 14px 20px;text-align:center;}
+.footer-inner{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 16px;box-shadow:var(--shadow-sm);}
+.footer-heart{font-size:1.4rem;margin-bottom:8px;}
+.footer-made{font-size:.78rem;font-weight:600;color:var(--text3);line-height:1.6;margin-bottom:8px;}
+.footer-author{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:800;color:var(--text);text-decoration:none;padding:7px 14px;border-radius:100px;background:var(--gold-soft);border:1px solid rgba(196,154,60,.2);transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.footer-author:active{transform:scale(.97);}
+.footer-tg{font-size:.7rem;font-weight:600;color:var(--text3);margin-top:6px;}
+.footer-tg a{color:var(--gold);text-decoration:none;font-weight:700;}
+.bottom-actions{display:flex;gap:8px;margin-bottom:0;}
+.bottom-btn{flex:1;padding:12px 10px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.bottom-btn:active{transform:scale(.97);}
+.bottom-btn-primary{background:var(--text);color:var(--bg);border-color:var(--text);}
+.cal-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 16px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:var(--font-body);font-size:.83rem;font-weight:700;cursor:pointer;transition:all .12s;margin-bottom:7px;-webkit-tap-highlight-color:transparent;}
+.cal-btn:active{transform:scale(.98);}
+.cal-btn-primary{background:var(--text);color:var(--bg);border-color:var(--text);}
+.cal-btn-primary:active{opacity:.85;}
+.cal-hint{padding:11px 13px;border-radius:var(--r-sm);background:var(--surface2);border:1px solid var(--border);font-size:.72rem;font-weight:600;color:var(--text3);line-height:1.5;margin-top:4px;}
+.cal-hint strong{color:var(--text2);font-weight:700;}
+.install-guide{background:var(--surface2);border-radius:var(--r-sm);padding:16px;margin-bottom:10px;border:1px solid var(--border);}
+.ig-title{font-size:.84rem;font-weight:800;color:var(--text);margin-bottom:10px;}
+.ig-body{font-size:.8rem;font-weight:600;color:var(--text2);line-height:1.7;}
+.sticky-footer{position:fixed;bottom:0;left:0;right:0;padding:10px 14px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,var(--bg) 60%,transparent);pointer-events:none;}
+.sticky-inner{max-width:480px;margin:0 auto;pointer-events:all;}
+.sticky-btn{width:100%;padding:14px;border-radius:var(--r);background:var(--text);color:var(--bg);font-family:var(--font-body);font-size:.84rem;font-weight:800;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:var(--shadow-lg);transition:opacity .15s;-webkit-tap-highlight-color:transparent;}
+.sticky-btn:active{opacity:.83;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .3s ease both;}
+.fu1{animation-delay:.04s;}
+.fu2{animation-delay:.08s;}
+.fu3{animation-delay:.12s;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Рамадан <em>1447</em><small>Рамазан Айы · Крым</small></div>
+    <div class="topbar-actions">
+      <button class="city-btn" id="cityBtn"><span class="city-dot"></span><span id="cityLabel">Симферополь</span><span style="font-size:.55rem;opacity:.4;margin-left:2px;">▾</span></button>
+      <button class="icon-btn" id="themeBtn" title="Светлая/тёмная тема">🌙</button>
+      <button class="icon-btn" id="settingsBtn" title="Настройки">⚙️</button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="install-banner fu" id="installBanner" style="display:none;">
+    <div class="ib-icon">📲</div>
+    <div class="ib-text"><div class="ib-title">Установить на экран</div><div class="ib-sub">Работает без интернета</div></div>
+    <button class="ib-close" id="installBannerClose">✕</button>
+  </div>
+
+  <div id="daySectionWrap">
+    <div class="day-nav fu">
+      <button class="nav-arrow" id="prevDay">‹</button>
+      <div class="nav-center">
+        <div class="nav-date-main" id="navDateMain">—</div>
+        <div class="nav-date-sub" id="navDateSub">—</div>
+      </div>
+      <button class="nav-arrow" id="nextDay">›</button>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-card imsak-card fu fu1" id="imsakCard">
+        <div class="card-type">Имсак</div>
+        <div class="card-time" id="heroImsakTime">—</div>
+        <div class="card-name">Начало поста</div>
+        <div class="card-tap-hint">Нажмите для молитвы</div>
+      </div>
+      <div class="hero-card iftar-card fu fu2" id="iftarCard">
+        <div class="card-type">Ифтар</div>
+        <div class="card-time" id="heroIftarTime">—</div>
+        <div class="card-name">Разговение</div>
+        <div class="card-tap-hint">Нажмите для молитвы</div>
+      </div>
+    </div>
+    <div class="progress-bar fu fu3" id="progressBar">
+      <div class="progress-top">
+        <div class="progress-label" id="progLabel"><span class="live-dot" style="color:var(--iftar)"></span><span id="progText">Загрузка...</span></div>
+        <div class="progress-countdown" id="progCountdown">—</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div id="noticesWrap">
+    <div class="notice laylat fu fu1"><span class="notice-ico">🌙</span><div><div class="notice-title">Ночь Ляйлятуль-Кадр</div><div class="notice-body">16–17 Март · Кваdir геджеси</div></div></div>
+    <div class="notice bayram fu fu2"><span class="notice-ico">🎉</span><div><div class="notice-title">Ораза Байрамы — 20, 21, 22 марта</div><div class="notice-body">Намаз 20 марта в <strong>7:30</strong></div></div></div>
+  </div>
+
+  <div class="fitir-card fu fu3" id="fitirCard">
+    <div class="fitir-header">
+      <div class="fitir-ico">🤲</div>
+      <div>
+        <div class="fitir-title">Фитир Садакъасы
+          <small>Закят аль-Фитр · Зекят</small>
+        </div>
+      </div>
+    </div>
+    <div class="fitir-body">
+      Кърым мусульманлары диний идареси бу йыл фитир садакъасынынъ микъдарыны бир адам ичюн энъ азы белгиледи.<br><br>
+      Выплачивается до намаза Ораза байрамы — до <strong>20 марта</strong>.
+      <div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span class="fitir-amount">500 ₽ / чел.</span>
+        <span style="font-size:.72rem;font-weight:600;color:var(--text3);">на каждого члена семьи</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs-wrap fu" style="margin-top:14px;">
+    <button class="tab active" data-mode="day" id="tabDay">Сегодня</button>
+    <button class="tab" data-mode="week">Неделя</button>
+    <button class="tab" data-mode="month">Месяц</button>
+  </div>
+
+  <div id="scheduleArea"></div>
+</div>
+
+</div><!-- end main -->
+
+<!-- FOOTER -->
+<div class="app-footer">
+  <div class="footer-inner">
+    <div class="footer-heart">🌙</div>
+    <div class="footer-made">Это приложение создано с любовью и заботой для мусульман Крыма.<br>Пусть ваш пост будет принят, а молитвы услышаны.<br><em style="color:var(--gold);">Рамадан Мубарак!</em></div>
+    <a href="https://t.me/EnrikeTomas" target="_blank" class="footer-author">
+      <span>✨</span> Enver Isliamov
+    </a>
+    <div class="footer-tg">Telegram: <a href="https://t.me/EnrikeTomas" target="_blank">@EnrikeTomas</a></div>
+  </div>
+</div>
+
+<div class="sticky-footer"><div class="sticky-inner"><div class="bottom-actions"><button class="bottom-btn bottom-btn-primary" id="calBtn">📅 В календарь</button><button class="bottom-btn" id="shareBottomBtn">📤 Поделиться</button></div></div></div>
+
+<!-- CITY SHEET -->
+<div class="overlay" id="citySheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">Выберите город</div><div class="sheet-sub">Время скорректируется автоматически</div><div class="city-list" id="cityList"></div></div></div>
+
+<!-- PRAYER SHEET -->
+<div class="overlay" id="prayerSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div id="prayerContent"></div><button class="cal-btn" style="margin-top:18px;" onclick="closeSheet('prayerSheet')">Закрыть</button></div></div>
+
+<!-- CAL SHEET -->
+<div class="overlay" id="calSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">📅 Добавить в календарь</div><div class="sheet-sub">Авторизация не нужна</div><button class="cal-btn cal-btn-primary" id="icsBtn">📥 Скачать .ics (Apple · Outlook · Яндекс)</button><button class="cal-btn" id="googleBtn"><svg width="15" height="15" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google Календарь</button><div class="cal-hint">💡 <strong>.ics файл</strong> — универсальный формат для Apple Calendar, Google, Outlook. Открыть файл → он сам предложит добавить события.</div><button class="cal-btn" style="margin-top:10px;" onclick="closeSheet('calSheet')">Отмена</button></div></div>
+
+<!-- SETTINGS SHEET -->
+<div class="overlay" id="settingsSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">Настройки</div><div class="sheet-sub">Персонализируйте интерфейс</div>
+<div class="settings-group"><div class="settings-group-title">Тема</div><div class="settings-item"><div><div class="si-label" id="themeLabel">Светлая</div><div class="si-sub">Переключить кнопкой 🌙 в шапке</div></div></div></div>
+
+<div class="settings-group"><div class="settings-group-title">Установка</div><div class="settings-item" style="cursor:pointer;" onclick="openSheet('installSheet')"><div><div class="si-label">Установить на экран</div><div class="si-sub">Работает без интернета как приложение</div></div><span style="font-size:.9rem;color:var(--text3);">›</span></div></div>
+<div class="settings-group"><div class="settings-group-title">О приложении</div><div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:6px;"><div class="si-label">Рамадан 1447 · Крым</div><div class="si-sub" style="line-height:1.6;">Это приложение создано с любовью и заботой для крымских мусульман. Пусть ваш пост будет принят, а дуа услышаны. Рамадан Мубарак! 🤲</div><a href="https://t.me/EnrikeTomas" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:var(--gold);text-decoration:none;">✉️ Создал Enver Isliamov · @EnrikeTomas</a><div class="si-sub">Версия 2.0 · PWA</div></div></div>
+<button class="cal-btn" onclick="closeSheet('settingsSheet')">Закрыть</button></div></div>
+
+<!-- INSTALL SHEET -->
+<div class="overlay" id="installSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">📲 Установить приложение</div><div class="sheet-sub">Работает без интернета после установки</div>
+<div class="install-guide"><div class="ig-title">📱 iPhone / iPad (Safari)</div><div class="ig-body">1. Нажмите кнопку <strong>Поделиться</strong> (квадрат со стрелкой вверх)<br>2. Прокрутите вниз → <strong>«На экран Домой»</strong><br>3. Нажмите <strong>«Добавить»</strong></div></div>
+<div class="install-guide"><div class="ig-title">🤖 Android (Chrome)</div><div class="ig-body">1. Нажмите <strong>⋮</strong> (три точки) справа вверху<br>2. Выберите <strong>«Добавить на главный экран»</strong><br>3. Нажмите <strong>«Установить»</strong></div></div>
+<div id="androidInstallBtn" style="display:none;margin-bottom:8px;"><button class="cal-btn cal-btn-primary" id="promptInstallBtn">📲 Установить сейчас</button></div>
+<button class="cal-btn" onclick="closeSheet('installSheet')">Понятно</button></div></div>
+
+<!-- SHARE SHEET -->
+<div class="overlay" id="shareSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">📤 Поделиться</div><div class="sheet-sub">Отправьте расписание друзьям</div>
+<div class="share-list">
+  <div class="share-item" id="shareNative" style="display:none;background:linear-gradient(135deg,var(--gold-soft),rgba(196,154,60,.04));border-color:rgba(196,154,60,.25);">
+    <div class="share-ico">📤</div><div><div class="share-name">Поделиться...</div><div class="share-desc">Через мессенджеры, соцсети и другие приложения</div></div>
+  </div>
+  <div class="share-divider" id="shareDivider" style="display:none;">— или выберите —</div>
+  <div class="share-item" id="shareWhatsapp"><div class="share-ico">💬</div><div><div class="share-name">WhatsApp</div><div class="share-desc">Отправить в WhatsApp</div></div></div>
+  <div class="share-item" id="shareTelegram"><div class="share-ico">✈️</div><div><div class="share-name">Telegram</div><div class="share-desc">Отправить в Telegram</div></div></div>
+  <div class="share-item" id="shareViber"><div class="share-ico">📳</div><div><div class="share-name">Viber</div><div class="share-desc">Отправить в Viber</div></div></div>
+  <div class="share-item" id="shareVK"><div class="share-ico">🔵</div><div><div class="share-name">ВКонтакте</div><div class="share-desc">Поделиться ВКонтакте</div></div></div>
+  <div class="share-item" id="shareCopy"><div class="share-ico">🔗</div><div><div class="share-name" id="shareCopyLabel">Скопировать ссылку</div><div class="share-desc">Скопировать в буфер обмена</div></div></div>
+</div>
+<button class="cal-btn" style="margin-top:14px;" onclick="closeSheet('shareSheet')">Отмена</button>
+</div></div>
+
+<script>
+const DATA=[[1,19,2,'6:11','18:27'],[2,20,2,'6:10','18:28'],[3,21,2,'6:08','18:30'],[4,22,2,'6:07','18:31'],[5,23,2,'6:05','18:32'],[6,24,2,'6:04','18:34'],[7,25,2,'6:02','18:35'],[8,26,2,'6:00','18:36'],[9,27,2,'5:59','18:38'],[10,28,2,'5:57','18:39'],[11,1,3,'5:55','18:40'],[12,2,3,'5:53','18:42'],[13,3,3,'5:52','18:43'],[14,4,3,'5:50','18:45'],[15,5,3,'5:48','18:46'],[16,6,3,'5:46','18:47'],[17,7,3,'5:44','18:48'],[18,8,3,'5:43','18:50'],[19,9,3,'5:41','18:51'],[20,10,3,'5:39','18:52'],[21,11,3,'5:37','18:54'],[22,12,3,'5:35','18:55'],[23,13,3,'5:33','18:56'],[24,14,3,'5:31','18:58'],[25,15,3,'5:29','18:59'],[26,16,3,'5:27','19:00'],[27,17,3,'5:25','19:01'],[28,18,3,'5:23','19:03'],[29,19,3,'5:21','19:04']];
+const CITIES=[{name:'Симферополь',short:'Симф.',offset:0},{name:'Алушта',short:'Алушта',offset:-1},{name:'Бахчисарай',short:'Бахч.',offset:2},{name:'Белогорск',short:'Белог.',offset:0},{name:'Джанкой',short:'Джанкой',offset:-1},{name:'Евпатория',short:'Евпат.',offset:0},{name:'Керчь',short:'Керчь',offset:-9},{name:'Кезлев',short:'Кезлев',offset:3},{name:'Старый Крым',short:'Ст.Крым',offset:-3},{name:'Феодосия',short:'Кефе',offset:-5},{name:'Ялта',short:'Ялта',offset:4},{name:'Ор Капы',short:'Ор Капы',offset:2},{name:'Акъяр',short:'Акъяр',offset:2},{name:'Акмесджит',short:'Акмесдж.',offset:0},{name:'Акшехир',short:'Акшехир',offset:-3},{name:'Черноморское',short:'Черном.',offset:4},{name:'Судак',short:'Судак',offset:-3}];
+const DAYS=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+const MS=['','Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+const MF=['','Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const PRAYERS={
+  imsak:{badge:'🌙 Молитва Имсак',arabic:'نَوَيْتُ أَنْ أَصُومَ صَوْمَ شَهْرِ رَمَضَانَ مِنَ الْفَجْرِ إِلَى الْمَغْرِبِ خَالِصًا لِلَّهِ تَعَالَى',translit:'Навайту ан асуума савма шахри Рамадана минал-фаджри илал-магриби, халисан лиллахи та\'аля',text:'«Я намереваюсь держать пост месяца Рамадан от рассвета до заката, искренне ради Аллаха Всевышнего»',placeholder:true},
+  iftar:{badge:'🌿 Молитва Ифтар',arabic:'اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ',translit:'Аллахумма ляка сумту ва \'аля ризкика афтарту',text:'«О Аллах, ради Тебя я постился и Твоим уделом разговляюсь»',placeholder:true}
+};
+let cityIdx=parseInt(localStorage.getItem('ramCity')||'0');if(cityIdx>=CITIES.length)cityIdx=0;
+let viewIdx=0,mode='day',weekOff=0,installPrompt=null;
+const $=id=>document.getElementById(id);
+function toMin(t){const[h,m]=t.split(':').map(Number);return h*60+m;}
+function shiftTime(t,off){let m=toMin(t)+off;m=((m%1440)+1440)%1440;return`${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;}
+function adj(row){const o=CITIES[cityIdx].offset;return{imsak:shiftTime(row[3],o),iftar:shiftTime(row[4],o)};}
+function dateOf(row){return new Date(2026,row[2]-1,row[1]);}
+function isToday(row){const n=new Date();return row[1]===n.getDate()&&row[2]===n.getMonth()+1;}
+function isLaylat(row){return row[1]===16&&row[2]===3;}
+function isLaylatNight(row){return(row[1]===16||row[1]===17)&&row[2]===3;}
+function isBayram(row){return row[2]===3&&row[1]>=20&&row[1]<=22;}
+function todayIdx(){const n=new Date();const i=DATA.findIndex(r=>r[1]===n.getDate()&&r[2]===n.getMonth()+1);return i>=0?i:0;}
+
+// THEME
+const th0=localStorage.getItem('ramTheme')||'light';
+document.documentElement.setAttribute('data-theme',th0);
+function applyTheme(){const t=document.documentElement.getAttribute('data-theme');$('themeBtn').textContent=t==='dark'?'☀️':'🌙';const tl=$('themeLabel');if(tl)tl.textContent=t==='dark'?'Тёмная':'Светлая';$('metaThemeColor').setAttribute('content',t==='dark'?'#100e0c':'#c49a3c');}
+applyTheme();
+$('themeBtn').onclick=()=>{const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('ramTheme',t);applyTheme();};
+
+// FONT
+
+// CITY
+$('cityLabel').textContent=CITIES[cityIdx].name;
+function buildCityList(){const list=$('cityList');list.innerHTML='';CITIES.forEach((c,i)=>{const s=c.offset>0?`+${c.offset}`:c.offset<0?`${c.offset}`:'±0';const el=document.createElement('div');el.className='city-item'+(i===cityIdx?' ci-active':'');el.innerHTML=`<div><div class="ci-name">${c.name}</div><div class="ci-offset">Разница: ${s} мин</div></div>${i===cityIdx?'<span class="ci-check">✓</span>':''}`;el.onclick=()=>{cityIdx=i;localStorage.setItem('ramCity',i);$('cityLabel').textContent=c.name;closeSheet('citySheet');renderAll();};list.appendChild(el);});}
+$('cityBtn').onclick=()=>{buildCityList();openSheet('citySheet');};
+
+// SHEETS
+function openSheet(id){$(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeSheet(id){$(id).classList.remove('open');document.body.style.overflow='';}
+document.querySelectorAll('.overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}});});
+$('settingsBtn').onclick=()=>openSheet('settingsSheet');
+$('calBtn').onclick=()=>openSheet('calSheet');
+
+// SHARE - bottom button
+$('shareBottomBtn').onclick=()=>openSheet('shareSheet');
+const SHARE_URL='https://ramadan.avntour.ru';
+const SHARE_TEXT='📅 Расписание Рамадан 1447 — Крым. Имсак, Ифтар, Ораза Байрамы. Удобное мобильное приложение:';
+function setupShare(){
+  if(navigator.share){
+    $('shareNative').style.display='flex';
+    $('shareDivider').style.display='block';
+  }
+  $('shareNative').onclick=async()=>{
+    try{await navigator.share({title:'Рамадан 1447 · Крым',text:SHARE_TEXT,url:SHARE_URL});}catch(e){}
+    closeSheet('shareSheet');
+  };
+  $('shareWhatsapp').onclick=()=>{window.open(`https://wa.me/?text=${encodeURIComponent(SHARE_TEXT+' '+SHARE_URL)}`,'_blank');closeSheet('shareSheet');};
+  $('shareTelegram').onclick=()=>{window.open(`https://t.me/share/url?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(SHARE_TEXT)}`,'_blank');closeSheet('shareSheet');};
+  $('shareViber').onclick=()=>{window.open(`viber://forward?text=${encodeURIComponent(SHARE_TEXT+' '+SHARE_URL)}`,'_blank');closeSheet('shareSheet');};
+  $('shareVK').onclick=()=>{window.open(`https://vk.com/share.php?url=${encodeURIComponent(SHARE_URL)}&title=${encodeURIComponent(SHARE_TEXT)}`,'_blank');closeSheet('shareSheet');};
+  $('shareCopy').onclick=()=>{
+    const full=SHARE_TEXT+' '+SHARE_URL;
+    if(navigator.clipboard){navigator.clipboard.writeText(full).then(()=>{$('shareCopyLabel').textContent='✓ Скопировано!';setTimeout(()=>{$('shareCopyLabel').textContent='Скопировать ссылку';},2000);});}
+    else{const t=document.createElement('textarea');t.value=full;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);$('shareCopyLabel').textContent='✓ Скопировано!';setTimeout(()=>{$('shareCopyLabel').textContent='Скопировать ссылку';},2000);}
+  };
+}
+setupShare();
+
+// DAY VIEW
+function renderDay(){
+  $('daySectionWrap').style.display='';
+  const row=DATA[viewIdx];const t=adj(row);const d=dateOf(row);
+  const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);
+  // Tab always shows "Сегодня"
+  $('tabDay').textContent='Сегодня';
+  let chips='';
+  if(it)chips+='<span class="chip chip-today">Сегодня</span>';
+  if(il&&row[1]===16)chips+='<span class="chip chip-laylat">✨ Кадр</span>';
+  if(ib&&row[1]===20)chips+='<span class="chip chip-bayram">🎉 Байрам</span>';
+  $('navDateMain').innerHTML=`${row[1]} ${MF[row[2]]} · ${DAYS[d.getDay()]}${chips}`;
+  $('navDateSub').textContent=`Рамадан — ${row[0]}-й день · ${CITIES[cityIdx].name}`;
+  $('prevDay').disabled=viewIdx<=0;
+  $('nextDay').disabled=viewIdx>=DATA.length-1;
+  $('heroImsakTime').textContent=t.imsak;
+  $('heroIftarTime').textContent=t.iftar;
+  const pb=$('progressBar');
+  if(it){pb.style.display='';updateProgress(t.imsak,t.iftar);}else{pb.style.display='none';}
+  const area=$('scheduleArea');let html='';
+  if(il)html+=`<div class="notice laylat" style="margin-bottom:9px;"><span class="notice-ico">${row[1]===16?'✨':'🌙'}</span><div><div class="notice-title">Ночь Ляйлятуль-Кадр</div><div class="notice-body">Наиболее благословенная ночь Рамадана</div></div></div>`;
+  if(ib)html+=`<div class="notice bayram"><span class="notice-ico">🎉</span><div><div class="notice-title">Ораза Байрамы!</div><div class="notice-body">${row[1]===20?'Намаз в <strong>7:30</strong>':'Праздник продолжается'}</div></div></div>`;
+  area.innerHTML=html;
+}
+
+function updateProgress(imsakT,iftarT){
+  const n=new Date();const nm=n.getHours()*60+n.getMinutes();
+  const im=toMin(imsakT),ifm=toMin(iftarT);
+  const fill=$('progFill'),txt=$('progText'),cnt=$('progCountdown'),lbl=$('progLabel');
+  function fmt(d){const h=Math.floor(d/60),m=d%60;return h>0?`${h}ч ${m}м`:`${m} мин`;}
+  if(nm<im){fill.style.background='var(--imsak)';fill.style.width=Math.max(2,(1-((im-nm)/90))*100)+'%';lbl.style.color='var(--imsak)';txt.textContent='До Имсака';cnt.textContent=fmt(im-nm);}
+  else if(nm<ifm){const tot=ifm-im,pas=nm-im;fill.style.background='linear-gradient(90deg,var(--imsak),var(--iftar))';fill.style.width=(pas/tot*100).toFixed(1)+'%';lbl.style.color='var(--iftar)';txt.textContent='До Ифтара';cnt.textContent=fmt(ifm-nm);}
+  else{fill.style.background='var(--iftar)';fill.style.width='100%';lbl.style.color='var(--gold)';txt.textContent='Ифтар наступил';cnt.textContent='Приятного!';}
+}
+
+// WEEK VIEW
+function renderWeek(){
+  $('daySectionWrap').style.display='';
+  const ti=todayIdx();const start=Math.max(0,ti+weekOff*7);const end=Math.min(DATA.length,start+7);const rows=DATA.slice(start,end);
+  const heroIdx=(viewIdx>=start&&viewIdx<end)?viewIdx:(ti>=start&&ti<end?ti:start);
+  _updateHero(heroIdx);
+  $('prevDay').disabled=true;$('nextDay').disabled=true;
+  const fl=rows[0]?`${rows[0][1]} ${MS[rows[0][2]]}`:'';const tl=rows[rows.length-1]?`${rows[rows.length-1][1]} ${MS[rows[rows.length-1][2]]}`:'';;
+  let h=`<div class="week-nav"><button class="nav-arrow" id="wPrev" ${weekOff<=-Math.ceil(ti/7)?'disabled':''} style="width:34px;height:34px;font-size:16px;">&#8249;</button><div class="week-nav-lbl">${fl} — ${tl} · ${CITIES[cityIdx].name}</div><button class="nav-arrow" id="wNext" ${end>=DATA.length?'disabled':''} style="width:34px;height:34px;font-size:16px;">&#8250;</button></div><div class="list-card"><div class="list-head"><span>Дата</span><span class="lh-imsak">Имсак</span><span class="lh-iftar">Ифтар</span></div>`;
+  rows.forEach(row=>{const t=adj(row);const d=dateOf(row);const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);let cls='list-row';if(it)cls+=' lr-today';else if(il)cls+=' lr-laylat';else if(ib)cls+=' lr-bayram';let badges='';if(it)badges+='<span class="lr-badge b-today">Сег.</span>';if(il&&row[1]===16)badges+='<span class="lr-badge b-laylat">✨ Кадр</span>';if(ib&&row[1]===20)badges+='<span class="lr-badge b-bayram">🎉 Байрам</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="_updateHero(${ridx})"><div><div class="lr-date-num">${row[1]} ${MS[row[2]]}</div><div class="lr-date-day">${DAYS[d.getDay()]}</div>${badges}</div><div class="lr-imsak">${t.imsak}</div><div class="lr-iftar">${t.iftar}</div></div>`;});
+  h+='</div>';$('scheduleArea').innerHTML=h;
+  $('wPrev').onclick=()=>{weekOff--;renderWeek();};
+  $('wNext').onclick=()=>{weekOff++;renderWeek();};
+}
+
+// MONTH VIEW
+function renderMonth(){
+  $('daySectionWrap').style.display='';
+  _updateHero(viewIdx||todayIdx());
+  $('prevDay').disabled=true;$('nextDay').disabled=true;
+  let h='';const byM={};DATA.forEach(r=>{if(!byM[r[2]])byM[r[2]]=[];byM[r[2]].push(r);});
+  Object.keys(byM).forEach(mk=>{
+    const m=parseInt(mk);const firstDow=new Date(2026,m-1,1).getDay();const dim=new Date(2026,m,0).getDate();const offset=(firstDow===0?6:firstDow-1);
+    h+=`<div class="section-lbl" style="margin-bottom:8px;">${MF[m]} 2026 · ${CITIES[cityIdx].name}</div><div class="month-grid-header">`;
+    ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d=>{h+=`<div class="mgh-day">${d}</div>`;});
+    h+=`</div><div class="month-grid">`;
+    for(let i=0;i<offset;i++)h+='<div class="mg-cell mc-empty"></div>';
+    for(let day=1;day<=dim;day++){const row=DATA.find(r=>r[1]===day&&r[2]===m);if(!row){h+=`<div class="mg-cell mc-empty"><div class="mc-num" style="opacity:.15">${day}</div></div>`;continue;}const t=adj(row);const it=isToday(row),il=isLaylat(row),ib=isBayram(row);let cls='mg-cell';if(it)cls+=' mc-today';if(il)cls+=' mc-laylat';if(ib)cls+=' mc-bayram';let bdg='';if(il)bdg='<span class="mc-badge">✨</span>';if(ib&&row[1]===20)bdg='<span class="mc-badge">🎉</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="_updateHero(${ridx})">${bdg}<div class="mc-num">${day}</div><div class="mc-imsak">${t.imsak}</div><div class="mc-iftar">${t.iftar}</div></div>`;}
+    h+=`</div><div style="height:16px;"></div>`;
+  });
+  $('scheduleArea').innerHTML=h;
+}
+
+// Update hero block without full re-render (for week/month cell taps)
+function _updateHero(idx){
+  viewIdx=idx;
+  const row=DATA[idx];const t=adj(row);const d=dateOf(row);const it=isToday(row);
+  let chips='';
+  if(it)chips+='<span class="chip chip-today">Сегодня</span>';
+  if(isLaylatNight(row)&&row[1]===16)chips+='<span class="chip chip-laylat">✨ Кадр</span>';
+  if(isBayram(row)&&row[1]===20)chips+='<span class="chip chip-bayram">🎉 Байрам</span>';
+  $('navDateMain').innerHTML=`${row[1]} ${MF[row[2]]} · ${DAYS[d.getDay()]}${chips}`;
+  $('navDateSub').textContent=`Рамадан — ${row[0]}-й день · ${CITIES[cityIdx].name}`;
+  $('heroImsakTime').textContent=t.imsak;
+  $('heroIftarTime').textContent=t.iftar;
+  if(it){$('progressBar').style.display='';updateProgress(t.imsak,t.iftar);}else{$('progressBar').style.display='none';}
+}
+
+function renderAll(){if(mode==='day')renderDay();else if(mode==='week')renderWeek();else renderMonth();}
+function goDay(idx){viewIdx=idx;mode='day';document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelector('[data-mode="day"]').classList.add('active');$('prevDay').disabled=false;$('nextDay').disabled=false;renderAll();window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('.tab').forEach(tab=>{tab.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  const newMode=tab.dataset.mode;
+  if(newMode==='day'){
+    // "Сегодня" tab always returns to today
+    viewIdx=todayIdx();
+    $('prevDay').disabled=false;$('nextDay').disabled=false;
+  }
+  mode=newMode;weekOff=0;renderAll();
+};});
+$('prevDay').onclick=()=>{if(viewIdx>0){viewIdx--;renderDay();}};
+$('nextDay').onclick=()=>{if(viewIdx<DATA.length-1){viewIdx++;renderDay();}};
+
+// PRAYER
+function showPrayer(type){const p=PRAYERS[type];const row=DATA[viewIdx];const t=adj(row);const time=type==='imsak'?t.imsak:t.iftar;const color=type==='imsak'?'var(--imsak)':'var(--iftar)';$('prayerContent').innerHTML=`<div class="prayer-badge ${type==='imsak'?'pb-imsak':'pb-iftar'}">${p.badge}</div><div class="prayer-time" style="color:${color};">${time}</div><div class="prayer-city">${CITIES[cityIdx].name} · ${row[1]} ${MS[row[2]]}</div><div class="prayer-card"><div class="prayer-arabic">${p.arabic}</div><div class="prayer-translit">${p.translit}</div><div class="prayer-translation">${p.text}</div>${p.placeholder?'<div class="prayer-note">💬 Замените текст молитвы в переменной PRAYERS в коде</div>':''}</div>`;openSheet('prayerSheet');}
+$('imsakCard').onclick=()=>showPrayer('imsak');
+$('iftarCard').onclick=()=>showPrayer('iftar');
+
+// CALENDAR ICS
+function buildICS(){const city=CITIES[cityIdx];let s=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Ramadan1447//Crimea//RU','CALSCALE:GREGORIAN',`X-WR-CALNAME:Рамадан 1447 · ${city.name}`,'X-WR-TIMEZONE:Europe/Simferopol'].join('\r\n')+'\r\n';DATA.forEach(row=>{const t=adj(row);const y=2026,m=String(row[2]).padStart(2,'0'),d=String(row[1]).padStart(2,'0');const im=t.imsak.replace(':','').padStart(4,'0');const if2=t.iftar.replace(':','').padStart(4,'0');s+=`BEGIN:VEVENT\r\nUID:imsak-${y}${m}${d}@ram1447\r\nSUMMARY:🌙 Имсак ${t.imsak}\r\nDTSTART:${y}${m}${d}T${im}00\r\nDURATION:PT1M\r\nEND:VEVENT\r\n`;s+=`BEGIN:VEVENT\r\nUID:iftar-${y}${m}${d}@ram1447\r\nSUMMARY:🌿 Ифтар ${t.iftar}\r\nDTSTART:${y}${m}${d}T${if2}00\r\nDURATION:PT1M\r\nEND:VEVENT\r\n`;});s+='BEGIN:VEVENT\r\nUID:laylat@ram1447\r\nSUMMARY:✨ Ночь Ляйлятуль-Кадр\r\nDTSTART:20260316T200000\r\nDTEND:20260317T060000\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nUID:bayram-namaz@ram1447\r\nSUMMARY:🎉 Намаз Ораза байрамы\r\nDTSTART:20260320T073000\r\nDTEND:20260320T083000\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nUID:bayram@ram1447\r\nSUMMARY:🎉 Ораза Байрамы\r\nDTSTART:20260320\r\nDTEND:20260323\r\nEND:VEVENT\r\n';s+='END:VCALENDAR';return s;}
+function downloadICS(){const city=CITIES[cityIdx];const blob=new Blob([buildICS()],{type:'text/calendar;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`ramadan-1447-${city.name}.ics`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);closeSheet('calSheet');}
+$('icsBtn').onclick=downloadICS;
+$('googleBtn').onclick=()=>{alert('1. Скачайте .ics файл (кнопка выше)\n2. Откройте calendar.google.com\n3. Настройки → Импортировать → выберите файл');};
+
+// PWA INSTALL
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;if(!localStorage.getItem('ramInstallDismissed')){$('installBanner').style.display='flex';}$('androidInstallBtn').style.display='block';});
+$('installBanner').onclick=e=>{if(e.target.id==='installBannerClose')return;if(installPrompt){installPrompt.prompt();installPrompt.userChoice.then(()=>{installPrompt=null;});}else{openSheet('installSheet');}};
+$('installBannerClose').onclick=e=>{e.stopPropagation();$('installBanner').style.display='none';localStorage.setItem('ramInstallDismissed','1');};
+const pid=$('promptInstallBtn');if(pid)pid.onclick=()=>{if(installPrompt){installPrompt.prompt();installPrompt.userChoice.then(()=>{installPrompt=null;closeSheet('installSheet');});}};
+window.addEventListener('appinstalled',()=>{$('installBanner').style.display='none';closeSheet('installSheet');});
+
+// SERVICE WORKER
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').then(()=>{}).catch(()=>{});}
+
+// INIT
+viewIdx=todayIdx();
+renderAll();
+setInterval(()=>{if(mode==='day'&&isToday(DATA[viewIdx])){updateProgress(adj(DATA[viewIdx]).imsak,adj(DATA[viewIdx]).iftar);}},30000);
+</script>
+</body>
+</html>
