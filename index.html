@@ -230,13 +230,13 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
         <div class="card-type">Имсак</div>
         <div class="card-time" id="heroImsakTime">—</div>
         <div class="card-name">Начало поста</div>
-        <div class="card-tap-hint">Нажмите для молитвы</div>
+        <div class="card-tap-hint">Нажмите чтобы прочитать дуа</div>
       </div>
       <div class="hero-card iftar-card fu fu2" id="iftarCard">
         <div class="card-type">Ифтар</div>
         <div class="card-time" id="heroIftarTime">—</div>
         <div class="card-name">Разговение</div>
-        <div class="card-tap-hint">Нажмите для молитвы</div>
+        <div class="card-tap-hint">Нажмите чтобы прочитать дуа</div>
       </div>
     </div>
     <div class="progress-bar fu fu3" id="progressBar">
@@ -249,7 +249,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   </div>
 
   <div id="noticesWrap">
-    <div class="notice laylat fu fu1"><span class="notice-ico">🌙</span><div><div class="notice-title">Ночь Ляйлятуль-Кадр</div><div class="notice-body">16–17 Март · Кваdir геджеси</div></div></div>
+    <div class="notice laylat fu fu1"><span class="notice-ico">🌙</span><div><div class="notice-title">Ночь Ляйлятуль-Кадр</div><div class="notice-body">16–17 Март · Кадир геджеси. В исламе — почитаемая ночь месяца поста Рамадан, связанная с ниспосланием пророку Мухаммеду Корана в виде откровения в пещере Хира горы Джабаль аль-Нур</div></div></div>
     <div class="notice bayram fu fu2"><span class="notice-ico">🎉</span><div><div class="notice-title">Ораза Байрамы — 20, 21, 22 марта</div><div class="notice-body">Намаз 20 марта в <strong>7:30</strong></div></div></div>
   </div>
 
@@ -311,7 +311,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 <div class="settings-group"><div class="settings-group-title">Тема</div><div class="settings-item"><div><div class="si-label" id="themeLabel">Светлая</div><div class="si-sub">Переключить кнопкой 🌙 в шапке</div></div></div></div>
 
 <div class="settings-group"><div class="settings-group-title">Установка</div><div class="settings-item" style="cursor:pointer;" onclick="openSheet('installSheet')"><div><div class="si-label">Установить на экран</div><div class="si-sub">Работает без интернета как приложение</div></div><span style="font-size:.9rem;color:var(--text3);">›</span></div></div>
-<div class="settings-group"><div class="settings-group-title">О приложении</div><div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:6px;"><div class="si-label">Рамадан 1447 · Крым</div><div class="si-sub" style="line-height:1.6;">Это приложение создано с любовью и заботой для крымских мусульман. Пусть ваш пост будет принят, а дуа услышаны. Рамадан Мубарак! 🤲</div><a href="https://t.me/EnrikeTomas" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:var(--gold);text-decoration:none;">✉️ Создал Enver Isliamov · @EnrikeTomas</a><div class="si-sub">Версия 2.0 · PWA</div></div></div>
+<div class="settings-group"><div class="settings-group-title">О приложении</div><div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:6px;"><div class="si-label">Рамадан 1447 · Крым</div><div class="si-sub" style="line-height:1.6;">Это приложение создано с любовью и заботой для крымских мусульман. Пусть ваш пост будет принят, а дуа услышаны. Рамадан Мубарак! 🤲</div><a href="https://t.me/EnrikeTomas" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:var(--gold);text-decoration:none;">✉️ Enver Isliamov · @EnrikeTomas</a><div class="si-sub">Версия 2.0 · PWA</div></div></div>
 <button class="cal-btn" onclick="closeSheet('settingsSheet')">Закрыть</button></div></div>
 
 <!-- INSTALL SHEET -->
@@ -344,8 +344,8 @@ const DAYS=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
 const MS=['','Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
 const MF=['','Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 const PRAYERS={
-  imsak:{badge:'🌙 Молитва Имсак',arabic:'نَوَيْتُ أَنْ أَصُومَ صَوْمَ شَهْرِ رَمَضَانَ مِنَ الْفَجْرِ إِلَى الْمَغْرِبِ خَالِصًا لِلَّهِ تَعَالَى',translit:'Навайту ан-асуума саума шахри рамадаан миналь-фаджри иляль-магриби хаалисан лилляяхи та’аля',text:'«Я намереваюсь держать пост месяца Рамадан от рассвета до заката, искренне ради Аллаха Всевышнего»',placeholder:true},
-  iftar:{badge:'🌿 Молитва Ифтар',arabic:'اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ',translit:'Аллахуммме леке сумту ве бике аменту ве алейке тевеккельту ве аля ризкъике эфтарту ве савми’ль-гъади мин шехри рамадане невейту. Фегъфирли ма къаддемту ве ма аххарту',text:'«О Аллах, ради Тебя я постился и Твоим уделом разговляюсь»',placeholder:true}
+  imsak:{badge:'🌙 Молитва Имсак',arabic:'Навайту ан-асуума саума шахри рамадаан миналь-фаджри иляль-магриби хаалисан лилляяхи та’аля',translit:'نَوَيْتُ أَنْ أَصُومَ صَوْمَ شَهْرِ رَمَضَانَ مِنَ الْفَجْرِ إِلَى الْمَغْرِبِ خَالِصًا لِلَّهِ تَعَالَى',text:'«Я намереваюсь держать пост месяца Рамадан от рассвета до заката, искренне ради Аллаха Всевышнего»',placeholder:true},
+  iftar:{badge:'🌿 Молитва Ифтар',arabic:'Аллахуммме леке сумту ве бике аменту ве алейке тевеккельту ве аля ризкъике эфтарту ве савми’ль-гъади мин шехри рамадане невейту. Фегъфирли ма къаддемту ве ма аххарту',translit:'اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ',text:'«О Аллах, ради Тебя я постился и Твоим уделом разговляюсь»',placeholder:true}
 };
 let cityIdx=parseInt(localStorage.getItem('ramCity')||'0');if(cityIdx>=CITIES.length)cityIdx=0;
 let viewIdx=0,mode='day',weekOff=0,installPrompt=null;
