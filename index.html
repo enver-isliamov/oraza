@@ -173,6 +173,8 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .footer-author:active{transform:scale(.97);}
 .footer-tg{font-size:.7rem;font-weight:600;color:var(--text3);margin-top:6px;}
 .footer-tg a{color:var(--gold);text-decoration:none;font-weight:700;}
+.support-link{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--text2);text-decoration:none;padding:6px 11px;border-radius:999px;border:1px solid var(--border);background:var(--surface2);transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.support-link:active{transform:scale(.97);}
 .bottom-actions{display:flex;gap:8px;margin-bottom:0;}
 .bottom-btn{flex:1;padding:12px 10px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .bottom-btn:active{transform:scale(.97);}
@@ -296,6 +298,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
       <span>✨</span> Enver Isliamov
     </a>
     <div class="footer-tg">Telegram: <a href="https://t.me/EnrikeTomas" target="_blank">@EnrikeTomas</a></div>
+    <a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="support-link" style="margin-top:10px;">☕ Поддержать развитие проекта</a>
   </div>
 </div>
 
@@ -315,7 +318,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 <div class="settings-group"><div class="settings-group-title">Тема</div><div class="settings-item"><div><div class="si-label" id="themeLabel">Светлая</div><div class="si-sub">Переключить кнопкой 🌙 в шапке</div></div></div></div>
 
 <div class="settings-group"><div class="settings-group-title">Установка</div><div class="settings-item" style="cursor:pointer;" onclick="openSheet('installSheet')"><div><div class="si-label">Установить на экран</div><div class="si-sub">Работает без интернета как приложение</div></div><span style="font-size:.9rem;color:var(--text3);">›</span></div></div>
-<div class="settings-group"><div class="settings-group-title">О приложении</div><div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:6px;"><div class="si-label">Рамадан 1447 · Крым</div><div class="si-sub" style="line-height:1.6;">Это приложение создано с любовью и заботой для крымских мусульман. Пусть ваш пост будет принят, а дуа услышаны. Рамадан Мубарак! 🤲</div><a href="https://t.me/EnrikeTomas" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:var(--gold);text-decoration:none;">✉️ Enver Isliamov · @EnrikeTomas</a><div class="si-sub">Версия 2.0 · PWA</div></div></div>
+<div class="settings-group"><div class="settings-group-title">О приложении</div><div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:6px;"><div class="si-label">Рамадан 1447 · Крым</div><div class="si-sub" style="line-height:1.6;">Это приложение создано с любовью и заботой для крымских мусульман. Пусть ваш пост будет принят, а дуа услышаны. Рамадан Мубарак! 🤲</div><a href="https://t.me/EnrikeTomas" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:var(--gold);text-decoration:none;">✉️ Enver Isliamov · @EnrikeTomas</a><a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="support-link">☕ Поддержать проект</a><div class="si-sub">Версия 2.0 · PWA</div></div></div>
 <button class="cal-btn" onclick="closeSheet('settingsSheet')">Закрыть</button></div></div>
 
 <!-- INSTALL SHEET -->
