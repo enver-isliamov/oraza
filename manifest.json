@@ -1,0 +1,23 @@
+{
+  "name": "Рамадан 1447 · Крым",
+  "short_name": "Рамадан 1447",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f6f3ee",
+  "theme_color": "#c49a3c",
+  "description": "Расписание Имсак и Ифтар. Рамадан 1447. Крым.",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
