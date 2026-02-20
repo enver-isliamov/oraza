@@ -102,22 +102,22 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .tab.active{background:var(--text);color:var(--bg);box-shadow:0 1px 6px rgba(0,0,0,.15);}
 .section-lbl{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:9px;padding-left:2px;}
 .list-card{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow-sm);}
-.list-head{display:grid;grid-template-columns:minmax(150px,1.6fr) 74px 74px;padding:8px 14px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.list-head{display:grid;grid-template-columns:minmax(176px,1.9fr) 68px 68px;padding:8px 14px;background:var(--surface2);border-bottom:1px solid var(--border);}
 .list-head span{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);}
 .list-head .lh-imsak{color:var(--imsak);}
 .list-head .lh-iftar{color:var(--iftar);}
-.list-row{display:grid;grid-template-columns:minmax(150px,1.6fr) 74px 74px;padding:10px 14px;border-bottom:1px solid var(--border);align-items:center;column-gap:8px;cursor:pointer;position:relative;transition:background .12s;-webkit-tap-highlight-color:transparent;}
+.list-row{display:grid;grid-template-columns:minmax(176px,1.9fr) 68px 68px;padding:10px 14px;border-bottom:1px solid var(--border);align-items:center;column-gap:8px;cursor:pointer;position:relative;transition:background .12s;-webkit-tap-highlight-color:transparent;}
 .list-row:last-child{border-bottom:none;}
 .list-row:active{background:var(--surface2);}
 .list-row.lr-today{background:linear-gradient(90deg,rgba(196,154,60,.09) 0%,transparent 70%);}
 .list-row.lr-today::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);border-radius:0 2px 2px 0;}
 .list-row.lr-laylat{background:linear-gradient(90deg,rgba(196,154,60,.09) 0%,transparent 70%);}
 .list-row.lr-bayram{background:linear-gradient(90deg,rgba(31,168,106,.07) 0%,transparent 70%);}
-.lr-date{display:flex;flex-direction:column;gap:2px;min-width:0;}
-.lr-date-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
-.lr-date-num{font-size:.9rem;font-weight:800;line-height:1.1;color:var(--text);}
-.lr-date-day{font-size:.62rem;font-weight:700;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;}
-.lr-date-ramadan{font-size:.58rem;font-weight:700;color:var(--gold);line-height:1.2;}
+.lr-date{display:flex;flex-direction:column;gap:3px;min-width:0;}
+.lr-date-day{font-size:.6rem;font-weight:800;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;}
+.lr-date-main{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+.lr-date-num{font-size:.92rem;font-weight:800;line-height:1.1;color:var(--text);}
+.lr-date-ramadan{font-size:.58rem;font-weight:800;color:var(--gold);line-height:1.2;}
 .lr-badge{display:block;width:fit-content;font-size:.54rem;font-weight:800;padding:1px 5px;border-radius:4px;margin-top:2px;letter-spacing:.05em;text-transform:uppercase;}
 .b-today{background:var(--gold);color:#fff;}
 .b-laylat{background:rgba(196,154,60,.18);color:var(--gold);}
@@ -139,6 +139,9 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .mc-ramadan{font-size:.5rem;font-weight:700;color:var(--gold);line-height:1.2;}
 .mc-imsak{font-size:.55rem;font-weight:700;color:var(--imsak);line-height:1.3;}
 .mc-iftar{font-size:.55rem;font-weight:700;color:var(--iftar);line-height:1.3;}
+.mc-bayram-title{font-size:.56rem;font-weight:900;color:var(--iftar);letter-spacing:.03em;text-transform:uppercase;line-height:1.25;}
+.mc-bayram-note{font-size:.48rem;font-weight:800;color:var(--iftar);letter-spacing:.04em;text-transform:uppercase;line-height:1.2;}
+.mc-bayram-time{font-size:.52rem;font-weight:800;color:var(--iftar);line-height:1.25;}
 .mc-badge{position:absolute;top:2px;right:3px;font-size:.55rem;}
 .overlay{position:fixed;inset:0;background:rgba(10,8,6,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s;}
 .overlay.open{opacity:1;pointer-events:all;}
@@ -487,7 +490,7 @@ function renderWeek(){
   $('prevDay').disabled=true;$('nextDay').disabled=true;
   const fl=rows[0]?`${rows[0][1]} ${MS[rows[0][2]]}`:'';const tl=rows[rows.length-1]?`${rows[rows.length-1][1]} ${MS[rows[rows.length-1][2]]}`:'';;
   let h=`<div class="week-nav"><button class="nav-arrow" id="wPrev" ${weekOff<=-Math.ceil(ti/7)?'disabled':''} style="width:34px;height:34px;font-size:16px;">&#8249;</button><div class="week-nav-lbl">${fl} — ${tl} · ${CITIES[cityIdx].name}</div><button class="nav-arrow" id="wNext" ${end>=DATA.length?'disabled':''} style="width:34px;height:34px;font-size:16px;">&#8250;</button></div><div class="list-card"><div class="list-head"><span>Дата</span><span class="lh-imsak">Имсак</span><span class="lh-iftar">Ифтар</span></div>`;
-  rows.forEach(row=>{const t=adj(row);const d=dateOf(row);const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);let cls='list-row';if(it)cls+=' lr-today';else if(il)cls+=' lr-laylat';else if(ib)cls+=' lr-bayram';let badges='';if(it)badges+='<span class="lr-badge b-today">Сег.</span>';if(il&&row[1]===16)badges+='<span class="lr-badge b-laylat">✨ Кадр</span>';if(ib&&row[1]===20)badges+='<span class="lr-badge b-bayram">🎉 Байрам</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="_updateHero(${ridx})"><div class="lr-date"><div class="lr-date-top"><div class="lr-date-num">${row[1]} ${MS[row[2]]}</div><div class="lr-date-day">${DAYS[d.getDay()]}</div></div><div class="lr-date-ramadan">${row[0]}-й день</div>${badges}</div><div class="lr-imsak">${t.imsak}</div><div class="lr-iftar">${t.iftar}</div></div>`;});
+  rows.forEach(row=>{const t=adj(row);const d=dateOf(row);const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);let cls='list-row';if(it)cls+=' lr-today';else if(il)cls+=' lr-laylat';else if(ib)cls+=' lr-bayram';let badges='';if(it)badges+='<span class="lr-badge b-today">Сег.</span>';if(il&&row[1]===16)badges+='<span class="lr-badge b-laylat">✨ Кадр</span>';if(ib&&row[1]===20)badges+='<span class="lr-badge b-bayram">🎉 Байрам</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="_updateHero(${ridx})"><div class="lr-date"><div class="lr-date-day">${DAYS[d.getDay()]}</div><div class="lr-date-main"><div class="lr-date-num">${row[1]} ${MS[row[2]]}</div><div class="lr-date-ramadan">${row[0]}-й день</div></div>${badges}</div><div class="lr-imsak">${t.imsak}</div><div class="lr-iftar">${t.iftar}</div></div>`;});
   h+='</div>';$('scheduleArea').innerHTML=h;
   $('wPrev').onclick=()=>{weekOff--;renderWeek();};
   $('wNext').onclick=()=>{weekOff++;renderWeek();};
@@ -498,14 +501,25 @@ function renderMonth(){
   $('daySectionWrap').style.display='';
   _updateHero(viewIdx||todayIdx());
   $('prevDay').disabled=true;$('nextDay').disabled=true;
+  const bayramDays={20:'Намаз в 7:30',21:'',22:''};
   let h='';const byM={};DATA.forEach(r=>{if(!byM[r[2]])byM[r[2]]=[];byM[r[2]].push(r);});
   Object.keys(byM).forEach(mk=>{
     const m=parseInt(mk);const firstDow=new Date(2026,m-1,1).getDay();const dim=new Date(2026,m,0).getDate();const offset=(firstDow===0?6:firstDow-1);
     h+=`<div class="section-lbl" style="margin-bottom:8px;">${MF[m]} 2026 · ${CITIES[cityIdx].name}</div><div class="month-grid-header">`;
     ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d=>{h+=`<div class="mgh-day">${d}</div>`;});
     h+=`</div><div class="month-grid">`;
-    for(let i=0;i<offset;i++)h+='<div class="mg-cell mc-empty"></div>';
-    for(let day=1;day<=dim;day++){const row=DATA.find(r=>r[1]===day&&r[2]===m);if(!row){h+=`<div class="mg-cell mc-empty"><div class="mc-num" style="opacity:.15">${day}</div></div>`;continue;}const t=adj(row);const it=isToday(row),il=isLaylat(row),ib=isBayram(row);let cls='mg-cell';if(it)cls+=' mc-today';if(il)cls+=' mc-laylat';if(ib)cls+=' mc-bayram';let bdg='';if(il)bdg='<span class="mc-badge">✨</span>';if(ib&&row[1]===20)bdg='<span class="mc-badge">🎉</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="_updateHero(${ridx})">${bdg}<div class="mc-num">${day}</div><div class="mc-ramadan">${row[0]}-й день</div><div class="mc-imsak">${t.imsak}</div><div class="mc-iftar">${t.iftar}</div></div>`;}
+    for(let i=0;i<startOffset;i++)h+='<div class="mg-cell mc-empty"></div>';
+    for(let day=minDay;day<=maxDay;day++){
+      if(m===3&&bayramDays[day]!==undefined){
+        const bayramTime=bayramDays[day];
+        h+=`<div class="mg-cell mc-bayram"><span class="mc-badge">🎉</span><div class="mc-num">${day}</div><div class="mc-bayram-title">Байрам</div><div class="mc-bayram-note">Дни Байрама</div>${bayramTime?`<div class="mc-bayram-time">${bayramTime}</div>`:''}</div>`;
+        continue;
+      }
+      const row=DATA.find(r=>r[1]===day&&r[2]===m);
+      if(!row)continue;
+      const t=adj(row);const it=isToday(row),il=isLaylat(row),ib=isBayram(row);let cls='mg-cell';if(it)cls+=' mc-today';if(il)cls+=' mc-laylat';if(ib)cls+=' mc-bayram';let bdg='';if(il)bdg='<span class="mc-badge">✨</span>';const ridx=DATA.indexOf(row);
+      h+=`<div class="${cls}" onclick="_updateHero(${ridx})">${bdg}<div class="mc-num">${day}</div><div class="mc-ramadan">${row[0]}-й день</div><div class="mc-imsak">${t.imsak}</div><div class="mc-iftar">${t.iftar}</div></div>`;
+    }
     h+=`</div><div style="height:16px;"></div>`;
   });
   $('scheduleArea').innerHTML=h;
