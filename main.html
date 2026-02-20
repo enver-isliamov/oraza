@@ -508,23 +508,24 @@ function renderMonth(){
   const bayramDays={20:'Намаз 7:30',21:'',22:''};
   let h='';const byM={};DATA.forEach(r=>{if(!byM[r[2]])byM[r[2]]=[];byM[r[2]].push(r);});
   Object.keys(byM).forEach(mk=>{
-    const m=parseInt(mk);const firstDow=new Date(2026,m-1,1).getDay();const dim=new Date(2026,m,0).getDate();const offset=(firstDow===0?6:firstDow-1);
+    const m=parseInt(mk);
     const monthRows=byM[m];const minDay=Math.min(...monthRows.map(r=>r[1]));
     const maxDataDay=Math.max(...monthRows.map(r=>r[1]));
     const maxDay=m===3?22:maxDataDay;
+    const startDow=new Date(2026,m-1,minDay).getDay();
+    const startOffset=(startDow===0?6:startDow-1);
     h+=`<div class="section-lbl" style="margin-bottom:8px;">${MF[m]} 2026 · ${CITIES[cityIdx].name}</div><div class="month-grid-header">`;
     ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d=>{h+=`<div class="mgh-day">${d}</div>`;});
     h+=`</div><div class="month-grid">`;
-    for(let i=0;i<offset;i++)h+='<div class="mg-cell mc-empty"></div>';
-    for(let day=1;day<=dim;day++){
-      if(day<minDay||day>maxDay){h+='<div class="mg-cell mc-empty"></div>';continue;}
+    for(let i=0;i<startOffset;i++)h+='<div class="mg-cell mc-empty"></div>';
+    for(let day=minDay;day<=maxDay;day++){
       if(m===3&&bayramDays[day]!==undefined){
         const bayramTime=bayramDays[day];
         h+=`<div class="mg-cell mc-bayram"><span class="mc-badge">🎉</span><div class="mc-num">${day}</div><div class="mc-bayram-title">Байрам</div>${bayramTime?`<div class="mc-bayram-time">${bayramTime}</div>`:''}</div>`;
         continue;
       }
       const row=DATA.find(r=>r[1]===day&&r[2]===m);
-      if(!row){h+='<div class="mg-cell mc-empty"></div>';continue;}
+      if(!row)continue;
       const t=adj(row);const it=isToday(row),il=isLaylat(row),ib=isBayram(row);let cls='mg-cell';if(it)cls+=' mc-today';if(il)cls+=' mc-laylat';if(ib)cls+=' mc-bayram';let bdg='';if(il)bdg='<span class="mc-badge">✨</span>';const ridx=DATA.indexOf(row);
       h+=`<div class="${cls}" onclick="_updateHero(${ridx})">${bdg}<div class="mc-num">${day}</div><div class="mc-ramadan">${row[0]}-й день</div><div class="mc-imsak">${t.imsak}</div><div class="mc-iftar">${t.iftar}</div></div>`;
     }
