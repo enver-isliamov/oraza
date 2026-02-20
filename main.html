@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#c49a3c" id="metaThemeColor">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -20,7 +20,7 @@
 :root{--imsak:#d94f5c;--imsak-soft:rgba(217,79,92,0.1);--iftar:#1fa86a;--iftar-soft:rgba(31,168,106,0.1);--gold:#c49a3c;--gold-soft:rgba(196,154,60,0.13);--bg:#f6f3ee;--surface:#ffffff;--surface2:#efebe4;--surface3:#e6e0d7;--text:#1a1612;--text2:#5a5248;--text3:#998f85;--border:rgba(26,22,18,0.09);--shadow-sm:0 1px 4px rgba(26,22,18,0.07),0 2px 8px rgba(26,22,18,0.05);--shadow:0 2px 12px rgba(26,22,18,0.08),0 4px 20px rgba(26,22,18,0.06);--shadow-lg:0 8px 32px rgba(26,22,18,0.12),0 2px 8px rgba(26,22,18,0.08);--r:16px;--r-sm:10px;--font-body:'Nunito',sans-serif;--font-display:'Cormorant Garamond',serif;}
 [data-theme="dark"]{--bg:#100e0c;--surface:#1b1814;--surface2:#252019;--surface3:#2e2820;--text:#f0ebe4;--text2:#a09588;--text3:#66605a;--border:rgba(240,235,228,0.08);--shadow-sm:0 1px 4px rgba(0,0,0,0.25),0 2px 8px rgba(0,0,0,0.2);--shadow:0 2px 12px rgba(0,0,0,0.35),0 4px 20px rgba(0,0,0,0.25);--shadow-lg:0 8px 32px rgba(0,0,0,0.5),0 2px 8px rgba(0,0,0,0.3);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;-webkit-font-smoothing:antialiased;overscroll-behavior:none;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;-webkit-font-smoothing:antialiased;overscroll-behavior:none;touch-action:manipulation;}
 .topbar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border);padding-top:env(safe-area-inset-top,0px);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .3s;}
 .topbar-inner{max-width:480px;margin:0 auto;padding:11px 14px;display:flex;align-items:center;gap:8px;}
 .brand{flex:1;font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--text);letter-spacing:-.01em;line-height:1.1;}
@@ -174,6 +174,15 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .footer-author:active{transform:scale(.97);}
 .footer-tg{font-size:.7rem;font-weight:600;color:var(--text3);margin-top:6px;}
 .footer-tg a{color:var(--gold);text-decoration:none;font-weight:700;}
+.support-link{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--text2);text-decoration:none;padding:6px 11px;border-radius:999px;border:1px solid var(--border);background:var(--surface2);transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.support-link:active{transform:scale(.97);}
+.gratitude-card{margin:10px 0 14px;padding:10px 10px 9px;border-radius:14px;border:1px solid #b6c9b7;background:#e0e8de;box-shadow:0 1px 0 rgba(255,255,255,.75) inset,0 1px 3px rgba(34,61,43,.10);}
+.gratitude-main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;}
+.gratitude-copy{min-width:0;}
+.gratitude-eyebrow{font-size:.66rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#c69a43;margin-bottom:5px;}
+.gratitude-sub{font-size:.79rem;font-weight:700;color:#5c655d;line-height:1.35;}
+.gratitude-cta{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;min-width:126px;padding:11px 16px;border-radius:12px;border:1px solid #66a87d;background:linear-gradient(180deg,#4fa172,#438e63);color:#fff;text-decoration:none;font-size:.82rem;font-weight:900;letter-spacing:.01em;box-shadow:0 2px 4px rgba(40,98,66,.22);transition:transform .15s,filter .15s;-webkit-tap-highlight-color:transparent;}
+.gratitude-cta:active{transform:scale(.98);filter:brightness(.96);}
 .bottom-actions{display:flex;gap:8px;margin-bottom:0;}
 .bottom-btn{flex:1;padding:12px 10px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .bottom-btn:active{transform:scale(.97);}
@@ -277,6 +286,16 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     </div>
   </div>
 
+  <div class="gratitude-card fu fu3">
+    <div class="gratitude-main">
+      <div class="gratitude-copy">
+        <div class="gratitude-eyebrow">Поддержка проекта</div>
+        <div class="gratitude-sub">Если расписание помогает вам каждый день — поблагодарите автора приложения.</div>
+      </div>
+      <a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="gratitude-cta">Поблагодарить</a>
+    </div>
+  </div>
+
   <div class="tabs-wrap fu" style="margin-top:14px;">
     <button class="tab active" data-mode="day" id="tabDay">Сегодня</button>
     <button class="tab" data-mode="week">Неделя</button>
@@ -316,7 +335,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 <div class="settings-group"><div class="settings-group-title">Тема</div><div class="settings-item"><div><div class="si-label" id="themeLabel">Светлая</div><div class="si-sub">Переключить кнопкой 🌙 в шапке</div></div></div></div>
 
 <div class="settings-group"><div class="settings-group-title">Установка</div><div class="settings-item" style="cursor:pointer;" onclick="openSheet('installSheet')"><div><div class="si-label">Установить на экран</div><div class="si-sub">Работает без интернета как приложение</div></div><span style="font-size:.9rem;color:var(--text3);">›</span></div></div>
-<div class="settings-group"><div class="settings-group-title">О приложении</div><div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:6px;"><div class="si-label">Рамадан 1447 · Крым</div><div class="si-sub" style="line-height:1.6;">Это приложение создано с любовью и заботой для крымских мусульман. Пусть ваш пост будет принят, а дуа услышаны. Рамадан Мубарак! 🤲</div><a href="https://t.me/EnrikeTomas" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:var(--gold);text-decoration:none;">✉️ Enver Isliamov · @EnrikeTomas</a><div class="si-sub">Версия 2.0 · PWA</div></div></div>
+<div class="settings-group"><div class="settings-group-title">О приложении</div><div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:6px;"><div class="si-label">Рамадан 1447 · Крым</div><div class="si-sub" style="line-height:1.6;">Это приложение создано с любовью и заботой для крымских мусульман. Пусть ваш пост будет принят, а дуа услышаны. Рамадан Мубарак! 🤲</div><a href="https://t.me/EnrikeTomas" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:var(--gold);text-decoration:none;">✉️ Enver Isliamov · @EnrikeTomas</a><a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="support-link">☕ Поддержать проект</a><div class="si-sub">Версия 2.0 · PWA</div></div></div>
 <button class="cal-btn" onclick="closeSheet('settingsSheet')">Закрыть</button></div></div>
 
 <!-- INSTALL SHEET -->
@@ -437,13 +456,26 @@ function renderDay(){
 }
 
 function updateProgress(imsakT,iftarT){
-  const n=new Date();const nm=n.getHours()*60+n.getMinutes();
-  const im=toMin(imsakT),ifm=toMin(iftarT);
+  const n=new Date();
+  const nowSec=n.getHours()*3600+n.getMinutes()*60+n.getSeconds();
+  const imSec=toMin(imsakT)*60,ifSec=toMin(iftarT)*60;
   const fill=$('progFill'),txt=$('progText'),cnt=$('progCountdown'),lbl=$('progLabel');
-  function fmt(d){const h=Math.floor(d/60),m=d%60;return h>0?`${h}ч ${m}м`:`${m} мин`;}
-  if(nm<im){fill.style.background='var(--imsak)';fill.style.width=Math.max(2,(1-((im-nm)/90))*100)+'%';lbl.style.color='var(--imsak)';txt.textContent='До Имсака';cnt.textContent=fmt(im-nm);}
-  else if(nm<ifm){const tot=ifm-im,pas=nm-im;fill.style.background='linear-gradient(90deg,var(--imsak),var(--iftar))';fill.style.width=(pas/tot*100).toFixed(1)+'%';lbl.style.color='var(--iftar)';txt.textContent='До Ифтара';cnt.textContent=fmt(ifm-nm);}
-  else{fill.style.background='var(--iftar)';fill.style.width='100%';lbl.style.color='var(--gold)';txt.textContent='Ифтар наступил';cnt.textContent='Приятного!';}
+  function fmtSec(sec){
+    const h=Math.floor(sec/3600);
+    const m=Math.floor((sec%3600)/60);
+    const s=sec%60;
+    return h>0?`${h}ч ${String(m).padStart(2,'0')}м ${String(s).padStart(2,'0')}с`:`${m}м ${String(s).padStart(2,'0')}с`;
+  }
+  if(nowSec<imSec){
+    fill.style.background='var(--imsak)';
+    fill.style.width=Math.max(2,(1-((imSec-nowSec)/(90*60)))*100)+'%';
+    lbl.style.color='var(--imsak)';txt.textContent='До Имсака';cnt.textContent=fmtSec(imSec-nowSec);
+  }else if(nowSec<ifSec){
+    const tot=ifSec-imSec,pas=nowSec-imSec;
+    fill.style.background='linear-gradient(90deg,var(--imsak),var(--iftar))';
+    fill.style.width=(pas/tot*100).toFixed(1)+'%';
+    lbl.style.color='var(--iftar)';txt.textContent='До Ифтара';cnt.textContent=fmtSec(ifSec-nowSec);
+  }else{fill.style.background='var(--iftar)';fill.style.width='100%';lbl.style.color='var(--gold)';txt.textContent='Ифтар наступил';cnt.textContent='Приятного!';}
 }
 
 // WEEK VIEW
@@ -534,7 +566,22 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').the
 // INIT
 viewIdx=todayIdx();
 renderAll();
-setInterval(()=>{if(mode==='day'&&isToday(DATA[viewIdx])){updateProgress(adj(DATA[viewIdx]).imsak,adj(DATA[viewIdx]).iftar);}},30000);
+setInterval(()=>{if(mode==='day'&&isToday(DATA[viewIdx])){updateProgress(adj(DATA[viewIdx]).imsak,adj(DATA[viewIdx]).iftar);}},1000);
 </script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106936532', 'ym');
+
+    ym(106936532, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/106936532" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
 </body>
 </html>
