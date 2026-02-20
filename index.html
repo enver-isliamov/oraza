@@ -201,11 +201,13 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .sticky-inner{max-width:480px;margin:0 auto;pointer-events:all;}
 .sticky-btn{width:100%;padding:14px;border-radius:var(--r);background:var(--text);color:var(--bg);font-family:var(--font-body);font-size:.84rem;font-weight:800;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:var(--shadow-lg);transition:opacity .15s;-webkit-tap-highlight-color:transparent;}
 .sticky-btn:active{opacity:.83;}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 0 0 rgba(87,169,120,.12);}50%{box-shadow:0 0 0 6px rgba(87,169,120,.20);}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .fu{animation:fadeUp .3s ease both;}
 .fu1{animation-delay:.04s;}
 .fu2{animation-delay:.08s;}
 .fu3{animation-delay:.12s;}
+@media (max-width:420px){.gratitude-main{grid-template-columns:1fr;}.gratitude-cta{width:100%;min-width:0;}}
 </style>
 </head>
 <body>
