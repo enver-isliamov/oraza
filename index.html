@@ -178,9 +178,10 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .support-link{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--text2);text-decoration:none;padding:6px 11px;border-radius:999px;border:1px solid var(--border);background:var(--surface2);transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .support-link:active{transform:scale(.97);}
 .gratitude-card{margin:10px 0 14px;padding:12px 12px 11px;border-radius:var(--r);border:1px solid rgba(62,145,96,.28);background:linear-gradient(135deg,rgba(62,145,96,.16),rgba(95,186,128,.10));box-shadow:0 2px 12px rgba(36,98,64,.12),var(--shadow-sm);}
+.gratitude-main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;}
 .gratitude-eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
-.gratitude-sub{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.45;margin-bottom:8px;}
-.gratitude-cta{display:inline-flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:11px 12px;border-radius:11px;border:1px solid rgba(62,145,96,.44);background:linear-gradient(135deg,#3e9160,#57a978);color:#fff;text-decoration:none;font-size:.82rem;font-weight:800;letter-spacing:.01em;transition:all .18s;-webkit-tap-highlight-color:transparent;animation:ctaPulse 2.8s ease-in-out infinite;}
+.gratitude-sub{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.45;}
+.gratitude-cta{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:152px;padding:11px 12px;border-radius:11px;border:1px solid rgba(62,145,96,.44);background:linear-gradient(135deg,#3e9160,#57a978);color:#fff;text-decoration:none;font-size:.82rem;font-weight:800;letter-spacing:.01em;transition:all .18s;-webkit-tap-highlight-color:transparent;animation:ctaPulse 2.8s ease-in-out infinite;}
 .gratitude-cta:active{transform:scale(.98);}
 .gratitude-note{margin-top:8px;font-size:.67rem;font-weight:600;color:var(--text3);text-align:center;line-height:1.45;}
 .footer-support{display:inline-block;margin-top:8px;font-size:.71rem;font-weight:700;color:var(--text3);text-decoration:none;border-bottom:1px dashed rgba(196,154,60,.45);}
@@ -207,6 +208,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .fu1{animation-delay:.04s;}
 .fu2{animation-delay:.08s;}
 .fu3{animation-delay:.12s;}
+@media (max-width:420px){.gratitude-main{grid-template-columns:1fr;}.gratitude-cta{width:100%;min-width:0;}}
 </style>
 </head>
 <body>
@@ -289,9 +291,13 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   </div>
 
   <div class="gratitude-card fu fu3">
-    <div class="gratitude-eyebrow">Поддержка проекта</div>
-    <div class="gratitude-sub">Если расписание помогает вам каждый день — поблагодарите автора приложения.</div>
-    <a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="gratitude-cta">🤝 Поблагодарить</a>
+    <div class="gratitude-main">
+      <div>
+        <div class="gratitude-eyebrow">Поддержка проекта</div>
+        <div class="gratitude-sub">Если расписание помогает вам каждый день — поблагодарите автора приложения.</div>
+      </div>
+      <a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="gratitude-cta">Поблагодарить</a>
+    </div>
     <div class="gratitude-note">Ваша поддержка помогает развивать приложение без рекламы.</div>
   </div>
 
