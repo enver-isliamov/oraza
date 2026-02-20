@@ -176,12 +176,13 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .footer-tg a{color:var(--gold);text-decoration:none;font-weight:700;}
 .support-link{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--text2);text-decoration:none;padding:6px 11px;border-radius:999px;border:1px solid var(--border);background:var(--surface2);transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .support-link:active{transform:scale(.97);}
-.gratitude-card{margin:10px 0 14px;padding:12px 12px 11px;border-radius:var(--r);border:1px solid rgba(62,145,96,.28);background:linear-gradient(135deg,rgba(62,145,96,.16),rgba(95,186,128,.10));box-shadow:0 2px 12px rgba(36,98,64,.12),var(--shadow-sm);}
+.gratitude-card{margin:10px 0 14px;padding:10px 10px 9px;border-radius:14px;border:1px solid #b6c9b7;background:#e0e8de;box-shadow:0 1px 0 rgba(255,255,255,.75) inset,0 1px 3px rgba(34,61,43,.10);}
 .gratitude-main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;}
-.gratitude-eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
-.gratitude-sub{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.45;}
-.gratitude-cta{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:132px;padding:11px 12px;border-radius:11px;border:1px solid rgba(62,145,96,.44);background:linear-gradient(135deg,#3e9160,#57a978);color:#fff;text-decoration:none;font-size:.82rem;font-weight:800;letter-spacing:.01em;transition:all .18s;-webkit-tap-highlight-color:transparent;animation:ctaPulse 2.8s ease-in-out infinite;}
-.gratitude-cta:active{transform:scale(.98);}
+.gratitude-copy{min-width:0;}
+.gratitude-eyebrow{font-size:.66rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#c69a43;margin-bottom:5px;}
+.gratitude-sub{font-size:.79rem;font-weight:700;color:#5c655d;line-height:1.35;}
+.gratitude-cta{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;min-width:126px;padding:11px 16px;border-radius:12px;border:1px solid #66a87d;background:linear-gradient(180deg,#4fa172,#438e63);color:#fff;text-decoration:none;font-size:.82rem;font-weight:900;letter-spacing:.01em;box-shadow:0 2px 4px rgba(40,98,66,.22);transition:transform .15s,filter .15s;-webkit-tap-highlight-color:transparent;}
+.gratitude-cta:active{transform:scale(.98);filter:brightness(.96);}
 .bottom-actions{display:flex;gap:8px;margin-bottom:0;}
 .bottom-btn{flex:1;padding:12px 10px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .bottom-btn:active{transform:scale(.97);}
@@ -289,7 +290,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 
   <div class="gratitude-card fu fu3">
     <div class="gratitude-main">
-      <div>
+      <div class="gratitude-copy">
         <div class="gratitude-eyebrow">Поддержка проекта</div>
         <div class="gratitude-sub">Если расписание помогает вам каждый день — поблагодарите автора приложения.</div>
       </div>
