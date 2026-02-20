@@ -8,6 +8,12 @@
   "description": "Расписание Имсак и Ифтар. Рамадан 1447. Крым.",
   "icons": [
     {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
