@@ -265,7 +265,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   </div>
 
   <div id="noticesWrap">
-    <div class="notice laylat fu fu1"><span class="notice-ico">🌙</span><div><div class="notice-title">Ночь Ляйлятуль-Кадр</div><div class="notice-body">16–17 Март · Кадир геджеси.
+    <div class="notice laylat fu fu1"><span class="notice-ico">🌙</span><div><div class="notice-title">Ночь Ляйлятуль-Къадр</div><div class="notice-body">16–17 Март · Кадир геджеси.
       <p></p>В исламе — почитаемая ночь месяца поста Рамадан, связанная с ниспосланием пророку Мухаммеду Корана в виде откровения в пещере Хира горы Джабаль аль-Нур
     </p>
     </div></div></div>
@@ -443,7 +443,7 @@ function renderDay(){
   $('tabDay').textContent='Сегодня';
   let chips='';
   if(it)chips+='<span class="chip chip-today">Сегодня</span>';
-  if(il&&row[1]===16)chips+='<span class="chip chip-laylat">✨ Кадр</span>';
+  if(il&&row[1]===16)chips+='<span class="chip chip-laylat">✨ Къадр</span>';
   if(ib&&row[1]===20)chips+='<span class="chip chip-bayram">🎉 Байрам</span>';
   $('navDateMain').innerHTML=`${row[1]} ${MF[row[2]]} · ${DAYS[d.getDay()]}${chips}`;
   $('navDateSub').textContent=`Рамадан — ${row[0]}-й день · ${CITIES[cityIdx].name}`;
@@ -491,7 +491,7 @@ function renderWeek(){
   $('prevDay').disabled=true;$('nextDay').disabled=true;
   const fl=rows[0]?`${rows[0][1]} ${MS[rows[0][2]]}`:'';const tl=rows[rows.length-1]?`${rows[rows.length-1][1]} ${MS[rows[rows.length-1][2]]}`:'';;
   let h=`<div class="week-nav"><button class="nav-arrow" id="wPrev" ${weekOff<=-Math.ceil(ti/7)?'disabled':''} style="width:34px;height:34px;font-size:16px;">&#8249;</button><div class="week-nav-lbl">${fl} — ${tl} · ${CITIES[cityIdx].name}</div><button class="nav-arrow" id="wNext" ${end>=DATA.length?'disabled':''} style="width:34px;height:34px;font-size:16px;">&#8250;</button></div><div class="list-card"><div class="list-head"><span>Дата</span><span class="lh-imsak">Имсак</span><span class="lh-iftar">Ифтар</span></div>`;
-  rows.forEach(row=>{const t=adj(row);const d=dateOf(row);const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);let cls='list-row';if(it)cls+=' lr-today';else if(il)cls+=' lr-laylat';else if(ib)cls+=' lr-bayram';let badges='';if(it)badges+='<span class="lr-badge b-today">Сег.</span>';if(il&&row[1]===16)badges+='<span class="lr-badge b-laylat">✨ Кадр</span>';if(ib&&row[1]===20)badges+='<span class="lr-badge b-bayram">🎉 Байрам</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="_updateHero(${ridx})"><div><div class="lr-date-num">${row[1]} ${MS[row[2]]}</div><div class="lr-date-day">${DAYS[d.getDay()]}</div><div class="lr-date-ramadan">${row[0]}-й день</div>${badges}</div><div class="lr-imsak">${t.imsak}</div><div class="lr-iftar">${t.iftar}</div></div>`;});
+  rows.forEach(row=>{const t=adj(row);const d=dateOf(row);const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);let cls='list-row';if(it)cls+=' lr-today';else if(il)cls+=' lr-laylat';else if(ib)cls+=' lr-bayram';let badges='';if(it)badges+='<span class="lr-badge b-today">Сег.</span>';if(il&&row[1]===16)badges+='<span class="lr-badge b-laylat">✨ Къадр</span>';if(ib&&row[1]===20)badges+='<span class="lr-badge b-bayram">🎉 Байрам</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="_updateHero(${ridx})"><div><div class="lr-date-num">${row[1]} ${MS[row[2]]}</div><div class="lr-date-day">${DAYS[d.getDay()]}</div><div class="lr-date-ramadan">${row[0]}-й день</div>${badges}</div><div class="lr-imsak">${t.imsak}</div><div class="lr-iftar">${t.iftar}</div></div>`;});
   h+='</div>';$('scheduleArea').innerHTML=h;
   $('wPrev').onclick=()=>{weekOff--;renderWeek();};
   $('wNext').onclick=()=>{weekOff++;renderWeek();};
@@ -521,7 +521,7 @@ function _updateHero(idx){
   const row=DATA[idx];const t=adj(row);const d=dateOf(row);const it=isToday(row);
   let chips='';
   if(it)chips+='<span class="chip chip-today">Сегодня</span>';
-  if(isLaylatNight(row)&&row[1]===16)chips+='<span class="chip chip-laylat">✨ Кадр</span>';
+  if(isLaylatNight(row)&&row[1]===16)chips+='<span class="chip chip-laylat">✨ Къадр</span>';
   if(isBayram(row)&&row[1]===20)chips+='<span class="chip chip-bayram">🎉 Байрам</span>';
   $('navDateMain').innerHTML=`${row[1]} ${MF[row[2]]} · ${DAYS[d.getDay()]}${chips}`;
   $('navDateSub').textContent=`Рамадан — ${row[0]}-й день · ${CITIES[cityIdx].name}`;
