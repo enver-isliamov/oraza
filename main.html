@@ -130,12 +130,14 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .mg-cell:active{transform:scale(.94);}
 .mg-cell.mc-today{background:var(--gold-soft);border-color:rgba(196,154,60,.3);}
 .mg-cell.mc-laylat{background:var(--gold-soft);border-color:rgba(196,154,60,.25);}
-.mg-cell.mc-bayram{background:var(--iftar-soft);border-color:rgba(31,168,106,.2);}
+.mg-cell.mc-bayram{background:var(--iftar-soft);border-color:var(--iftar);box-shadow:inset 0 0 0 1px rgba(31,168,106,.35);}
 .mg-cell.mc-empty{background:transparent;border-color:transparent;cursor:default;}
 .mc-num{font-size:1rem;font-weight:800;color:var(--text);line-height:1;}
 .mc-ramadan{font-size:.5rem;font-weight:700;color:var(--gold);line-height:1.2;}
 .mc-imsak{font-size:.55rem;font-weight:700;color:var(--imsak);line-height:1.3;}
 .mc-iftar{font-size:.55rem;font-weight:700;color:var(--iftar);line-height:1.3;}
+.mc-bayram-title{font-size:.56rem;font-weight:900;color:var(--iftar);letter-spacing:.03em;text-transform:uppercase;line-height:1.25;}
+.mc-bayram-time{font-size:.52rem;font-weight:800;color:var(--iftar);line-height:1.25;}
 .mc-badge{position:absolute;top:2px;right:3px;font-size:.55rem;}
 .overlay{position:fixed;inset:0;background:rgba(10,8,6,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s;}
 .overlay.open{opacity:1;pointer-events:all;}
@@ -503,14 +505,30 @@ function renderMonth(){
   $('daySectionWrap').style.display='';
   _updateHero(viewIdx||todayIdx());
   $('prevDay').disabled=true;$('nextDay').disabled=true;
+  const bayramDays={20:'Намаз 7:30',21:'',22:''};
   let h='';const byM={};DATA.forEach(r=>{if(!byM[r[2]])byM[r[2]]=[];byM[r[2]].push(r);});
   Object.keys(byM).forEach(mk=>{
-    const m=parseInt(mk);const firstDow=new Date(2026,m-1,1).getDay();const dim=new Date(2026,m,0).getDate();const offset=(firstDow===0?6:firstDow-1);
+    const m=parseInt(mk);
+    const monthRows=byM[m];const minDay=Math.min(...monthRows.map(r=>r[1]));
+    const maxDataDay=Math.max(...monthRows.map(r=>r[1]));
+    const maxDay=m===3?22:maxDataDay;
+    const startDow=new Date(2026,m-1,minDay).getDay();
+    const startOffset=(startDow===0?6:startDow-1);
     h+=`<div class="section-lbl" style="margin-bottom:8px;">${MF[m]} 2026 · ${CITIES[cityIdx].name}</div><div class="month-grid-header">`;
     ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d=>{h+=`<div class="mgh-day">${d}</div>`;});
     h+=`</div><div class="month-grid">`;
-    for(let i=0;i<offset;i++)h+='<div class="mg-cell mc-empty"></div>';
-    for(let day=1;day<=dim;day++){const row=DATA.find(r=>r[1]===day&&r[2]===m);if(!row){h+=`<div class="mg-cell mc-empty"><div class="mc-num" style="opacity:.15">${day}</div></div>`;continue;}const t=adj(row);const it=isToday(row),il=isLaylat(row),ib=isBayram(row);let cls='mg-cell';if(it)cls+=' mc-today';if(il)cls+=' mc-laylat';if(ib)cls+=' mc-bayram';let bdg='';if(il)bdg='<span class="mc-badge">✨</span>';if(ib&&row[1]===20)bdg='<span class="mc-badge">🎉</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="_updateHero(${ridx})">${bdg}<div class="mc-num">${day}</div><div class="mc-ramadan">${row[0]}-й день</div><div class="mc-imsak">${t.imsak}</div><div class="mc-iftar">${t.iftar}</div></div>`;}
+    for(let i=0;i<startOffset;i++)h+='<div class="mg-cell mc-empty"></div>';
+    for(let day=minDay;day<=maxDay;day++){
+      if(m===3&&bayramDays[day]!==undefined){
+        const bayramTime=bayramDays[day];
+        h+=`<div class="mg-cell mc-bayram"><span class="mc-badge">🎉</span><div class="mc-num">${day}</div><div class="mc-bayram-title">Байрам</div>${bayramTime?`<div class="mc-bayram-time">${bayramTime}</div>`:''}</div>`;
+        continue;
+      }
+      const row=DATA.find(r=>r[1]===day&&r[2]===m);
+      if(!row)continue;
+      const t=adj(row);const it=isToday(row),il=isLaylat(row),ib=isBayram(row);let cls='mg-cell';if(it)cls+=' mc-today';if(il)cls+=' mc-laylat';if(ib)cls+=' mc-bayram';let bdg='';if(il)bdg='<span class="mc-badge">✨</span>';const ridx=DATA.indexOf(row);
+      h+=`<div class="${cls}" onclick="_updateHero(${ridx})">${bdg}<div class="mc-num">${day}</div><div class="mc-ramadan">${row[0]}-й день</div><div class="mc-imsak">${t.imsak}</div><div class="mc-iftar">${t.iftar}</div></div>`;
+    }
     h+=`</div><div style="height:16px;"></div>`;
   });
   $('scheduleArea').innerHTML=h;
