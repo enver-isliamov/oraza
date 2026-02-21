@@ -503,7 +503,10 @@ function renderMonth(){
   const bayramDays={20:'Намаз в 7:30',21:'',22:''};
   let h='';const byM={};DATA.forEach(r=>{if(!byM[r[2]])byM[r[2]]=[];byM[r[2]].push(r);});
   Object.keys(byM).forEach(mk=>{
-    const m=parseInt(mk);const firstDow=new Date(2026,m-1,1).getDay();const dim=new Date(2026,m,0).getDate();const offset=(firstDow===0?6:firstDow-1);
+    const m=parseInt(mk);const monthRows=byM[m];
+    const minDay=monthRows[0][1],maxDay=monthRows[monthRows.length-1][1];
+    const firstDataDow=new Date(2026,m-1,minDay).getDay();
+    const startOffset=(firstDataDow===0?6:firstDataDow-1);
     h+=`<div class="section-lbl" style="margin-bottom:8px;">${MF[m]} 2026 · ${CITIES[cityIdx].name}</div><div class="month-grid-header">`;
     ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d=>{h+=`<div class="mgh-day">${d}</div>`;});
     h+=`</div><div class="month-grid">`;
