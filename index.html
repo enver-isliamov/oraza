@@ -98,6 +98,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .notice-title{font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:1px;}
 .notice-body{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.4;}
 .tabs-wrap{background:var(--surface);border-radius:var(--r-sm);padding:3px;display:flex;gap:2px;border:1px solid var(--border);margin-bottom:14px;box-shadow:var(--shadow-sm);}
+.tabs-wrap-top{margin-top:6px;}
 .tab{flex:1;padding:8px 4px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-family:var(--font-body);font-size:.76rem;font-weight:800;cursor:pointer;transition:all .18s;text-align:center;-webkit-tap-highlight-color:transparent;}
 .tab.active{background:var(--text);color:var(--bg);box-shadow:0 1px 6px rgba(0,0,0,.15);}
 .section-lbl{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:9px;padding-left:2px;}
@@ -234,6 +235,12 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <button class="ib-close" id="installBannerClose">✕</button>
   </div>
 
+  <div class="tabs-wrap fu tabs-wrap-top">
+    <button class="tab active" data-mode="day" id="tabDay">Сегодня</button>
+    <button class="tab" data-mode="week">Неделя</button>
+    <button class="tab" data-mode="month">Месяц</button>
+  </div>
+
   <div id="daySectionWrap">
     <div class="day-nav fu">
       <button class="nav-arrow" id="prevDay">‹</button>
@@ -265,6 +272,8 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
       <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
     </div>
   </div>
+
+  <div id="scheduleArea"></div>
 
   <div id="noticesWrap">
     <div class="notice laylat fu fu1"><span class="notice-ico">🌙</span><div><div class="notice-title">Ночь Ляйлятуль-Кадр</div><div class="notice-body">16–17 Март · Къадир геджеси.
@@ -303,13 +312,6 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     </div>
   </div>
 
-  <div class="tabs-wrap fu" style="margin-top:14px;">
-    <button class="tab active" data-mode="day" id="tabDay">Сегодня</button>
-    <button class="tab" data-mode="week">Неделя</button>
-    <button class="tab" data-mode="month">Месяц</button>
-  </div>
-
-  <div id="scheduleArea"></div>
 </div>
 
 </div><!-- end main -->
@@ -482,14 +484,12 @@ function updateProgress(imsakT,iftarT){
 
 // WEEK VIEW
 function renderWeek(){
-  $('daySectionWrap').style.display='';
+  $('daySectionWrap').style.display='none';
   const ti=todayIdx();const start=Math.max(0,ti+weekOff*7);const end=Math.min(DATA.length,start+7);const rows=DATA.slice(start,end);
-  const heroIdx=(viewIdx>=start&&viewIdx<end)?viewIdx:(ti>=start&&ti<end?ti:start);
-  _updateHero(heroIdx);
   $('prevDay').disabled=true;$('nextDay').disabled=true;
   const fl=rows[0]?`${rows[0][1]} ${MS[rows[0][2]]}`:'';const tl=rows[rows.length-1]?`${rows[rows.length-1][1]} ${MS[rows[rows.length-1][2]]}`:'';;
   let h=`<div class="week-nav"><button class="nav-arrow" id="wPrev" ${weekOff<=-Math.ceil(ti/7)?'disabled':''} style="width:34px;height:34px;font-size:16px;">&#8249;</button><div class="week-nav-lbl">${fl} — ${tl} · ${CITIES[cityIdx].name}</div><button class="nav-arrow" id="wNext" ${end>=DATA.length?'disabled':''} style="width:34px;height:34px;font-size:16px;">&#8250;</button></div><div class="list-card"><div class="list-head"><span>Дата</span><span class="lh-imsak">Имсак</span><span class="lh-iftar">Ифтар</span></div>`;
-  rows.forEach(row=>{const t=adj(row);const d=dateOf(row);const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);let cls='list-row';if(it)cls+=' lr-today';else if(il)cls+=' lr-laylat';else if(ib)cls+=' lr-bayram';let badges='';if(it)badges+='<span class="lr-badge b-today">Сег.</span>';if(il&&row[1]===16)badges+='<span class="lr-badge b-laylat">✨ Кадр</span>';if(ib&&row[1]===20)badges+='<span class="lr-badge b-bayram">🎉 Байрам</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="_updateHero(${ridx})"><div class="lr-date"><div class="lr-date-day">${DAYS[d.getDay()]}</div><div class="lr-date-main"><div class="lr-date-num">${row[1]} ${MS[row[2]]}</div><div class="lr-date-ramadan">${row[0]}-й день</div></div>${badges}</div><div class="lr-imsak">${t.imsak}</div><div class="lr-iftar">${t.iftar}</div></div>`;});
+  rows.forEach(row=>{const t=adj(row);const d=dateOf(row);const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);let cls='list-row';if(it)cls+=' lr-today';else if(il)cls+=' lr-laylat';else if(ib)cls+=' lr-bayram';let badges='';if(it)badges+='<span class="lr-badge b-today">Сег.</span>';if(il&&row[1]===16)badges+='<span class="lr-badge b-laylat">✨ Кадр</span>';if(ib&&row[1]===20)badges+='<span class="lr-badge b-bayram">🎉 Байрам</span>';const ridx=DATA.indexOf(row);h+=`<div class="${cls}" onclick="goDay(${ridx})"><div class="lr-date"><div class="lr-date-day">${DAYS[d.getDay()]}</div><div class="lr-date-main"><div class="lr-date-num">${row[1]} ${MS[row[2]]}</div><div class="lr-date-ramadan">${row[0]}-й день</div></div>${badges}</div><div class="lr-imsak">${t.imsak}</div><div class="lr-iftar">${t.iftar}</div></div>`;});
   h+='</div>';$('scheduleArea').innerHTML=h;
   $('wPrev').onclick=()=>{weekOff--;renderWeek();};
   $('wNext').onclick=()=>{weekOff++;renderWeek();};
@@ -497,8 +497,7 @@ function renderWeek(){
 
 // MONTH VIEW
 function renderMonth(){
-  $('daySectionWrap').style.display='';
-  _updateHero(viewIdx||todayIdx());
+  $('daySectionWrap').style.display='none';
   $('prevDay').disabled=true;$('nextDay').disabled=true;
   const bayramDays={20:'Намаз в 7:30',21:'',22:''};
   let h='';const byM={};DATA.forEach(r=>{if(!byM[r[2]])byM[r[2]]=[];byM[r[2]].push(r);});
@@ -520,7 +519,7 @@ function renderMonth(){
       const row=DATA.find(r=>r[1]===day&&r[2]===m);
       if(!row)continue;
       const t=adj(row);const it=isToday(row),il=isLaylat(row),ib=isBayram(row);let cls='mg-cell';if(it)cls+=' mc-today';if(il)cls+=' mc-laylat';if(ib)cls+=' mc-bayram';let bdg='';if(il)bdg='<span class="mc-badge">✨</span>';const ridx=DATA.indexOf(row);
-      h+=`<div class="${cls}" onclick="_updateHero(${ridx})">${bdg}<div class="mc-num">${day}</div><div class="mc-ramadan">${row[0]}-й день</div><div class="mc-imsak">${t.imsak}</div><div class="mc-iftar">${t.iftar}</div></div>`;
+      h+=`<div class="${cls}" onclick="goDay(${ridx})">${bdg}<div class="mc-num">${day}</div><div class="mc-ramadan">${row[0]}-й день</div><div class="mc-imsak">${t.imsak}</div><div class="mc-iftar">${t.iftar}</div></div>`;
     }
     h+=`</div><div style="height:16px;"></div>`;
   });
