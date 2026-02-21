@@ -439,8 +439,8 @@ function renderDay(){
   $('daySectionWrap').style.display='';
   const row=DATA[viewIdx];const t=adj(row);const d=dateOf(row);
   const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);
-  // Tab always shows "Сегодня"
-  $('tabDay').textContent='Сегодня';
+  // Tab always shows "День"
+  $('tabDay').textContent='День';
   let chips='';
   if(it)chips+='<span class="chip chip-today">Сегодня</span>';
   if(il&&row[1]===16)chips+='<span class="chip chip-laylat">✨ Къадр</span>';
