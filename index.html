@@ -52,6 +52,14 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .main{max-width:480px;margin:0 auto;padding:14px 14px calc(10px + env(safe-area-inset-bottom,0px));}
 .install-banner{background:linear-gradient(135deg,var(--gold-soft),rgba(196,154,60,.06));border:1px solid rgba(196,154,60,.25);border-radius:var(--r-sm);padding:12px 13px;display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .install-banner:active{opacity:.85;}
+.mourning-banner{display:none;margin-bottom:10px;border:1px solid rgba(54,66,89,.28);border-radius:var(--r-sm);background:linear-gradient(150deg,rgba(54,66,89,.18),rgba(54,66,89,.07));box-shadow:var(--shadow-sm);overflow:hidden;}
+.mourning-banner summary{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:12px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.mourning-banner summary::-webkit-details-marker{display:none;}
+.mourning-icon{font-size:1.05rem;line-height:1.2;opacity:.9;}
+.mourning-title{font-size:.77rem;font-weight:800;color:var(--text);line-height:1.35;}
+.mourning-content{padding:0 13px 12px 35px;font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.5;}
+.mourning-banner[open] .mourning-title{color:#9e3147;}
+
 .ib-icon{font-size:1.4rem;flex-shrink:0;}
 .ib-text{flex:1;}
 .ib-title{font-size:.82rem;font-weight:800;color:var(--text);margin-bottom:1px;}
@@ -234,6 +242,14 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="ib-text"><div class="ib-title">Установить на экран</div><div class="ib-sub">Работает без интернета</div></div>
     <button class="ib-close" id="installBannerClose">✕</button>
   </div>
+  <details class="mourning-banner fu" id="mourningBanner">
+    <summary>
+      <span class="mourning-icon">🕯️</span>
+      <span class="mourning-title">23 февраля — 106-я годовщина смерти Номана Челебиджихана.</span>
+    </summary>
+    <div class="mourning-content">23 февраля — трагическая дата в истории крымскотатарского народа. В этот день в 1918 году был расстрелян большевиками и выброшен в Черное море Номан Челебиджихан — крымскотатарский политик, общественный деятель и духовный лидер.</div>
+  </details>
+
 
   <div class="tabs-wrap fu tabs-wrap-top">
     <button class="tab active" data-mode="day" id="tabDay">Сегодня</button>
@@ -574,6 +590,13 @@ $('installBanner').onclick=e=>{if(e.target.id==='installBannerClose')return;if(i
 $('installBannerClose').onclick=e=>{e.stopPropagation();$('installBanner').style.display='none';localStorage.setItem('ramInstallDismissed','1');};
 const pid=$('promptInstallBtn');if(pid)pid.onclick=()=>{if(installPrompt){installPrompt.prompt();installPrompt.userChoice.then(()=>{installPrompt=null;closeSheet('installSheet');});}};
 window.addEventListener('appinstalled',()=>{$('installBanner').style.display='none';closeSheet('installSheet');});
+
+(function initMourningBanner(){
+  const now=new Date();
+  const isMemorialDay=now.getDate()===23&&now.getMonth()===1;
+  const banner=$('mourningBanner');
+  if(banner&&isMemorialDay){banner.style.display='block';}
+})();
 
 // SERVICE WORKER
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').then(()=>{}).catch(()=>{});}
