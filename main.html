@@ -53,12 +53,21 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .install-banner{background:linear-gradient(135deg,var(--gold-soft),rgba(196,154,60,.06));border:1px solid rgba(196,154,60,.25);border-radius:var(--r-sm);padding:12px 13px;display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .install-banner:active{opacity:.85;}
 .mourning-banner{display:none;margin-bottom:10px;border:1px solid rgba(54,66,89,.28);border-radius:var(--r-sm);background:linear-gradient(150deg,rgba(54,66,89,.18),rgba(54,66,89,.07));box-shadow:var(--shadow-sm);overflow:hidden;}
+.mourning-banner:not([open]){animation:mourningPulse 1.9s ease-in-out infinite;}
 .mourning-banner summary{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:12px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .mourning-banner summary::-webkit-details-marker{display:none;}
 .mourning-icon{font-size:1.05rem;line-height:1.2;opacity:.9;}
-.mourning-title{font-size:.77rem;font-weight:800;color:var(--text);line-height:1.35;}
-.mourning-content{padding:0 13px 12px 35px;font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.5;}
+.mourning-title{font-size:.77rem;font-weight:800;color:var(--text);line-height:1.35;display:flex;flex-direction:column;gap:5px;}
+.mourning-hint{font-size:.66rem;font-weight:700;color:var(--text3);line-height:1.3;display:inline-flex;align-items:center;gap:6px;}
+.mourning-hint-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:999px;background:rgba(158,49,71,.13);color:#9e3147;font-weight:800;animation:hintNudge 1.3s ease-in-out infinite;}
+.mourning-content{padding:0 13px 12px 35px;font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.55;display:grid;gap:7px;}
+.mourning-content p{margin:0;}
+.mourning-content a{color:#9e3147;font-weight:700;text-decoration:underline;}
+.mourning-banner[open]{animation:none;}
 .mourning-banner[open] .mourning-title{color:#9e3147;}
+.mourning-banner[open] .mourning-hint{display:none;}
+@keyframes mourningPulse{0%,100%{box-shadow:var(--shadow-sm);}50%{box-shadow:0 0 0 2px rgba(158,49,71,.17),0 2px 12px rgba(26,22,18,.09);}}
+@keyframes hintNudge{0%,100%{transform:translateX(0);}50%{transform:translateX(4px);}}
 
 .ib-icon{font-size:1.4rem;flex-shrink:0;}
 .ib-text{flex:1;}
@@ -245,9 +254,17 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   <details class="mourning-banner fu" id="mourningBanner">
     <summary>
       <span class="mourning-icon">🕯️</span>
-      <span class="mourning-title">23 февраля — 106-я годовщина смерти Номана Челебиджихана.</span>
+      <span class="mourning-title">
+        <span>23 февраля — 106-я годовщина смерти Номана Челебиджихана.</span>
+        <span class="mourning-hint">Нажмите на плитку для раскрытия и чтения <span class="mourning-hint-badge">Нажать ↴</span></span>
+      </span>
     </summary>
-    <div class="mourning-content">23 февраля — трагическая дата в истории крымскотатарского народа. В этот день в 1918 году был расстрелян большевиками и выброшен в Черное море Номан Челебиджихан — крымскотатарский политик, общественный деятель и духовный лидер.</div>
+    <div class="mourning-content">
+      <p>23 февраля — трагическая дата в истории крымскотатарского народа.</p>
+      <p>В этот день в 1918 году большевики расстреляли Номана Челебиджихана и выбросили его тело в Чёрное море.</p>
+      <p>Номан Челебиджихан — крымскотатарский политик, общественный деятель и духовный лидер.</p>
+      <p><a href="https://ru.wikipedia.org/wiki/Челебиджихан,_Номан" target="_blank" rel="noopener noreferrer">Подробнее о Номане Челебиджихане — в Википедии</a></p>
+    </div>
   </details>
 
 
