@@ -100,7 +100,12 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .iftar-card .card-time{color:var(--iftar);}
 .card-name{font-size:.72rem;font-weight:700;color:var(--text2);}
 .card-tap-hint{font-size:.6rem;font-weight:600;color:var(--text3);margin-top:3px;}
-.progress-bar{background:var(--surface);border-radius:var(--r-sm);padding:12px 14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:10px;}
+.status-grid{display:grid;grid-template-columns:2fr 1fr;gap:9px;align-items:stretch;margin-bottom:10px;}
+.progress-bar{background:var(--surface);border-radius:var(--r-sm);padding:12px 14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:0;}
+.useful-tile{display:flex;flex-direction:column;justify-content:center;gap:5px;text-decoration:none;padding:12px 10px;border-radius:var(--r-sm);border:1px solid rgba(196,154,60,.24);background:linear-gradient(145deg,rgba(196,154,60,.16),rgba(196,154,60,.04));box-shadow:var(--shadow-sm);}
+.useful-eyebrow{font-size:.6rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);}
+.useful-title{font-size:.86rem;font-weight:800;line-height:1.1;color:var(--text);}
+.useful-hint{font-size:.64rem;font-weight:700;color:var(--text2);}
 .progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
 .progress-label{font-size:.75rem;font-weight:700;color:var(--text2);display:flex;align-items:center;gap:5px;}
 .live-dot{width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;animation:pulse 2s infinite;}
@@ -301,12 +306,19 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
         <div class="card-tap-hint">Нажмите чтобы прочитать дуа</div>
       </div>
     </div>
-    <div class="progress-bar fu fu3" id="progressBar">
-      <div class="progress-top">
-        <div class="progress-label" id="progLabel"><span class="live-dot" style="color:var(--iftar)"></span><span id="progText">Загрузка...</span></div>
-        <div class="progress-countdown" id="progCountdown">—</div>
+    <div class="status-grid">
+      <div class="progress-bar fu fu3" id="progressBar">
+        <div class="progress-top">
+          <div class="progress-label" id="progLabel"><span class="live-dot" style="color:var(--iftar)"></span><span id="progText">Загрузка...</span></div>
+          <div class="progress-countdown" id="progCountdown">—</div>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
       </div>
-      <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+      <a class="useful-tile fu fu3" href="materials.html" aria-label="Полезное">
+        <div class="useful-eyebrow">Раздел</div>
+        <div class="useful-title">Полезное</div>
+        <div class="useful-hint">Статьи →</div>
+      </a>
     </div>
   </div>
 
@@ -358,7 +370,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   <div class="footer-inner">
     <div class="footer-made">Расписание Имсак и Ифтар для мусульман Крыма.<br><em style="color:var(--gold);">Рамадан Мубарак!</em></div>
     <div class="footer-tg">Telegram: <a href="https://t.me/EnrikeTomas" target="_blank">@EnrikeTomas</a></div>
-    <div class="footer-tg">📚 <a href="materials.html">Полезные материалы</a></div>
+    <div class="footer-tg">📚 <a href="materials.html">Полезное</a></div>
   </div>
 </div>
 
