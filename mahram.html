@@ -476,7 +476,28 @@
 
 <script>
     const THEME_KEY = 'ramTheme';
-    const READ_KEY = 'ramReadArticles';
+    const READ_PROGRESS_KEY = 'ramReadProgress';
+    const READ_COMPAT_KEY = 'ramReadArticles';
+    const WORDS_PER_MINUTE = 180;
+    const REQUIRED_RATIO = 0.8;
+
+    const articleId = document.body.getAttribute('data-article-id');
+    const mainText = (document.querySelector('main')?.textContent || '').trim();
+    const words = (mainText.match(/[A-Za-zА-Яа-яЁё0-9]+/g) || []).length;
+    const estimatedReadSeconds = Math.max(60, Math.ceil((words / WORDS_PER_MINUTE) * 60));
+    const requiredSeconds = Math.max(45, Math.ceil(estimatedReadSeconds * REQUIRED_RATIO));
+
+    let sessionStartedAt = Date.now();
+    let activeMs = 0;
+
+    function parseStoredObject(key) {
+        try {
+            const parsed = JSON.parse(localStorage.getItem(key) || '{}');
+            return parsed && typeof parsed === 'object' ? parsed : {};
+        } catch (error) {
+            return {};
+        }
+    }
 
     function applyThemeFromStorage() {
         const theme = localStorage.getItem(THEME_KEY) || 'light';
@@ -487,25 +508,49 @@
         }
     }
 
-    function markArticleAsRead() {
-        const articleId = document.body.getAttribute('data-article-id');
+    function persistProgress() {
         if (!articleId) return;
 
-        let readMap;
-        try {
-            readMap = JSON.parse(localStorage.getItem(READ_KEY) || '{}');
-            if (!readMap || typeof readMap !== 'object') {
-                readMap = {};
-            }
-        } catch (error) {
-            readMap = {};
+        const now = Date.now();
+        if (!document.hidden) {
+            activeMs += now - sessionStartedAt;
+            sessionStartedAt = now;
         }
 
-        if (!readMap[articleId]) {
-            readMap[articleId] = Date.now();
-            localStorage.setItem(READ_KEY, JSON.stringify(readMap));
+        const progressMap = parseStoredObject(READ_PROGRESS_KEY);
+        const existing = progressMap[articleId] || {};
+        const totalSeconds = Math.floor((Number(existing.seconds) || 0) + activeMs / 1000);
+        const completed = totalSeconds >= requiredSeconds;
+
+        progressMap[articleId] = {
+            seconds: totalSeconds,
+            requiredSeconds,
+            estimatedReadSeconds,
+            completed,
+            updatedAt: Date.now()
+        };
+        localStorage.setItem(READ_PROGRESS_KEY, JSON.stringify(progressMap));
+
+        if (completed) {
+            const compatMap = parseStoredObject(READ_COMPAT_KEY);
+            if (!compatMap[articleId]) {
+                compatMap[articleId] = Date.now();
+                localStorage.setItem(READ_COMPAT_KEY, JSON.stringify(compatMap));
+            }
         }
+
+        activeMs = 0;
     }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            persistProgress();
+        } else {
+            sessionStartedAt = Date.now();
+        }
+    });
+
+    window.addEventListener('beforeunload', persistProgress);
 
     document.getElementById('toggleBtn').addEventListener('click', function () {
         const info = document.getElementById('extraInfo');
@@ -519,7 +564,6 @@
     });
 
     applyThemeFromStorage();
-    markArticleAsRead();
 
     window.addEventListener('storage', (event) => {
         if (event.key === THEME_KEY) {

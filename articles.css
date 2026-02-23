@@ -131,6 +131,14 @@ body {
     padding: 14px;
 }
 
+.hero-card-compact {
+    padding: 10px;
+}
+
+.hero-stats-alone {
+    margin-top: 0;
+}
+
 .hero-kicker {
     font-size: 0.64rem;
     text-transform: uppercase;
