@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#c49a3c" id="metaThemeColor">
+  <title>23 февраля: Номан Челебиджихан</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="articles.css">
+</head>
+<body data-article-id="chelebidzhihan">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="materials.html" class="home-link">← К материалам</a>
+    <div class="brand">Рамадан <em>1447</em><small>Историческая справка</small></div>
+  </div>
+</header>
+<main class="main">
+  <article class="section-shell" style="display:grid;gap:12px;">
+    <h1 class="section-title" style="font-size:1.15rem;">23 февраля — трагическая дата в истории крымскотатарского народа</h1>
+    <p>В этот день в 1918 году был расстрелян большевиками и выброшен в Черное море Номан Челебиджихан — крымскотатарский политик, общественный деятель и духовный лидер.</p>
+    <p>Номан Челебиджихан — первый председатель правительства Крымской Народной Республики, организатор I Курултая крымскотатарского народа, первый муфтий мусульман Крыма, Литвы, Польши, Белоруссии. Известен также как автор стихотворения «Ant etkenmen» («Клянусь»), которое стало национальным гимном крымских татар.</p>
+    <p>Как президент Крымской Демократической Республики он внес значительный вклад в развитие крымскотатарской государственности. За короткое время Челебиджихан внедрил много демократических реформ — признавал равенство мужчин и женщин, основывал двуязычные газеты, поддерживал народное образование, прилагал усилия для создания крымскотатарских военных подразделений.</p>
+    <p>Номан Челебиджихан выступал за равноправие всех народов, живущих в Крыму.</p>
+    <p>Председатель крымскотатарского правительства Номан Челебиджихан был арестован большевиками и 27 дней содержался в Севастопольской тюрьме. 23 февраля 1918 года Челебиджихан был расстрелян, его тело бросили в Черное море.</p>
+    <p><a href="https://ru.wikipedia.org/wiki/Челебиджихан,_Номан" target="_blank" rel="noopener noreferrer">Подробнее о Номане Челебиджихане — в Википедии</a></p>
+  </article>
+</main>
+<script>
+  const THEME_KEY='ramTheme';
+  const READ_PROGRESS_KEY='ramReadProgress';
+  const READ_COMPAT_KEY='ramReadArticles';
+  const WORDS_PER_MINUTE=180;
+  const REQUIRED_RATIO=0.3;
+  const articleId=document.body.getAttribute('data-article-id');
+  const mainText=(document.querySelector('main')?.textContent||'').trim();
+  const words=(mainText.match(/[A-Za-zА-Яа-яЁё0-9]+/g)||[]).length;
+  const estimatedReadSeconds=Math.max(60,Math.ceil((words/WORDS_PER_MINUTE)*60));
+  const requiredSeconds=Math.max(45,Math.ceil(estimatedReadSeconds*REQUIRED_RATIO));
+  let sessionStartedAt=Date.now();
+  let activeMs=0;
+  function parseStoredObject(key){try{const parsed=JSON.parse(localStorage.getItem(key)||'{}');return parsed&&typeof parsed==='object'?parsed:{};}catch(e){return {};}}
+  function applyThemeFromStorage(){const theme=localStorage.getItem(THEME_KEY)||'light';document.documentElement.setAttribute('data-theme',theme);const metaTheme=document.getElementById('metaThemeColor');if(metaTheme){metaTheme.setAttribute('content',theme==='dark'?'#100e0c':'#c49a3c');}}
+  function persistProgress(){if(!articleId)return;const now=Date.now();if(!document.hidden){activeMs+=now-sessionStartedAt;sessionStartedAt=now;}const progressMap=parseStoredObject(READ_PROGRESS_KEY);const existing=progressMap[articleId]||{};const totalSeconds=Math.floor((Number(existing.seconds)||0)+activeMs/1000);const completed=totalSeconds>=requiredSeconds;progressMap[articleId]={seconds:totalSeconds,requiredSeconds,estimatedReadSeconds,completed,updatedAt:Date.now()};localStorage.setItem(READ_PROGRESS_KEY,JSON.stringify(progressMap));if(completed){const compatMap=parseStoredObject(READ_COMPAT_KEY);if(!compatMap[articleId]){compatMap[articleId]=Date.now();localStorage.setItem(READ_COMPAT_KEY,JSON.stringify(compatMap));}}activeMs=0;}
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){persistProgress();}else{sessionStartedAt=Date.now();}});
+  window.addEventListener('beforeunload',persistProgress);
+  applyThemeFromStorage();
+  window.addEventListener('storage',event=>{if(event.key===THEME_KEY){applyThemeFromStorage();}});
+</script>
+<script defer src="metrics.js"></script>
+<noscript><div><img src="https://mc.yandex.ru/watch/106936532" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</body>
+</html>
