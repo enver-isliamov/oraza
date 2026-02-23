@@ -35,8 +35,9 @@
 
 body {
     font-family: var(--font-body);
-    background: var(--bg);
-    color: var(--text);
+    color: var(--text-main);
+    background: radial-gradient(130% 100% at 0% 0%, #1c2a4d 0%, var(--bg-1) 60%),
+                linear-gradient(160deg, var(--bg-1), var(--bg-2));
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
 }
@@ -45,27 +46,39 @@ body {
     position: sticky;
     top: 0;
     z-index: 20;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
     padding-top: env(safe-area-inset-top, 0px);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(8, 12, 22, 0.72);
 }
 
 .topbar-inner,
 .main {
     max-width: 500px;
     margin: 0 auto;
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .topbar-inner {
-    min-height: 58px;
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 10px;
+}
+
+.home-link {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface-soft);
 }
 
 .brand {
@@ -225,7 +238,7 @@ body {
 
 .articles-list {
     display: grid;
-    gap: 8px;
+    gap: 10px;
 }
 
 .article-link {
@@ -248,7 +261,6 @@ body {
 .article-title {
     font-size: 0.9rem;
     font-weight: 800;
-    color: var(--text);
     margin-bottom: 4px;
     line-height: 1.3;
 }
