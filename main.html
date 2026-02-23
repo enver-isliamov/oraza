@@ -78,9 +78,18 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .nav-arrow{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow-sm);transition:all .15s;flex-shrink:0;-webkit-tap-highlight-color:transparent;user-select:none;}
 .nav-arrow:disabled{opacity:.25;cursor:default;pointer-events:none;}
 .nav-arrow:not(:disabled):active{transform:scale(.92);background:var(--surface2);}
-.nav-center{flex:1;text-align:center;}
-.nav-date-main{font-size:1rem;font-weight:800;color:var(--text);line-height:1.2;}
-.nav-date-sub{font-size:.67rem;font-weight:600;color:var(--text3);letter-spacing:.04em;margin-top:1px;}
+.nav-center{flex:1;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:7px 9px;border-radius:10px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-sm);}
+.nav-meta{min-width:0;display:flex;flex-direction:column;gap:2px;text-align:left;}
+.nav-time-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+.nav-time-badge{display:flex;align-items:baseline;gap:4px;padding:6px 9px 5px;border-radius:10px;background:linear-gradient(160deg,var(--iftar-soft),rgba(31,168,106,.06));border:1px solid rgba(31,168,106,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),var(--shadow-sm);}
+.nav-current-time{font-family:var(--font-display);font-size:1.7rem;font-weight:700;line-height:.9;color:var(--iftar);letter-spacing:-.01em;font-variant-numeric:tabular-nums;}
+.nav-current-seconds{font-family:var(--font-body);font-size:.76rem;font-weight:900;line-height:1;color:var(--iftar);font-variant-numeric:tabular-nums;opacity:.85;animation:secondPulse 1s ease-in-out infinite;}
+.nav-time-label{font-size:.56rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);}
+@keyframes secondPulse{0%,100%{transform:translateY(0) scale(1);opacity:.75;}50%{transform:translateY(-1px) scale(1.12);opacity:1;}}
+[data-theme="dark"] .nav-time-badge{background:linear-gradient(160deg,rgba(31,168,106,.18),rgba(31,168,106,.07));border-color:rgba(31,168,106,.35);box-shadow:none;}
+.nav-date-main{font-size:.81rem;font-weight:800;color:var(--text);line-height:1.2;}
+.nav-date-sub{font-size:.65rem;font-weight:700;color:var(--text3);letter-spacing:.03em;}
+.nav-today-chip{display:inline-flex;align-items:center;width:fit-content;margin:0 0 2px;padding:2px 8px;border-radius:2px;background:var(--gold);color:#fff;font-size:.55rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
 .chip{display:inline-block;font-size:.56rem;font-weight:800;padding:1px 6px;border-radius:100px;letter-spacing:.07em;text-transform:uppercase;vertical-align:middle;margin-left:5px;}
 .chip-today{background:var(--gold);color:#fff;}
 .chip-laylat{background:rgba(196,154,60,.2);color:var(--gold);}
@@ -103,7 +112,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .status-grid{display:grid;grid-template-columns:2fr 1fr;gap:9px;align-items:stretch;margin-bottom:10px;}
 .progress-bar{background:var(--surface);border-radius:var(--r-sm);padding:12px 14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:0;}
 .useful-tile{position:relative;display:flex;flex-direction:column;justify-content:center;gap:5px;text-decoration:none;padding:12px 10px;border-radius:var(--r-sm);border:1px solid rgba(196,154,60,.24);background:linear-gradient(145deg,rgba(196,154,60,.16),rgba(196,154,60,.04));box-shadow:var(--shadow-sm);}
-.useful-badge{position:absolute;top:6px;right:6px;min-width:17px;height:17px;padding:0 5px;border-radius:999px;background:#d94f5c;color:#fff;font-size:.6rem;font-weight:900;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(217,79,92,.35);animation:quickPulse 1.1s ease-in-out infinite;}
+.useful-badge{position:absolute;right:7px;bottom:7px;min-width:17px;height:17px;padding:0 5px;border-radius:999px;background:#d94f5c;color:#fff;font-size:.6rem;font-weight:900;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(217,79,92,.35);animation:quickPulse 1.1s ease-in-out infinite;}
 .useful-badge.show{display:inline-flex;}
 @keyframes quickPulse{0%,100%{transform:scale(1);opacity:.95}50%{transform:scale(1.14);opacity:1}}
 .useful-eyebrow{font-size:.6rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);}
@@ -290,8 +299,18 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="day-nav fu">
       <button class="nav-arrow" id="prevDay">‹</button>
       <div class="nav-center">
-        <div class="nav-date-main" id="navDateMain">—</div>
-        <div class="nav-date-sub" id="navDateSub">—</div>
+        <div class="nav-meta">
+          <span class="nav-today-chip" id="navTodayChip">Сегодня</span>
+          <div class="nav-date-main" id="navDateMain">—</div>
+          <div class="nav-date-sub" id="navDateSub">—</div>
+        </div>
+        <div class="nav-time-wrap">
+          <div class="nav-time-badge">
+            <div class="nav-current-time" id="navCurrentTime">--:--</div>
+            <div class="nav-current-seconds" id="navCurrentSeconds">--</div>
+          </div>
+          <div class="nav-time-label">Сейчас</div>
+        </div>
       </div>
       <button class="nav-arrow" id="nextDay">›</button>
     </div>
@@ -489,18 +508,35 @@ function setupShare(){
 setupShare();
 
 // DAY VIEW
+function updateNavCenter(){
+  const now=new Date();
+  const row=DATA[viewIdx]||DATA[todayIdx()];
+  const d=row?dateOf(row):now;
+  const isViewedToday=row?isToday(row):true;
+  const dayLabel=DAYS[d.getDay()];
+  const monthLabel=MS[d.getMonth()+1]||'';
+  const hh=String(now.getHours()).padStart(2,'0');
+  const mm=String(now.getMinutes()).padStart(2,'0');
+  const ss=String(now.getSeconds()).padStart(2,'0');
+  const timeLabel=`${hh}:${mm}`;
+  const ramadanLabel=row?`${row[0]}-й день Рамадана`:'Рамадан';
+  const timeNode=$('navCurrentTime');
+  const secNode=$('navCurrentSeconds');
+  const chipNode=$('navTodayChip');
+  if(timeNode)timeNode.textContent=timeLabel;
+  if(secNode)secNode.textContent=ss;
+  if(chipNode)chipNode.textContent=isViewedToday?'Сегодня':'Выбранный день';
+  $('navDateMain').textContent=`${d.getDate()} ${monthLabel} · ${dayLabel}`;
+  $('navDateSub').textContent=ramadanLabel;
+}
+
 function renderDay(){
   $('daySectionWrap').style.display='';
-  const row=DATA[viewIdx];const t=adj(row);const d=dateOf(row);
+  const row=DATA[viewIdx];const t=adj(row);
   const it=isToday(row),il=isLaylatNight(row),ib=isBayram(row);
   // Tab always shows "День"
   $('tabDay').textContent='День';
-  let chips='';
-  if(it)chips+='<span class="chip chip-today">Сегодня</span>';
-  if(il&&row[1]===16)chips+='<span class="chip chip-laylat">✨ Къадр</span>';
-  if(ib&&row[1]===20)chips+='<span class="chip chip-bayram">🎉 Байрам</span>';
-  $('navDateMain').innerHTML=`${row[1]} ${MF[row[2]]} · ${DAYS[d.getDay()]}${chips}`;
-  $('navDateSub').textContent=`Рамадан — ${row[0]}-й день · ${CITIES[cityIdx].name}`;
+  updateNavCenter();
   $('prevDay').disabled=viewIdx<=0;
   $('nextDay').disabled=viewIdx>=DATA.length-1;
   $('heroImsakTime').textContent=t.imsak;
@@ -583,13 +619,8 @@ function renderMonth(){
 // Update hero block without full re-render (for week/month cell taps)
 function _updateHero(idx){
   viewIdx=idx;
-  const row=DATA[idx];const t=adj(row);const d=dateOf(row);const it=isToday(row);
-  let chips='';
-  if(it)chips+='<span class="chip chip-today">Сегодня</span>';
-  if(isLaylatNight(row)&&row[1]===16)chips+='<span class="chip chip-laylat">✨ Къадр</span>';
-  if(isBayram(row)&&row[1]===20)chips+='<span class="chip chip-bayram">🎉 Байрам</span>';
-  $('navDateMain').innerHTML=`${row[1]} ${MF[row[2]]} · ${DAYS[d.getDay()]}${chips}`;
-  $('navDateSub').textContent=`Рамадан — ${row[0]}-й день · ${CITIES[cityIdx].name}`;
+  const row=DATA[idx];const t=adj(row);const it=isToday(row);
+  updateNavCenter();
   $('heroImsakTime').textContent=t.imsak;
   $('heroIftarTime').textContent=t.iftar;
   if(it){$('progressBar').style.display='';updateProgress(t.imsak,t.iftar);}else{$('progressBar').style.display='none';}
@@ -664,7 +695,10 @@ window.addEventListener('storage',e=>{if(e.key===READ_PROGRESS_KEY||e.key===READ
 updateMaterialsUnreadBadge();
 viewIdx=todayIdx();
 renderAll();
-setInterval(()=>{if(mode==='day'&&isToday(DATA[viewIdx])){updateProgress(adj(DATA[viewIdx]).imsak,adj(DATA[viewIdx]).iftar);}},1000);
+setInterval(()=>{
+  updateNavCenter();
+  if(mode==='day'&&isToday(DATA[viewIdx])){updateProgress(adj(DATA[viewIdx]).imsak,adj(DATA[viewIdx]).iftar);}
+},1000);
 </script>
 
 <!-- Yandex.Metrika counter -->
