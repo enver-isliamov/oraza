@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#c49a3c">
+    <meta name="theme-color" content="#c49a3c" id="metaThemeColor">
     <title>Полезные материалы · Рамадан 1447</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="icon" type="image/svg+xml" href="logo.svg">
@@ -14,20 +14,45 @@
 <body>
 <header class="topbar">
     <div class="topbar-inner">
-        <div class="brand">Рамадан <em>1447</em><small>Полезные материалы</small></div>
         <a href="index.html" class="home-link">← На главную</a>
+        <div class="brand">Рамадан <em>1447</em><small>Полезные материалы</small></div>
     </div>
 </header>
 
 <main class="main">
-    <section class="hero-card">
-        <h1 class="hero-title">Статьи и полезные материалы</h1>
-        <p class="hero-subtitle">Здесь собираются материалы по важным вопросам. Список будет пополняться новыми статьями.</p>
+    <section class="hero-card hero-card-compact">
+        <div class="hero-stats hero-stats-alone">
+            <div class="stat-item">
+                <span class="stat-value" id="articlesCount">0</span>
+                <span class="stat-label">всего статей</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="unreadCount">0</span>
+                <span class="stat-label">новые</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="readCount">0</span>
+                <span class="stat-label">прочитаны</span>
+            </div>
+        </div>
     </section>
 
-    <section>
-        <div class="section-title">Доступные статьи</div>
-        <div class="articles-list" id="articlesList"></div>
+    <section class="section-shell">
+        <div class="section-header">
+            <div class="section-title">Каталог материалов</div>
+            <div class="section-chip">Авто-сортировка</div>
+        </div>
+
+        <div class="articles-block">
+            <h2 class="block-title">Для чтения</h2>
+            <div class="articles-list" id="unreadArticlesList"></div>
+        </div>
+
+        <div class="articles-block">
+            <h2 class="block-title">Прочитанные</h2>
+            <div class="articles-list" id="readArticlesList"></div>
+            <p class="empty-state" id="readEmptyState">Пока нет прочитанных материалов.</p>
+        </div>
     </section>
 </main>
 

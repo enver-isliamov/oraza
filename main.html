@@ -102,7 +102,10 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .card-tap-hint{font-size:.6rem;font-weight:600;color:var(--text3);margin-top:3px;}
 .status-grid{display:grid;grid-template-columns:2fr 1fr;gap:9px;align-items:stretch;margin-bottom:10px;}
 .progress-bar{background:var(--surface);border-radius:var(--r-sm);padding:12px 14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:0;}
-.useful-tile{display:flex;flex-direction:column;justify-content:center;gap:5px;text-decoration:none;padding:12px 10px;border-radius:var(--r-sm);border:1px solid rgba(196,154,60,.24);background:linear-gradient(145deg,rgba(196,154,60,.16),rgba(196,154,60,.04));box-shadow:var(--shadow-sm);}
+.useful-tile{position:relative;display:flex;flex-direction:column;justify-content:center;gap:5px;text-decoration:none;padding:12px 10px;border-radius:var(--r-sm);border:1px solid rgba(196,154,60,.24);background:linear-gradient(145deg,rgba(196,154,60,.16),rgba(196,154,60,.04));box-shadow:var(--shadow-sm);}
+.useful-badge{position:absolute;top:6px;right:6px;min-width:17px;height:17px;padding:0 5px;border-radius:999px;background:#d94f5c;color:#fff;font-size:.6rem;font-weight:900;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(217,79,92,.35);animation:quickPulse 1.1s ease-in-out infinite;}
+.useful-badge.show{display:inline-flex;}
+@keyframes quickPulse{0%,100%{transform:scale(1);opacity:.95}50%{transform:scale(1.14);opacity:1}}
 .useful-eyebrow{font-size:.6rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);}
 .useful-title{font-size:.86rem;font-weight:800;line-height:1.1;color:var(--text);}
 .useful-hint{font-size:.64rem;font-weight:700;color:var(--text2);}
@@ -315,9 +318,10 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
         <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
       </div>
       <a class="useful-tile fu fu3" href="materials.html" aria-label="Полезное">
+        <span class="useful-badge" id="materialsUnreadBadge">0</span>
         <div class="useful-eyebrow">Полезное</div>
         <div class="useful-title">Полезное</div>
-        <div class="useful-hint">В ожидании ифтара — для души →</div>
+        <div class="useful-hint">Проверьте новые статьи →</div>
       </a>
     </div>
   </div>
@@ -635,7 +639,29 @@ window.addEventListener('appinstalled',()=>{$('installBanner').style.display='no
 // SERVICE WORKER
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').then(()=>{}).catch(()=>{});}
 
+const READ_PROGRESS_KEY = 'ramReadProgress';
+const READ_COMPAT_KEY = 'ramReadArticles';
+const TOTAL_ARTICLES = 1;
+
+function parseStoredObject(key){
+  try{const parsed=JSON.parse(localStorage.getItem(key)||'{}');return parsed&&typeof parsed==='object'?parsed:{};}catch(e){return {};}
+}
+
+function updateMaterialsUnreadBadge(){
+  const badge=$('materialsUnreadBadge');
+  if(!badge)return;
+  const progress=parseStoredObject(READ_PROGRESS_KEY);
+  const compat=parseStoredObject(READ_COMPAT_KEY);
+  const readCount=['mahram'].filter(id=>Boolean((progress[id]&&progress[id].completed)||compat[id])).length;
+  const unread=Math.max(0,TOTAL_ARTICLES-readCount);
+  badge.textContent=String(unread);
+  badge.classList.toggle('show',unread>0);
+}
+
+window.addEventListener('storage',e=>{if(e.key===READ_PROGRESS_KEY||e.key===READ_COMPAT_KEY){updateMaterialsUnreadBadge();}});
+
 // INIT
+updateMaterialsUnreadBadge();
 viewIdx=todayIdx();
 renderAll();
 setInterval(()=>{if(mode==='day'&&isToday(DATA[viewIdx])){updateProgress(adj(DATA[viewIdx]).imsak,adj(DATA[viewIdx]).iftar);}},1000);
