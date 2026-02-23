@@ -65,12 +65,15 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .nav-meta{min-width:0;display:flex;flex-direction:column;gap:2px;text-align:left;}
 .nav-time-wrap{display:flex;align-items:center;justify-content:flex-end;}
 .nav-clock{display:inline-flex;align-items:baseline;gap:0;color:var(--text);font-family:'Smooch Sans',var(--font-body),sans-serif;font-weight:800;font-variant-numeric:tabular-nums;}
+.nav-clock-part{display:inline-block;min-width:2ch;text-align:center;}
 .nav-clock-main{font-size:2.3rem;line-height:.9;letter-spacing:.03em;}
+.nav-clock-colon{display:inline-block;min-width:.55ch;text-align:center;font-size:2.3rem;line-height:.9;opacity:.9;}
 .nav-clock-sec{font-size:2.3rem;line-height:.9;letter-spacing:.03em;display:inline-block;animation:secondPulse 1s steps(1,end) infinite;}
 @keyframes secondPulse{0%,49%{opacity:.62;}50%,100%{opacity:1;}}
 .nav-date-main{font-size:.81rem;font-weight:800;color:var(--text);line-height:1.2;}
-.nav-date-sub{font-size:.65rem;font-weight:700;color:var(--text3);letter-spacing:.03em;}
+.nav-date-sub{display:none;}
 .nav-today-chip{display:inline-flex;align-items:center;width:fit-content;margin:0 0 2px;padding:2px 8px;border-radius:2px;background:var(--gold);color:#fff;font-size:.55rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
+.nav-ramadan-day{text-align:center;margin-top:5px;font-size:.7rem;font-weight:800;color:var(--gold);letter-spacing:.03em;}
 .chip{display:inline-block;font-size:.56rem;font-weight:800;padding:1px 6px;border-radius:100px;letter-spacing:.07em;text-transform:uppercase;vertical-align:middle;margin-left:5px;}
 .chip-today{background:var(--gold);color:#fff;}
 .chip-laylat{background:rgba(196,154,60,.2);color:var(--gold);}
@@ -268,12 +271,13 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
         </div>
         <div class="nav-time-wrap">
           <div class="nav-clock" aria-live="polite">
-            <span class="nav-clock-main" id="navClockMain">-- : -- : </span><span class="nav-clock-sec" id="navCurrentSeconds">--</span>
+            <span class="nav-clock-part nav-clock-main" id="navClockHours">--</span><span class="nav-clock-colon">:</span><span class="nav-clock-part nav-clock-main" id="navClockMinutes">--</span><span class="nav-clock-colon">:</span><span class="nav-clock-part nav-clock-sec" id="navCurrentSeconds">--</span>
           </div>
         </div>
       </div>
       <button class="nav-arrow" id="nextDay">›</button>
     </div>
+    <div class="nav-ramadan-day" id="navRamadanDay">—</div>
     <div class="hero-grid">
       <div class="hero-card imsak-card fu fu1" id="imsakCard">
         <div class="card-type">Имсак</div>
@@ -478,16 +482,18 @@ function updateNavCenter(){
   const hh=String(now.getHours()).padStart(2,'0');
   const mm=String(now.getMinutes()).padStart(2,'0');
   const ss=String(now.getSeconds()).padStart(2,'0');
-  const timeLabel=`${hh}:${mm}`;
   const ramadanLabel=row?`${row[0]}-й день Рамадана`:'Рамадан';
-  const clockMainNode=$('navClockMain');
+  const hhNode=$('navClockHours');
+  const mmNode=$('navClockMinutes');
   const secNode=$('navCurrentSeconds');
+  const ramadanNode=$('navRamadanDay');
   const chipNode=$('navTodayChip');
-  if(clockMainNode)clockMainNode.textContent=`${hh} : ${mm} : `;
+  if(hhNode)hhNode.textContent=hh;
+  if(mmNode)mmNode.textContent=mm;
   if(secNode)secNode.textContent=ss;
   if(chipNode)chipNode.textContent=isViewedToday?'Сегодня':'Выбранный день';
   $('navDateMain').textContent=`${d.getDate()} ${monthLabel} · ${dayLabel}`;
-  $('navDateSub').textContent=ramadanLabel;
+  if(ramadanNode)ramadanNode.textContent=ramadanLabel;
 }
 
 function renderDay(){
