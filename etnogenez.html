@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#c49a3c" id="metaThemeColor">
     <title>Этногенез</title>
     <style>
         :root {
@@ -11,6 +12,14 @@
             --bg-light: #f4f4f4;
             --white: #ffffff;
             --text-main: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-green: #183f2f;
+            --accent-gold: #d7b16a;
+            --bg-light: #100e0c;
+            --white: #1b1814;
+            --text-main: #f0ebe4;
         }
 
         body {
@@ -218,3 +227,35 @@
     <footer>
         По материалам исторических исследований
     </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabLinks = document.querySelectorAll('.tab-link');
+            tabContents.forEach((item) => item.classList.remove('active'));
+            tabLinks.forEach((item) => item.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        const THEME_KEY='ramTheme';
+        function applyTheme(){
+            const theme=localStorage.getItem(THEME_KEY)||'light';
+            document.documentElement.setAttribute('data-theme',theme);
+            const meta=document.getElementById('metaThemeColor');
+            if(meta)meta.setAttribute('content',theme==='dark'?'#100e0c':'#c49a3c');
+        }
+        applyTheme();
+        window.addEventListener('storage',e=>{if(e.key===THEME_KEY)applyTheme();});
+
+        const back = document.querySelector('.back-button');
+        if(back){
+            back.addEventListener('click', function(e){
+                e.preventDefault();
+                if(history.length > 1) history.back();
+                else window.location.href = 'materials.html';
+            });
+        }
+    </script>
+</body>
+</html>

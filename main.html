@@ -41,7 +41,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .fitir-title{font-size:.78rem;font-weight:800;color:var(--gold);letter-spacing:.04em;text-transform:uppercase;}
 .fitir-title small{display:block;font-size:.65rem;font-weight:600;color:var(--text3);text-transform:none;letter-spacing:0;margin-top:1px;}
 .fitir-body{font-size:.8rem;font-weight:600;color:var(--text2);line-height:1.6;}
-.fitir-amount{display:inline-block;background:var(--gold);color:#fff;font-size:.88rem;font-weight:800;padding:4px 12px;border-radius:100px;margin-top:8px;letter-spacing:.02em;}
+.fitir-amount{display:inline-block;background:var(--gold);color:#fff;font-size:.88rem;font-weight:800;padding:4px 12px;border-radius:100px;margin-top:8px;letter-spacing:.02em;text-decoration:none;}
 .share-list{display:flex;flex-direction:column;gap:7px;}
 .share-item{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface2);cursor:pointer;transition:all .12s;-webkit-tap-highlight-color:transparent;}
 .share-item:active{transform:scale(.98);}
@@ -207,14 +207,6 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .gratitude-sub{font-size:.69rem;font-weight:600;color:var(--text2);line-height:1.35;}
 .gratitude-cta{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;min-width:126px;padding:11px 16px;border-radius:12px;border:1px solid rgba(31,168,106,.24);background:linear-gradient(180deg,rgba(31,168,106,.95),rgba(31,168,106,.82));color:#fff;text-decoration:none;font-size:.72rem;font-weight:700;letter-spacing:.01em;box-shadow:0 2px 4px rgba(31,168,106,.2);transition:transform .15s,filter .15s;-webkit-tap-highlight-color:transparent;}
 .gratitude-cta:active{transform:scale(.98);filter:brightness(.96);}
-.radio-top-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:40px;}
-.radio-top-btn{width:34px;height:18px;border-radius:6px;border:1px solid rgba(196,154,60,.35);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
-.radio-top-btn:active{transform:scale(.93);}
-.radio-top-btn.playing{background:var(--gold-soft);border-color:rgba(196,154,60,.5);}
-.radio-top-btn svg{width:16px;height:16px;display:block;}
-.radio-top-label{font-size:.56rem;line-height:1.1;font-weight:700;color:var(--text3);letter-spacing:.02em;}
-.radio-modal-body{padding:6px 0 2px;}
-.radio-modal-text{font-size:.8rem;font-weight:600;color:var(--text2);line-height:1.55;margin-bottom:12px;}
 .bottom-actions{display:flex;gap:8px;margin-bottom:0;}
 .bottom-btn{flex:1;padding:12px 10px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .bottom-btn:active{transform:scale(.97);}
@@ -248,14 +240,6 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="brand">Рамадан <em>1447</em><small>Рамазан Айы · Крым</small></div>
     <div class="topbar-actions">
       <button class="city-btn" id="cityBtn"><span class="city-dot"></span><span id="cityLabel">Симферополь</span><span style="font-size:.55rem;opacity:.4;margin-left:2px;">▾</span></button>
-      <div class="radio-top-wrap">
-        <button class="radio-top-btn" id="radioToggleBtn" type="button" aria-label="Canli Radio" aria-pressed="false">
-          <svg id="radioToggleIcon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M8 6L18 12L8 18V6Z" fill="currentColor"/>
-          </svg>
-        </button>
-        <span class="radio-top-label">Canli Radio</span>
-      </div>
       <button class="icon-btn" id="settingsBtn" title="Настройки">⚙️</button>
     </div>
   </div>
@@ -345,7 +329,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 
   
 
-  <div class="fitir-card fu fu3" id="fitirCard">
+  <div class="fitir-card fu fu3" id="fitirCard" aria-label="Закят в Исламе">
     <div class="fitir-header">
       <div class="fitir-ico">🤲</div>
       <div>
@@ -358,7 +342,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
       Кърым мусульманлары диний идареси бу йыл фитир садакъасынынъ микъдарыны бир адам ичюн энъ азы белгиледи.<br><br>
       Выплачивается до намаза Ораза байрамы — до <strong>20 марта</strong>.
       <div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <span class="fitir-amount">500 ₽ / чел.</span>
+        <a class="fitir-amount" id="fitirAmountLink" href="zakat.html?entry=fitir-amount" aria-label="Закят в Исламе">500 ₽ / чел.</a>
         <span style="font-size:.72rem;font-weight:600;color:var(--text3);">на каждого члена семьи</span>
       </div>
     </div>
@@ -373,7 +357,6 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   <div class="footer-inner">
     <div class="footer-made">Расписание Имсак и Ифтар для мусульман Крыма.<br><em style="color:var(--gold);">Рамадан Мубарак!</em></div>
     <div class="footer-tg">Telegram: <a href="https://t.me/EnrikeTomas" target="_blank">@EnrikeTomas</a></div>
-    <div class="footer-tg">📚 <a href="materials.html">Познавательно</a></div>
   </div>
 </div>
 
@@ -389,18 +372,6 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 <div class="overlay" id="calSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">📅 Добавить в календарь</div><div class="sheet-sub">Авторизация не нужна</div><button class="cal-btn cal-btn-primary" id="icsBtn">📥 Скачать .ics (Apple · Outlook · Яндекс)</button><button class="cal-btn" id="googleBtn"><svg width="15" height="15" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google Календарь</button><div class="cal-hint">💡 <strong>.ics файл</strong> — универсальный формат для Apple Calendar, Google, Outlook. Открыть файл → он сам предложит добавить события.</div><button class="cal-btn" style="margin-top:10px;" onclick="closeSheet('calSheet')">Отмена</button></div></div>
 
 <!-- RADIO MODAL -->
-<div class="overlay" id="radioIntroSheet">
-  <div class="sheet">
-    <div class="sheet-pull"><div class="sheet-handle"></div></div>
-    <div class="sheet-title">🎧 Теперь доступен Canli Radio</div>
-    <div class="radio-modal-body">
-      <p class="radio-modal-text">На главной странице появилась кнопка Play/Pause для прямого эфира Canli Radio. Включайте и ставьте на паузу в любой момент.</p>
-      <button class="cal-btn cal-btn-primary" id="radioIntroOkBtn">Понятно</button>
-    </div>
-  </div>
-</div>
-
-<audio id="canliRadio" preload="none" src="https://drh-connect.dline-media.com/canli"></audio>
 
 <!-- SETTINGS SHEET -->
 <div class="overlay" id="settingsSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">Настройки</div><div class="sheet-sub">Персонализируйте интерфейс</div>
@@ -433,6 +404,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 <button class="cal-btn" style="margin-top:14px;" onclick="closeSheet('shareSheet')">Отмена</button>
 </div></div>
 
+<script src="content-release.js"></script>
 <script>
 const DATA=[[1,19,2,'6:11','18:27'],[2,20,2,'6:10','18:28'],[3,21,2,'6:08','18:30'],[4,22,2,'6:07','18:31'],[5,23,2,'6:05','18:32'],[6,24,2,'6:04','18:34'],[7,25,2,'6:02','18:35'],[8,26,2,'6:00','18:36'],[9,27,2,'5:59','18:38'],[10,28,2,'5:57','18:39'],[11,1,3,'5:55','18:40'],[12,2,3,'5:53','18:42'],[13,3,3,'5:52','18:43'],[14,4,3,'5:50','18:45'],[15,5,3,'5:48','18:46'],[16,6,3,'5:46','18:47'],[17,7,3,'5:44','18:48'],[18,8,3,'5:43','18:50'],[19,9,3,'5:41','18:51'],[20,10,3,'5:39','18:52'],[21,11,3,'5:37','18:54'],[22,12,3,'5:35','18:55'],[23,13,3,'5:33','18:56'],[24,14,3,'5:31','18:58'],[25,15,3,'5:29','18:59'],[26,16,3,'5:27','19:00'],[27,17,3,'5:25','19:01'],[28,18,3,'5:23','19:03'],[29,19,3,'5:21','19:04']];
 const CITIES=[{name:'Акъмесджит (Симферополь)',short:'Симф.',offset:0},{name:'Алушта',short:'Алушта',offset:-1},{name:'Бахчисарай',short:'Бахч.',offset:2},{name:'Къарасувбазар (Белогорск)',short:'Белог.',offset:-2},{name:'Джанкой',short:'Джанкой',offset:-1},{name:'Кезлев (Евпатория)',short:'Кезлев',offset:3},{name:'Керчь',short:'Керич (Керчь)',offset:-9},{name:'Эски Къырым (Старый Крым)',short:'Ст.Крым',offset:-3},{name:'Кефе (Феодосия)',short:'Кефе'	,offset:-5},{name:'Ялта',short:'Ялта',offset:4},{name:'Ор Капы (Перекоп)',short:'Ор Капы',offset:2},{name:'Акъяр (Севастополь)',short:'Акъяр',offset:2},{name:'Акъшейх (Раздольное)',short:'Акъшейх',offset:3},{name:'Акъмечит (Черноморское)',short:'Акъмечит',offset:4},{name:'Судакъ',short:'Судакъ',offset:-3}];
@@ -502,99 +474,23 @@ function setupShare(){
 }
 setupShare();
 
-// CANLI RADIO
-const RADIO_MODAL_KEY='ramCanliRadioModalSeen';
-const RADIO_PUSH_KEY='ramCanliRadioPushSeen';
+// USER NOTIFICATIONS
 const SUPPORT_PUSH_KEY='ramSupportPushSeen';
 let userEngagementScore=0;
-const radioAudio=$('canliRadio');
-const radioToggleBtn=$('radioToggleBtn');
-
-function updateRadioButtonState(isPlaying){
-  if(!radioToggleBtn)return;
-  $('radioToggleIcon').innerHTML=isPlaying?'<rect x="7" y="6" width="3" height="12" fill="currentColor"/><rect x="14" y="6" width="3" height="12" fill="currentColor"/>':'<path d="M8 6L18 12L8 18V6Z" fill="currentColor"/>'; 
-    radioToggleBtn.classList.toggle('playing',isPlaying);
-  radioToggleBtn.setAttribute('aria-pressed',isPlaying?'true':'false');
-}
-
-async function toggleCanliRadio(){
-  if(!radioAudio)return;
-  if(radioAudio.paused){
-    try{
-      await radioAudio.play();
-      updateRadioButtonState(true);
-    }catch(e){
-      alert('Не удалось запустить поток Canli Radio. Проверьте интернет и попробуйте снова.');
-      updateRadioButtonState(false);
-    }
-  }else{
-    radioAudio.pause();
-    updateRadioButtonState(false);
-  }
-}
-
-function maybeShowCanliRadioIntro(){
-  if(localStorage.getItem(RADIO_MODAL_KEY))return;
-  openSheet('radioIntroSheet');
-}
-
-function maybeSendCanliRadioPush(){
-  if(localStorage.getItem(RADIO_PUSH_KEY))return;
-  if(!('Notification' in window))return;
-
-  const showNotification=()=>{
-    try{new Notification('Canli Radio доступно', {body:'На главной странице появилась кнопка Play/Pause для прослушивания эфира.'});}catch(e){}
-    localStorage.setItem(RADIO_PUSH_KEY,'1');
-  };
-
-  if(Notification.permission==='granted'){
-    showNotification();
-    return;
-  }
-
-  if(Notification.permission==='default'){
-    Notification.requestPermission().then(permission=>{
-      if(permission==='granted')showNotification();
-    }).catch(()=>{});
-  }
-}
-
 function registerEngagement(){userEngagementScore=Math.min(10,userEngagementScore+1);}
 ['click','scroll','touchstart'].forEach(evt=>window.addEventListener(evt,registerEngagement,{passive:true}));
 
 function maybeSendSupportPush(){
   if(localStorage.getItem(SUPPORT_PUSH_KEY))return;
   if(!('Notification' in window))return;
-  const canNotify=Notification.permission==='granted';
-  if(!canNotify)return;
+  if(Notification.permission!=='granted')return;
   try{
     new Notification('Спасибо, что пользуетесь приложением', {body:'Расписание уже помогает многим. Проект поддержали 18 человек — вы тоже можете присоединиться и поблагодарить автора.'});
     localStorage.setItem(SUPPORT_PUSH_KEY,'1');
   }catch(e){}
 }
 
-setTimeout(()=>{
-  if(userEngagementScore>=3){maybeSendSupportPush();}
-},45000);
-
-if(radioToggleBtn){
-  radioToggleBtn.onclick=toggleCanliRadio;
-}
-
-if(radioAudio){
-  radioAudio.addEventListener('pause',()=>updateRadioButtonState(false));
-  radioAudio.addEventListener('ended',()=>updateRadioButtonState(false));
-  radioAudio.addEventListener('play',()=>updateRadioButtonState(true));
-}
-
-const radioIntroOkBtn=$('radioIntroOkBtn');
-if(radioIntroOkBtn){
-  radioIntroOkBtn.onclick=()=>{
-    localStorage.setItem(RADIO_MODAL_KEY,'1');
-    closeSheet('radioIntroSheet');
-    maybeSendCanliRadioPush();
-  };
-}
+setTimeout(()=>{if(userEngagementScore>=3){maybeSendSupportPush();}},45000);
 
 // DAY VIEW
 function updateNavCenter(){
@@ -757,7 +653,6 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').the
 
 const READ_PROGRESS_KEY = 'ramReadProgress';
 const READ_COMPAT_KEY = 'ramReadArticles';
-const TOTAL_ARTICLES = 2;
 
 function parseStoredObject(key){
   try{const parsed=JSON.parse(localStorage.getItem(key)||'{}');return parsed&&typeof parsed==='object'?parsed:{};}catch(e){return {};}
@@ -765,20 +660,50 @@ function parseStoredObject(key){
 
 function updateMaterialsUnreadBadge(){
   const badge=$('materialsUnreadBadge');
-  if(!badge)return;
+  if(!badge||!window.ContentRelease)return;
   const progress=parseStoredObject(READ_PROGRESS_KEY);
   const compat=parseStoredObject(READ_COMPAT_KEY);
-  const readCount=['mahram','chelebidzhihan'].filter(id=>Boolean((progress[id]&&progress[id].completed)||compat[id])).length;
-  const unread=Math.max(0,TOTAL_ARTICLES-readCount);
+  const release=window.ContentRelease.getReleaseState();
+  const readCount=release.availableArticles.filter(a=>Boolean((progress[a.id]&&progress[a.id].completed)||compat[a.id])).length;
+  const unread=Math.max(0,release.availableCount-readCount);
   badge.textContent=String(unread);
   badge.classList.toggle('show',unread>0);
 }
 
-window.addEventListener('storage',e=>{if(e.key===READ_PROGRESS_KEY||e.key===READ_COMPAT_KEY){updateMaterialsUnreadBadge();}});
+function updateZakatAccessState(){
+  if(!window.ContentRelease)return;
+  const fitirCard=$('fitirCard');
+  const amountLink=$('fitirAmountLink');
+  if(!fitirCard||!amountLink)return;
+  const release=window.ContentRelease.getReleaseState();
+  if(release.allZakatPublished){
+    fitirCard.style.cursor='pointer';
+    fitirCard.onclick=()=>{window.location.href='zakat.html';};
+    fitirCard.setAttribute('title','Перейти в раздел «Закят в Исламе»');
+  }else{
+    fitirCard.onclick=null;
+    fitirCard.style.cursor='default';
+    fitirCard.removeAttribute('title');
+  }
+}
+
+function processAutoReleases(){
+  if(!window.ContentRelease)return;
+  const release=window.ContentRelease.getReleaseState();
+  window.ContentRelease.showReleaseNotification(release);
+}
+
+window.addEventListener('storage',e=>{
+  if(e.key===READ_PROGRESS_KEY||e.key===READ_COMPAT_KEY||e.key===window.ContentRelease.RELEASE_START_KEY){
+    updateMaterialsUnreadBadge();
+    updateZakatAccessState();
+  }
+});
 
 // INIT
+processAutoReleases();
 updateMaterialsUnreadBadge();
-maybeShowCanliRadioIntro();
+updateZakatAccessState();
 viewIdx=todayIdx();
 renderAll();
 setInterval(()=>{
