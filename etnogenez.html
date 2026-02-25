@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Этногенез</title>
+    <style>
+        :root {
+            --primary-green: #0b4a32;
+            --accent-gold: #c5a059;
+            --bg-light: #f4f4f4;
+            --white: #ffffff;
+            --text-main: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Компактный Хэйдер как на mahram.html */
+        .top-nav {
+            background-color: var(--primary-green);
+            height: 56px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-title {
+            color: white;
+            margin-left: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* Компактная зеленая область */
+        .hero-mini {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 10px 20px 25px;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .hero-mini p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 14px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            padding: 15px;
+            max-width: 500px;
+            margin: -15px auto 0; /* Наложение на зеленый фон */
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: var(--primary-green);
+            font-size: 1.2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* Стили вкладок */
+        .tabs-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .tab-link {
+            background: #e0e0e0;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            white-space: nowrap;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .tab-link.active {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; font-size: 0.9rem; }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <a href="#" class="back-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </a>
+        <div class="nav-title">Наследие предков</div>
+    </div>
+
+    <div class="hero-mini">
+        <p>Этногенез крымских татар</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="card">
+            <h2>Происхождение народа</h2>
+            <p>Этническая история крымскотатарского народа формировалась в Крыму на протяжении тысячелетий. В этом сложном процессе приняли участие многие народы: тавры, киммерийцы, скифы, сарматы, аланы, эллины, готы, гунны, хазары, печенеги, кыпчаки, итальянцы и ордынцы. Все они внесли свой генетический вклад и заложили фундамент нации.</p>
+        </div>
+
+        <div class="tabs-container">
+            <button class="tab-link active" onclick="openTab(event, 'orta')">ОРТА ЁЛАК</button>
+            <button class="tab-link" onclick="openTab(event, 'nogay')">НОГАИ</button>
+            <button class="tab-link" onclick="openTab(event, 'yaly')">ЯЛЫ БОЙЛЮ</button>
+        </div>
+
+        <!-- Контент вкладок -->
+        <div id="orta" class="tab-content active">
+            <div class="card">
+                <h2>Горцы и предгорцы</h2>
+                <p>Населяют территорию Главной и Внутренней гряд Крымских гор. Сюда входят районы Бахчисарая, Симферополя, Белогорска (Карасубазара).</p>
+                <ul>
+                    <li><strong>Предки:</strong> Тавры, скифы, аланы, готы, эллины, кыпчаки.</li>
+                    <li><strong>Особенности:</strong> Готское влияние заметно в Бахчисарайском районе.</li>
+                    <li><strong>Тип:</strong> Европеоидный, унаследованный от эллинов и готов.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="nogay" class="tab-content">
+            <div class="card">
+                <h2>Степные жители</h2>
+                <p>Их ареал — Чоль Тараф, включающий равнинную часть Крыма и Керченский полуостров.</p>
+                <ul>
+                    <li><strong>Предки:</strong> Основную роль сыграли кыпчаки и ордынцы.</li>
+                    <li><strong>Язык:</strong> Диалект относится к кыпчакской группе тюркских языков.</li>
+                    <li><strong>Тип:</strong> Европеоидный с элементами монголоидности (до 10%).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="yaly" class="tab-content">
+            <div class="card">
+                <h2>Южнобережные</h2>
+                <p>Проживают от Фороса до Феодосии. Это самый молодой субэтнос в составе народа.</p>
+                <ul>
+                    <li><strong>Предки:</strong> Эллины, итальянцы, сельджуки, готы, тавры.</li>
+                    <li><strong>Диалект:</strong> Преобладает огузо-сельджукская подгруппа.</li>
+                    <li><strong>Тип:</strong> Чистый европеоидный тип, признаки монголоидности отсутствуют.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        По материалам исторических исследований
+    </footer>
