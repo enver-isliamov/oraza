@@ -34,6 +34,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .icon-btn{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:var(--shadow-sm);transition:all .15s;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
 .icon-btn:active{transform:scale(.93);}
 .icon-btn.theme-active{background:var(--gold-soft);border-color:rgba(196,154,60,.3);}
+.icon-btn.aod-active{background:var(--iftar-soft);border-color:rgba(31,168,106,.35);color:var(--iftar);}
 .fitir-card{background:linear-gradient(135deg,rgba(196,154,60,.13) 0%,rgba(196,154,60,.05) 100%);border:1px solid rgba(196,154,60,.22);border-radius:var(--r);padding:16px 16px 14px;margin-bottom:10px;position:relative;overflow:hidden;display:block;color:inherit;text-decoration:none;}
 .fitir-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(196,154,60,.15),transparent 70%);pointer-events:none;}
 .fitir-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
@@ -232,6 +233,26 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .fu2{animation-delay:.08s;}
 .fu3{animation-delay:.12s;}
 
+body.aod-mode{background:#090806;color:#faf4e9;overflow:hidden;}
+body.aod-mode .topbar{border-bottom-color:rgba(250,244,233,.1);background:#090806;}
+body.aod-mode .main{padding-top:10px;padding-bottom:0;}
+body.aod-mode .tabs-wrap,body.aod-mode #scheduleArea,body.aod-mode #noticesWrap,body.aod-mode .fitir-card,body.aod-mode .gratitude-card,body.aod-mode .app-footer,body.aod-mode .sticky-footer{display:none !important;}
+body.aod-mode .hero-grid{grid-template-columns:1fr;gap:12px;}
+body.aod-mode .hero-card{min-height:31vh;padding:22px 18px;border-width:2px;}
+body.aod-mode .card-type{font-size:1rem;}
+body.aod-mode .card-time{font-size:clamp(3rem,11vw,5rem);line-height:1;}
+body.aod-mode .card-name{font-size:1.05rem;}
+body.aod-mode .card-tap-hint{font-size:.84rem;opacity:.75;}
+body.aod-mode .day-nav{margin-bottom:10px;padding:14px;border-radius:18px;border:1px solid rgba(250,244,233,.12);background:#11100d;}
+body.aod-mode .nav-date-main{font-size:1.12rem;}
+body.aod-mode .nav-ramadan-day{font-size:.92rem;margin-bottom:10px;}
+body.aod-mode .nav-clock-main{font-size:2rem;}
+body.aod-mode .nav-clock-sec{font-size:1rem;}
+body.aod-mode .progress-bar{padding:16px 15px;border-radius:16px;border-color:rgba(250,244,233,.12);background:#11100d;}
+body.aod-mode .progress-label,body.aod-mode .progress-countdown{font-size:1rem;}
+body.aod-mode .progress-track{height:16px;}
+body.aod-mode .topbar-inner{max-width:620px;}
+body.aod-mode .icon-btn{width:40px;height:40px;font-size:18px;}
 </style>
 </head>
 <body>
@@ -241,7 +262,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="brand">Рамадан <em>1447</em><small>Рамазан Айы · Крым</small></div>
     <div class="topbar-actions">
       <button class="city-btn" id="cityBtn"><span class="city-dot"></span><span id="cityLabel">Симферополь</span><span style="font-size:.55rem;opacity:.4;margin-left:2px;">▾</span></button>
-      
+      <button class="icon-btn" id="aodBtn" title="Режим всегда на экране" aria-pressed="false">⛶</button>
       <button class="icon-btn" id="settingsBtn" title="Настройки">⚙️</button>
     </div>
   </div>
@@ -449,6 +470,57 @@ function closeSheet(id){$(id).classList.remove('open');document.body.style.overf
 document.querySelectorAll('.overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}});});
 $('settingsBtn').onclick=()=>{openSheet('settingsSheet');registerEngagement();if(userEngagementScore>=2)maybeSendSupportPush();};
 $('calBtn').onclick=()=>openSheet('calSheet');
+
+
+// ALWAYS ON DISPLAY
+const AOD_KEY='ramAodEnabled';
+const aodLandscapeQuery=window.matchMedia('(orientation: landscape) and (max-height: 560px)');
+let aodWakeLock=null;
+
+function shouldUseLandscapeAod(){
+  return aodLandscapeQuery.matches;
+}
+
+async function syncWakeLock(){
+  const active=document.body.classList.contains('aod-mode');
+  if(!('wakeLock' in navigator))return;
+  if(active && !document.hidden && !aodWakeLock){
+    try{aodWakeLock=await navigator.wakeLock.request('screen');aodWakeLock.addEventListener('release',()=>{aodWakeLock=null;});}catch(e){}
+  }
+  if((!active||document.hidden) && aodWakeLock){
+    try{await aodWakeLock.release();}catch(e){}
+    aodWakeLock=null;
+  }
+}
+
+function updateAodButton(){
+  const btn=$('aodBtn');
+  if(!btn)return;
+  const manual=localStorage.getItem(AOD_KEY)==='1';
+  const active=document.body.classList.contains('aod-mode');
+  btn.classList.toggle('aod-active',active);
+  btn.setAttribute('aria-pressed',String(manual));
+  btn.textContent=active?'🕯️':'⛶';
+  btn.title=active?'Отключить режим всегда на экране':'Режим всегда на экране';
+}
+
+function applyAodMode(){
+  const manual=localStorage.getItem(AOD_KEY)==='1';
+  const active=manual||shouldUseLandscapeAod();
+  document.body.classList.toggle('aod-mode',active);
+  updateAodButton();
+  syncWakeLock();
+}
+
+$('aodBtn').onclick=()=>{
+  const manual=localStorage.getItem(AOD_KEY)==='1';
+  localStorage.setItem(AOD_KEY,manual?'0':'1');
+  applyAodMode();
+};
+
+aodLandscapeQuery.addEventListener('change',applyAodMode);
+document.addEventListener('visibilitychange',syncWakeLock);
+window.addEventListener('storage',e=>{if(e.key===AOD_KEY){applyAodMode();}});
 
 // SHARE - bottom button
 $('shareBottomBtn').onclick=()=>openSheet('shareSheet');
@@ -702,6 +774,7 @@ window.addEventListener('storage',e=>{
 });
 
 // INIT
+applyAodMode();
 processAutoReleases();
 updateMaterialsUnreadBadge();
 updateZakatAccessState();
