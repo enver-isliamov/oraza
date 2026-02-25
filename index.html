@@ -207,16 +207,12 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .gratitude-sub{font-size:.69rem;font-weight:600;color:var(--text2);line-height:1.35;}
 .gratitude-cta{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;min-width:126px;padding:11px 16px;border-radius:12px;border:1px solid rgba(31,168,106,.24);background:linear-gradient(180deg,rgba(31,168,106,.95),rgba(31,168,106,.82));color:#fff;text-decoration:none;font-size:.72rem;font-weight:700;letter-spacing:.01em;box-shadow:0 2px 4px rgba(31,168,106,.2);transition:transform .15s,filter .15s;-webkit-tap-highlight-color:transparent;}
 .gratitude-cta:active{transform:scale(.98);filter:brightness(.96);}
-.radio-card{margin:10px 0 12px;padding:13px 12px;border-radius:14px;border:1px solid rgba(196,154,60,.26);background:linear-gradient(150deg,rgba(196,154,60,.15) 0%,rgba(196,154,60,.05) 100%);box-shadow:var(--shadow-sm);}
-.radio-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px;}
-.radio-title{font-size:.85rem;font-weight:800;color:var(--text);}
-.radio-sub{font-size:.72rem;font-weight:600;color:var(--text3);line-height:1.35;margin-top:3px;}
-.radio-live{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:rgba(31,168,106,.14);color:var(--iftar);font-size:.62rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;}
-.radio-toggle-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:12px;border:1px solid rgba(196,154,60,.38);background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:.82rem;font-weight:800;cursor:pointer;transition:transform .12s,box-shadow .12s,background .12s;-webkit-tap-highlight-color:transparent;}
-.radio-toggle-btn:active{transform:scale(.98);}
-.radio-toggle-btn.playing{background:var(--gold-soft);box-shadow:inset 0 0 0 1px rgba(196,154,60,.2);}
-.radio-note{margin-top:8px;font-size:.67rem;font-weight:600;color:var(--text3);text-align:center;}
-.radio-icon{font-size:1rem;line-height:1;}
+.radio-top-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:40px;}
+.radio-top-btn{width:34px;height:34px;border-radius:9px;border:1px solid rgba(196,154,60,.35);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.radio-top-btn:active{transform:scale(.93);}
+.radio-top-btn.playing{background:var(--gold-soft);border-color:rgba(196,154,60,.5);}
+.radio-top-btn svg{width:16px;height:16px;display:block;}
+.radio-top-label{font-size:.56rem;line-height:1.1;font-weight:700;color:var(--text3);letter-spacing:.02em;}
 .radio-modal-body{padding:6px 0 2px;}
 .radio-modal-text{font-size:.8rem;font-weight:600;color:var(--text2);line-height:1.55;margin-bottom:12px;}
 .bottom-actions{display:flex;gap:8px;margin-bottom:0;}
@@ -252,7 +248,14 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="brand">Рамадан <em>1447</em><small>Рамазан Айы · Крым</small></div>
     <div class="topbar-actions">
       <button class="city-btn" id="cityBtn"><span class="city-dot"></span><span id="cityLabel">Симферополь</span><span style="font-size:.55rem;opacity:.4;margin-left:2px;">▾</span></button>
-      <button class="icon-btn" id="themeBtn" title="Светлая/тёмная тема">🌙</button>
+      <div class="radio-top-wrap">
+        <button class="radio-top-btn" id="radioToggleBtn" type="button" aria-label="Canli Radio" aria-pressed="false">
+          <svg id="radioToggleIcon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 6L18 12L8 18V6Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <span class="radio-top-label">Canli Radio</span>
+      </div>
       <button class="icon-btn" id="settingsBtn" title="Настройки">⚙️</button>
     </div>
   </div>
@@ -411,10 +414,13 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   </div>
 </div>
 
+<audio id="canliRadio" preload="none" src="https://drh-connect.dline-media.com/canli"></audio>
+
 <!-- SETTINGS SHEET -->
 <div class="overlay" id="settingsSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">Настройки</div><div class="sheet-sub">Персонализируйте интерфейс</div>
 
 <div class="settings-group"><div class="settings-group-title">Установка</div><div class="settings-item" style="cursor:pointer;" onclick="openSheet('installSheet')"><div><div class="si-label">Установить на экран</div><div class="si-sub">Работает без интернета как приложение</div></div><span style="font-size:.9rem;color:var(--text3);">›</span></div></div>
+<div class="settings-group"><div class="settings-group-title">Интерфейс</div><div class="settings-item"><div><div class="si-label">Тема приложения</div><div class="si-sub" id="themeLabel">Светлая</div></div><button class="icon-btn" id="themeBtn" title="Светлая/тёмная тема">🌙</button></div></div>
 <div class="settings-group"><div class="settings-group-title">О приложении</div><div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:6px;"><div class="si-label">Рамадан 1447 · Крым</div><div class="si-sub" style="line-height:1.6;">Это приложение создано с любовью и заботой для крымских мусульман. Пусть ваш пост будет принят, а дуа услышаны. Рамадан Мубарак! 🤲</div><a href="https://t.me/EnrikeTomas" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:var(--gold);text-decoration:none;">✉️ Enver Isliamov · @EnrikeTomas</a><a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="support-link">☕ Поддержать проект</a><div class="si-sub">Версия 3.0 · PWA</div></div></div>
 <button class="cal-btn" onclick="closeSheet('settingsSheet')">Закрыть</button></div></div>
 
@@ -482,7 +488,7 @@ $('cityBtn').onclick=()=>{buildCityList();openSheet('citySheet');};
 function openSheet(id){$(id).classList.add('open');document.body.style.overflow='hidden';}
 function closeSheet(id){$(id).classList.remove('open');document.body.style.overflow='';}
 document.querySelectorAll('.overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}});});
-$('settingsBtn').onclick=()=>openSheet('settingsSheet');
+$('settingsBtn').onclick=()=>{openSheet('settingsSheet');registerEngagement();if(userEngagementScore>=2)maybeSendSupportPush();};
 $('calBtn').onclick=()=>openSheet('calSheet');
 
 // SHARE - bottom button
@@ -513,14 +519,15 @@ setupShare();
 // CANLI RADIO
 const RADIO_MODAL_KEY='ramCanliRadioModalSeen';
 const RADIO_PUSH_KEY='ramCanliRadioPushSeen';
+const SUPPORT_PUSH_KEY='ramSupportPushSeen';
+let userEngagementScore=0;
 const radioAudio=$('canliRadio');
 const radioToggleBtn=$('radioToggleBtn');
 
 function updateRadioButtonState(isPlaying){
   if(!radioToggleBtn)return;
-  $('radioToggleIcon').textContent=isPlaying?'⏸️':'▶️';
-  $('radioToggleLabel').textContent=isPlaying?'Пауза Canli Radio':'Включить Canli Radio';
-  radioToggleBtn.classList.toggle('playing',isPlaying);
+  $('radioToggleIcon').innerHTML=isPlaying?'<rect x="7" y="6" width="3" height="12" fill="currentColor"/><rect x="14" y="6" width="3" height="12" fill="currentColor"/>':'<path d="M8 6L18 12L8 18V6Z" fill="currentColor"/>'; 
+    radioToggleBtn.classList.toggle('playing',isPlaying);
   radioToggleBtn.setAttribute('aria-pressed',isPlaying?'true':'false');
 }
 
@@ -565,6 +572,24 @@ function maybeSendCanliRadioPush(){
     }).catch(()=>{});
   }
 }
+
+function registerEngagement(){userEngagementScore=Math.min(10,userEngagementScore+1);}
+['click','scroll','touchstart'].forEach(evt=>window.addEventListener(evt,registerEngagement,{passive:true}));
+
+function maybeSendSupportPush(){
+  if(localStorage.getItem(SUPPORT_PUSH_KEY))return;
+  if(!('Notification' in window))return;
+  const canNotify=Notification.permission==='granted';
+  if(!canNotify)return;
+  try{
+    new Notification('Спасибо, что пользуетесь приложением', {body:'Расписание уже помогает многим. Проект поддержали 18 человек — вы тоже можете присоединиться и поблагодарить автора.'});
+    localStorage.setItem(SUPPORT_PUSH_KEY,'1');
+  }catch(e){}
+}
+
+setTimeout(()=>{
+  if(userEngagementScore>=3){maybeSendSupportPush();}
+},45000);
 
 if(radioToggleBtn){
   radioToggleBtn.onclick=toggleCanliRadio;
