@@ -207,6 +207,14 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .gratitude-sub{font-size:.69rem;font-weight:600;color:var(--text2);line-height:1.35;}
 .gratitude-cta{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;min-width:126px;padding:11px 16px;border-radius:12px;border:1px solid rgba(31,168,106,.24);background:linear-gradient(180deg,rgba(31,168,106,.95),rgba(31,168,106,.82));color:#fff;text-decoration:none;font-size:.72rem;font-weight:700;letter-spacing:.01em;box-shadow:0 2px 4px rgba(31,168,106,.2);transition:transform .15s,filter .15s;-webkit-tap-highlight-color:transparent;}
 .gratitude-cta:active{transform:scale(.98);filter:brightness(.96);}
+.radio-top-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:40px;}
+.radio-top-btn{width:34px;height:34px;border-radius:9px;border:1px solid rgba(196,154,60,.35);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.radio-top-btn:active{transform:scale(.93);}
+.radio-top-btn.playing{background:var(--gold-soft);border-color:rgba(196,154,60,.5);}
+.radio-top-btn svg{width:16px;height:16px;display:block;}
+.radio-top-label{font-size:.56rem;line-height:1.1;font-weight:700;color:var(--text3);letter-spacing:.02em;}
+.radio-modal-body{padding:6px 0 2px;}
+.radio-modal-text{font-size:.8rem;font-weight:600;color:var(--text2);line-height:1.55;margin-bottom:12px;}
 .bottom-actions{display:flex;gap:8px;margin-bottom:0;}
 .bottom-btn{flex:1;padding:12px 10px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .bottom-btn:active{transform:scale(.97);}
@@ -240,7 +248,14 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="brand">Рамадан <em>1447</em><small>Рамазан Айы · Крым</small></div>
     <div class="topbar-actions">
       <button class="city-btn" id="cityBtn"><span class="city-dot"></span><span id="cityLabel">Симферополь</span><span style="font-size:.55rem;opacity:.4;margin-left:2px;">▾</span></button>
-      <button class="icon-btn" id="themeBtn" title="Светлая/тёмная тема">🌙</button>
+      <div class="radio-top-wrap">
+        <button class="radio-top-btn" id="radioToggleBtn" type="button" aria-label="Canli Radio" aria-pressed="false">
+          <svg id="radioToggleIcon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 6L18 12L8 18V6Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <span class="radio-top-label">Canli Radio</span>
+      </div>
       <button class="icon-btn" id="settingsBtn" title="Настройки">⚙️</button>
     </div>
   </div>
@@ -372,10 +387,25 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 <!-- CAL SHEET -->
 <div class="overlay" id="calSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">📅 Добавить в календарь</div><div class="sheet-sub">Авторизация не нужна</div><button class="cal-btn cal-btn-primary" id="icsBtn">📥 Скачать .ics (Apple · Outlook · Яндекс)</button><button class="cal-btn" id="googleBtn"><svg width="15" height="15" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google Календарь</button><div class="cal-hint">💡 <strong>.ics файл</strong> — универсальный формат для Apple Calendar, Google, Outlook. Открыть файл → он сам предложит добавить события.</div><button class="cal-btn" style="margin-top:10px;" onclick="closeSheet('calSheet')">Отмена</button></div></div>
 
+<!-- RADIO MODAL -->
+<div class="overlay" id="radioIntroSheet">
+  <div class="sheet">
+    <div class="sheet-pull"><div class="sheet-handle"></div></div>
+    <div class="sheet-title">🎧 Теперь доступен Canli Radio</div>
+    <div class="radio-modal-body">
+      <p class="radio-modal-text">На главной странице появилась кнопка Play/Pause для прямого эфира Canli Radio. Включайте и ставьте на паузу в любой момент.</p>
+      <button class="cal-btn cal-btn-primary" id="radioIntroOkBtn">Понятно</button>
+    </div>
+  </div>
+</div>
+
+<audio id="canliRadio" preload="none" src="https://drh-connect.dline-media.com/canli"></audio>
+
 <!-- SETTINGS SHEET -->
 <div class="overlay" id="settingsSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">Настройки</div><div class="sheet-sub">Персонализируйте интерфейс</div>
 
 <div class="settings-group"><div class="settings-group-title">Установка</div><div class="settings-item" style="cursor:pointer;" onclick="openSheet('installSheet')"><div><div class="si-label">Установить на экран</div><div class="si-sub">Работает без интернета как приложение</div></div><span style="font-size:.9rem;color:var(--text3);">›</span></div></div>
+<div class="settings-group"><div class="settings-group-title">Интерфейс</div><div class="settings-item"><div><div class="si-label">Тема приложения</div><div class="si-sub" id="themeLabel">Светлая</div></div><button class="icon-btn" id="themeBtn" title="Светлая/тёмная тема">🌙</button></div></div>
 <div class="settings-group"><div class="settings-group-title">О приложении</div><div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:6px;"><div class="si-label">Рамадан 1447 · Крым</div><div class="si-sub" style="line-height:1.6;">Это приложение создано с любовью и заботой для крымских мусульман. Пусть ваш пост будет принят, а дуа услышаны. Рамадан Мубарак! 🤲</div><a href="https://t.me/EnrikeTomas" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:var(--gold);text-decoration:none;">✉️ Enver Isliamov · @EnrikeTomas</a><a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="support-link">☕ Поддержать проект</a><div class="si-sub">Версия 3.0 · PWA</div></div></div>
 <button class="cal-btn" onclick="closeSheet('settingsSheet')">Закрыть</button></div></div>
 
@@ -443,7 +473,7 @@ $('cityBtn').onclick=()=>{buildCityList();openSheet('citySheet');};
 function openSheet(id){$(id).classList.add('open');document.body.style.overflow='hidden';}
 function closeSheet(id){$(id).classList.remove('open');document.body.style.overflow='';}
 document.querySelectorAll('.overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}});});
-$('settingsBtn').onclick=()=>openSheet('settingsSheet');
+$('settingsBtn').onclick=()=>{openSheet('settingsSheet');registerEngagement();if(userEngagementScore>=2)maybeSendSupportPush();};
 $('calBtn').onclick=()=>openSheet('calSheet');
 
 // SHARE - bottom button
@@ -470,6 +500,100 @@ function setupShare(){
   };
 }
 setupShare();
+
+// CANLI RADIO
+const RADIO_MODAL_KEY='ramCanliRadioModalSeen';
+const RADIO_PUSH_KEY='ramCanliRadioPushSeen';
+const SUPPORT_PUSH_KEY='ramSupportPushSeen';
+let userEngagementScore=0;
+const radioAudio=$('canliRadio');
+const radioToggleBtn=$('radioToggleBtn');
+
+function updateRadioButtonState(isPlaying){
+  if(!radioToggleBtn)return;
+  $('radioToggleIcon').innerHTML=isPlaying?'<rect x="7" y="6" width="3" height="12" fill="currentColor"/><rect x="14" y="6" width="3" height="12" fill="currentColor"/>':'<path d="M8 6L18 12L8 18V6Z" fill="currentColor"/>'; 
+    radioToggleBtn.classList.toggle('playing',isPlaying);
+  radioToggleBtn.setAttribute('aria-pressed',isPlaying?'true':'false');
+}
+
+async function toggleCanliRadio(){
+  if(!radioAudio)return;
+  if(radioAudio.paused){
+    try{
+      await radioAudio.play();
+      updateRadioButtonState(true);
+    }catch(e){
+      alert('Не удалось запустить поток Canli Radio. Проверьте интернет и попробуйте снова.');
+      updateRadioButtonState(false);
+    }
+  }else{
+    radioAudio.pause();
+    updateRadioButtonState(false);
+  }
+}
+
+function maybeShowCanliRadioIntro(){
+  if(localStorage.getItem(RADIO_MODAL_KEY))return;
+  openSheet('radioIntroSheet');
+}
+
+function maybeSendCanliRadioPush(){
+  if(localStorage.getItem(RADIO_PUSH_KEY))return;
+  if(!('Notification' in window))return;
+
+  const showNotification=()=>{
+    try{new Notification('Canli Radio доступно', {body:'На главной странице появилась кнопка Play/Pause для прослушивания эфира.'});}catch(e){}
+    localStorage.setItem(RADIO_PUSH_KEY,'1');
+  };
+
+  if(Notification.permission==='granted'){
+    showNotification();
+    return;
+  }
+
+  if(Notification.permission==='default'){
+    Notification.requestPermission().then(permission=>{
+      if(permission==='granted')showNotification();
+    }).catch(()=>{});
+  }
+}
+
+function registerEngagement(){userEngagementScore=Math.min(10,userEngagementScore+1);}
+['click','scroll','touchstart'].forEach(evt=>window.addEventListener(evt,registerEngagement,{passive:true}));
+
+function maybeSendSupportPush(){
+  if(localStorage.getItem(SUPPORT_PUSH_KEY))return;
+  if(!('Notification' in window))return;
+  const canNotify=Notification.permission==='granted';
+  if(!canNotify)return;
+  try{
+    new Notification('Спасибо, что пользуетесь приложением', {body:'Расписание уже помогает многим. Проект поддержали 18 человек — вы тоже можете присоединиться и поблагодарить автора.'});
+    localStorage.setItem(SUPPORT_PUSH_KEY,'1');
+  }catch(e){}
+}
+
+setTimeout(()=>{
+  if(userEngagementScore>=3){maybeSendSupportPush();}
+},45000);
+
+if(radioToggleBtn){
+  radioToggleBtn.onclick=toggleCanliRadio;
+}
+
+if(radioAudio){
+  radioAudio.addEventListener('pause',()=>updateRadioButtonState(false));
+  radioAudio.addEventListener('ended',()=>updateRadioButtonState(false));
+  radioAudio.addEventListener('play',()=>updateRadioButtonState(true));
+}
+
+const radioIntroOkBtn=$('radioIntroOkBtn');
+if(radioIntroOkBtn){
+  radioIntroOkBtn.onclick=()=>{
+    localStorage.setItem(RADIO_MODAL_KEY,'1');
+    closeSheet('radioIntroSheet');
+    maybeSendCanliRadioPush();
+  };
+}
 
 // DAY VIEW
 function updateNavCenter(){
@@ -653,6 +777,7 @@ window.addEventListener('storage',e=>{if(e.key===READ_PROGRESS_KEY||e.key===READ
 
 // INIT
 updateMaterialsUnreadBadge();
+maybeShowCanliRadioIntro();
 viewIdx=todayIdx();
 renderAll();
 setInterval(()=>{
