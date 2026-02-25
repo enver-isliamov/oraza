@@ -3,23 +3,6 @@ const READ_PROGRESS_KEY = 'ramReadProgress';
 const READ_COMPAT_KEY = 'ramReadArticles';
 const WORDS_PER_MINUTE = 180;
 
-const articles = [
-  {
-    id: 'mahram',
-    title: 'Женщины, запретные для брака',
-    description: 'Краткая памятка о том, кто такие махрамы, какие бывают категории и какие правила связаны с этим статусом.',
-    href: 'mahram.html',
-    label: 'Открыть статью'
-  },
-  {
-    id: 'chelebidzhihan',
-    title: '23 февраля: Номан Челебиджихан',
-    description: 'Краткая историческая справка о Номане Челебиджихане и трагических событиях 23 февраля 1918 года.',
-    href: 'chelebidzhihan.html',
-    label: 'Открыть статью'
-  }
-];
-
 function applyThemeFromStorage() {
   const theme = localStorage.getItem(THEME_KEY) || 'light';
   document.documentElement.setAttribute('data-theme', theme);
@@ -66,6 +49,16 @@ async function estimateArticleTime(article) {
   }
 }
 
+function renderNextReleaseHint(releaseState) {
+  const container = document.getElementById('releaseHint');
+  if (!container) return;
+  if (!releaseState.nextArticle) {
+    container.textContent = 'Все материалы уже опубликованы.';
+    return;
+  }
+  container.textContent = `Следующая публикация завтра: «${releaseState.nextArticle.title}».`;
+}
+
 async function renderArticles() {
   const unreadList = document.getElementById('unreadArticlesList');
   const readList = document.getElementById('readArticlesList');
@@ -80,8 +73,14 @@ async function renderArticles() {
 
   const progressMap = getProgressMap();
   const compatReadMap = getCompatReadMap();
+  const releaseState = window.ContentRelease.getReleaseState();
+  const publishedArticles = releaseState.availableArticles;
+
+  renderNextReleaseHint(releaseState);
+  window.ContentRelease.showReleaseNotification(releaseState);
+
   const articlesWithTime = await Promise.all(
-    articles.map(async (article) => ({
+    publishedArticles.map(async (article) => ({
       ...article,
       reading: await estimateArticleTime(article)
     }))
@@ -123,7 +122,7 @@ async function renderArticles() {
     readEmpty.classList.toggle('hidden', readArticles.length > 0);
   }
 
-  if (totalCount) totalCount.textContent = String(articles.length);
+  if (totalCount) totalCount.textContent = String(releaseState.totalArticles);
   if (unreadCount) unreadCount.textContent = String(unreadArticles.length);
   if (readCount) readCount.textContent = String(readArticles.length);
 }
@@ -135,7 +134,7 @@ window.addEventListener('storage', (event) => {
   if (event.key === THEME_KEY) {
     applyThemeFromStorage();
   }
-  if (event.key === READ_PROGRESS_KEY || event.key === READ_COMPAT_KEY) {
+  if (event.key === READ_PROGRESS_KEY || event.key === READ_COMPAT_KEY || event.key === window.ContentRelease.RELEASE_START_KEY) {
     renderArticles();
   }
 });
