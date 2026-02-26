@@ -34,6 +34,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .icon-btn{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:var(--shadow-sm);transition:all .15s;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
 .icon-btn:active{transform:scale(.93);}
 .icon-btn.theme-active{background:var(--gold-soft);border-color:rgba(196,154,60,.3);}
+.icon-btn.aod-active{background:var(--iftar-soft);border-color:rgba(31,168,106,.35);color:var(--iftar);}
 .fitir-card{background:linear-gradient(135deg,rgba(196,154,60,.13) 0%,rgba(196,154,60,.05) 100%);border:1px solid rgba(196,154,60,.22);border-radius:var(--r);padding:16px 16px 14px;margin-bottom:10px;position:relative;overflow:hidden;display:block;color:inherit;text-decoration:none;}
 .fitir-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(196,154,60,.15),transparent 70%);pointer-events:none;}
 .fitir-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
@@ -84,6 +85,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .hero-card::after{content:'↗';position:absolute;top:11px;right:12px;font-size:.68rem;font-weight:700;opacity:.28;}
 .hero-card.imsak-card{background:linear-gradient(150deg,rgba(217,79,92,.11) 0%,rgba(217,79,92,.03) 100%);border-color:rgba(217,79,92,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),var(--shadow-sm);}
 .hero-card.iftar-card{background:linear-gradient(150deg,rgba(31,168,106,.11) 0%,rgba(31,168,106,.03) 100%);border-color:rgba(31,168,106,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),var(--shadow-sm);}
+.hero-card.current-card{background:var(--surface);border-color:var(--border);display:none;}
 [data-theme="dark"] .hero-card{box-shadow:none;}
 .card-type{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;}
 .imsak-card .card-type{color:var(--imsak);}
@@ -94,6 +96,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .card-name{font-size:.72rem;font-weight:700;color:var(--text2);}
 .card-tap-hint{font-size:.6rem;font-weight:600;color:var(--text3);margin-top:3px;}
 .status-grid{display:grid;grid-template-columns:2fr 1fr;gap:9px;align-items:stretch;margin-bottom:10px;}
+.status-grid .gratitude-card{grid-column:1/-1;margin:0;}
 .progress-bar{background:var(--surface);border-radius:var(--r-sm);padding:12px 14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:0;}
 .useful-tile{position:relative;display:flex;flex-direction:column;justify-content:center;gap:5px;text-decoration:none;padding:12px 10px;border-radius:var(--r-sm);border:1px solid rgba(196,154,60,.24);background:linear-gradient(145deg,rgba(196,154,60,.16),rgba(196,154,60,.04));box-shadow:var(--shadow-sm);}
 .useful-badge{position:absolute;right:7px;bottom:7px;min-width:17px;height:17px;padding:0 5px;border-radius:999px;background:#d94f5c;color:#fff;font-size:.6rem;font-weight:900;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(217,79,92,.35);animation:quickPulse 1.1s ease-in-out infinite;}
@@ -109,12 +112,15 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .progress-countdown{font-size:.85rem;font-weight:800;color:var(--gold);}
 .progress-track{height:4px;background:var(--surface3);border-radius:100px;overflow:hidden;}
 .progress-fill{height:100%;border-radius:100px;transition:width 1s linear;}
-.notice{display:flex;gap:10px;padding:11px 13px;border-radius:var(--r-sm);margin-bottom:9px;border:1px solid;}
+.notice{display:flex;gap:10px;padding:11px 13px;border-radius:var(--r-sm);margin-bottom:9px;border:1px solid;position:relative;align-items:flex-start;}
 .notice.laylat{background:var(--gold-soft);border-color:rgba(196,154,60,.2);}
 .notice.bayram{background:var(--iftar-soft);border-color:rgba(31,168,106,.2);}
 .notice-ico{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.notice-main{flex:1;min-width:0;}
 .notice-title{font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:1px;}
 .notice-body{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.4;}
+.notice-close{position:absolute;top:7px;right:7px;width:26px;height:26px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text3);font-size:.95rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.notice-close:active{transform:scale(.94);}
 .tabs-wrap{background:var(--surface);border-radius:var(--r-sm);padding:3px;display:flex;gap:2px;border:1px solid var(--border);margin-bottom:14px;box-shadow:var(--shadow-sm);}
 .tabs-wrap-top{margin-top:6px;}
 .tab{flex:1;padding:8px 4px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-family:var(--font-body);font-size:.76rem;font-weight:800;cursor:pointer;transition:all .18s;text-align:center;-webkit-tap-highlight-color:transparent;}
@@ -183,8 +189,8 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .prayer-time{font-family:var(--font-display);font-size:2.4rem;font-weight:700;line-height:1;margin-bottom:4px;}
 .prayer-city{font-size:.74rem;font-weight:600;color:var(--text3);margin-bottom:14px;}
 .prayer-card{background:var(--surface2);border-radius:var(--r-sm);padding:16px;border:1px solid var(--border);}
-.prayer-arabic{font-family:var(--font-display);font-size:1.35rem;line-height:2;text-align:right;direction:rtl;color:var(--gold);margin-bottom:12px;}
-.prayer-translit{font-size:.78rem;font-weight:600;font-style:italic;color:var(--text3);margin-bottom:10px;line-height:1.5;}
+.prayer-arabic{font-family:var(--font-display);font-size:1.1rem;line-height:2;text-align:right;direction:rtl;color:var(--gold);margin-bottom:12px;}
+.prayer-translit{font-size:1.25rem;font-weight:600;font-style:italic;color:var(--text3);margin-bottom:10px;line-height:1.5;justify-content: center;}
 .prayer-translation{font-size:.82rem;font-weight:600;color:var(--text2);line-height:1.65;}
 .prayer-note{margin-top:12px;padding:10px 12px;background:var(--surface3);border-radius:8px;font-size:.7rem;font-weight:600;color:var(--text3);line-height:1.5;}
 .settings-group{margin-bottom:20px;}
@@ -207,6 +213,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .gratitude-sub{font-size:.69rem;font-weight:600;color:var(--text2);line-height:1.35;}
 .gratitude-cta{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;min-width:126px;padding:11px 16px;border-radius:12px;border:1px solid rgba(31,168,106,.24);background:linear-gradient(180deg,rgba(31,168,106,.95),rgba(31,168,106,.82));color:#fff;text-decoration:none;font-size:.72rem;font-weight:700;letter-spacing:.01em;box-shadow:0 2px 4px rgba(31,168,106,.2);transition:transform .15s,filter .15s;-webkit-tap-highlight-color:transparent;}
 .gratitude-cta:active{transform:scale(.98);filter:brightness(.96);}
+
 .bottom-actions{display:flex;gap:8px;margin-bottom:0;}
 .bottom-btn{flex:1;padding:12px 10px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--shadow-sm);transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .bottom-btn:active{transform:scale(.97);}
@@ -231,6 +238,77 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .fu2{animation-delay:.08s;}
 .fu3{animation-delay:.12s;}
 
+
+.aod-compact-bar{display:none;align-items:center;gap:8px;margin-bottom:8px;padding:8px 10px;border-radius:12px;border:1px solid var(--border);background:var(--surface);}
+.aod-compact-main{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;}
+.aod-compact-date{font-size:.93rem;font-weight:900;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.aod-compact-ramadan{font-size:.73rem;font-weight:700;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.aod-compact-city{max-width:42vw;}
+.aod-exit-btn{min-width:36px;}
+
+body.aod-mode{overflow:auto;}
+body.aod-mode .topbar{display:none !important;}
+body.aod-mode .main{padding-top:8px;padding-bottom:0;min-height:calc(100vh - env(safe-area-inset-top,0px));}
+body.aod-mode .aod-compact-bar{display:flex;}
+body.aod-mode .tabs-wrap,body.aod-mode #scheduleArea,body.aod-mode .app-footer,body.aod-mode .sticky-footer{display:none !important;}
+body.aod-mode .hero-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+body.aod-mode .hero-card.current-card{display:flex;}
+body.aod-mode .hero-card{min-height:clamp(170px,33vh,360px);padding:16px 14px;border-width:2px;display:flex;flex-direction:column;}
+body.aod-mode .card-type{font-size:1.05rem;}
+body.aod-mode .card-time{font-size:clamp(3.8rem,12vw,9.4rem);line-height:.82;flex:1;display:flex;align-items:center;margin-bottom:0;}
+body.aod-mode .card-name{font-size:1.08rem;}
+body.aod-mode .card-tap-hint{font-size:.8rem;opacity:.65;}
+body.aod-mode .day-nav,body.aod-mode .nav-ramadan-day{display:none !important;}
+body.aod-mode .nav-clock-main{font-size:2rem;}
+body.aod-mode .nav-clock-sec{font-size:1rem;}
+body.aod-mode .progress-bar{padding:13px 13px;border-radius:16px;border-color:var(--border);background:var(--surface);}
+body.aod-mode .progress-label,body.aod-mode .progress-countdown{font-size:1.05rem;}
+body.aod-mode .progress-track{height:14px;}
+body.aod-mode .topbar-inner{max-width:620px;}
+body.aod-mode .icon-btn{width:40px;height:40px;font-size:18px;}
+body.aod-mode .hero-card.aod-current{background:var(--surface);border-color:var(--border);}
+body.aod-mode .hero-card.aod-current .card-type{color:var(--text2);}
+body.aod-mode .hero-card.aod-current .card-time{color:var(--text);}
+body.aod-mode .aod-clock-main{font-family:'Smooch Sans',var(--font-body);font-size:clamp(5.8rem,18vw,14rem);line-height:.8;font-weight:800;letter-spacing:-.03em;color:var(--text);display:inline-block;}
+body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-size:clamp(2.1rem,5.6vw,4.2rem);line-height:1;font-weight:700;opacity:.68;margin-left:6px;vertical-align:baseline;color:var(--text2);}
+body.aod-mode .status-grid{grid-template-columns:minmax(0,1fr);gap:9px;}
+body.aod-mode .status-grid .progress-bar{grid-column:1/-1;}
+body.aod-mode #aodGratitudeCard{display:none;}
+body.aod-mode #noticesWrap{display:none;}
+body.aod-mode .fitir-card{display:none;}
+@media (orientation: landscape){
+  body.aod-mode .main{max-width:min(980px,96vw);margin:0 auto;padding:10px 14px 12px;}
+  body.aod-mode .topbar-inner{max-width:min(980px,96vw);}
+  body.aod-mode .hero-card{min-height:clamp(170px,38vh,360px);}
+}
+@media (min-width: 1024px) and (orientation: landscape){
+  body.aod-mode .main{max-width:none;width:100%;margin:0;padding:14px 24px 18px;min-height:100vh;}
+  body.aod-mode .hero-card{min-height:clamp(260px,42vh,560px);}
+  body.aod-mode .card-time{font-size:clamp(5.4rem,14vw,13rem);}
+  body.aod-mode .status-grid{grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);gap:12px;}
+  body.aod-mode #aodGratitudeCard{display:block !important;grid-column:1;grid-row:2;}
+  body.aod-mode .status-grid .useful-tile{grid-column:2;grid-row:2;}
+  body.aod-mode #noticesWrap{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0;}
+  body.aod-mode #noticesWrap .notice{margin:0;height:100%;}
+  body.aod-mode .fitir-card{display:block !important;margin:0;}
+}
+@media (orientation: landscape) and (max-height: 500px){
+  body.aod-mode .main{padding-top:6px;padding-bottom:6px;}
+  body.aod-mode .aod-compact-bar{padding:7px 8px;margin-bottom:6px;}
+  body.aod-mode .aod-compact-date{font-size:.84rem;}
+  body.aod-mode .aod-compact-ramadan{font-size:.68rem;}
+  body.aod-mode .hero-grid{gap:8px;margin-bottom:7px;}
+  body.aod-mode .hero-card{min-height:clamp(145px,33vh,220px);padding:12px 12px;}
+  body.aod-mode .card-type{font-size:.95rem;}
+  body.aod-mode .card-name{font-size:.9rem;}
+  body.aod-mode .card-tap-hint{font-size:.72rem;}
+  body.aod-mode .aod-clock-main{font-size:clamp(3rem,11vw,5.2rem);}
+  body.aod-mode .aod-clock-sec{font-size:clamp(1rem,3.3vw,1.8rem);}
+  body.aod-mode .status-grid{grid-template-columns:minmax(0,1fr);}
+  body.aod-mode .progress-bar{padding:10px 11px;}
+  body.aod-mode .progress-label,body.aod-mode .progress-countdown{font-size:.92rem;}
+  body.aod-mode .progress-track{height:10px;}
+}
 </style>
 </head>
 <body>
@@ -240,6 +318,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="brand">Рамадан <em>1447</em><small>Рамазан Айы · Крым</small></div>
     <div class="topbar-actions">
       <button class="city-btn" id="cityBtn"><span class="city-dot"></span><span id="cityLabel">Симферополь</span><span style="font-size:.55rem;opacity:.4;margin-left:2px;">▾</span></button>
+      <button class="icon-btn" id="aodBtn" title="Полноэкранный режим" aria-pressed="false">⤢</button>
       <button class="icon-btn" id="settingsBtn" title="Настройки">⚙️</button>
     </div>
   </div>
@@ -252,11 +331,38 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <button class="ib-close" id="installBannerClose">✕</button>
   </div>
 
+  <div class="notice fu" id="landscapeFeatureNotice" style="display:none;margin-bottom:10px;">
+    <span class="notice-ico">🆕</span>
+    <div>
+      <div class="notice-title">Новый полноэкранный режим</div>
+      <div class="notice-body">Нажмите <strong>⤢</strong>, чтобы развернуть экран в горизонтальном формате. Это удобно в дороге, на кухне и во время намаза, когда нужен крупный таймер без лишних элементов.</div>
+      <button class="cal-btn" id="landscapeFeatureNoticeBtn" style="margin-top:8px;padding:9px 12px;font-size:.72rem;">Понятно</button>
+    </div>
+  </div>
+
+  <div class="notice fu" id="newPostsNotice" style="display:none;margin-bottom:10px;">
+    <span class="notice-ico">📰</span>
+    <div class="notice-main">
+      <div class="notice-title" id="newPostsNoticeTitle">Вышли новые материалы</div>
+      <div class="notice-body" id="newPostsNoticeBody">В разделе «Познавательно» опубликованы новые посты.</div>
+      <div style="margin-top:8px;"><a class="support-link" href="materials.html" id="newPostsNoticeOpen">Открыть посты</a></div>
+    </div>
+    <button class="notice-close" id="newPostsNoticeDismiss" aria-label="Закрыть уведомление">✕</button>
+  </div>
 
   <div class="tabs-wrap fu tabs-wrap-top">
     <button class="tab active" data-mode="day" id="tabDay">Сегодня</button>
     <button class="tab" data-mode="week">Неделя</button>
     <button class="tab" data-mode="month">Месяц</button>
+  </div>
+
+  <div class="aod-compact-bar" id="aodCompactBar">
+    <div class="aod-compact-main">
+      <div class="aod-compact-date" id="aodCompactDate">—</div>
+      <div class="aod-compact-ramadan" id="aodCompactRamadan">—</div>
+    </div>
+    <button class="city-btn aod-compact-city" id="aodCompactCityBtn"><span class="city-dot"></span><span id="aodCompactCityLabel">Симферополь</span></button>
+    <button class="icon-btn aod-exit-btn" id="aodExitBtn" title="Выйти из AOD">⤡</button>
   </div>
 
   <div id="daySectionWrap">
@@ -284,6 +390,12 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
         <div class="card-name">Начало поста</div>
         <div class="card-tap-hint">Нажмите чтобы прочитать дуа</div>
       </div>
+      <div class="hero-card current-card fu fu2" id="currentCard">
+        <div class="card-type">Сейчас</div>
+        <div class="card-time" id="heroCurrentTime">—</div>
+        <div class="card-name">Текущее время</div>
+        <div class="card-tap-hint">Обновляется каждую секунду</div>
+      </div>
       <div class="hero-card iftar-card fu fu2" id="iftarCard">
         <div class="card-type">Ифтар</div>
         <div class="card-time" id="heroIftarTime">—</div>
@@ -299,21 +411,21 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
         </div>
         <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
       </div>
-      <a class="useful-tile fu fu3" href="materials.html" aria-label="Познавательно">
+      <a class="useful-tile fu fu3" id="statusUsefulTile" href="materials.html" aria-label="Познавательно">
         <span class="useful-badge" id="materialsUnreadBadge">0</span>
         <div class="useful-eyebrow">Познавательно</div>
         
         <div class="useful-hint">Читать →</div>
       </a>
-    </div>
-  </div>
-<div class="gratitude-card fu fu3">
-    <div class="gratitude-main">
-      <div class="gratitude-copy">
-        <div class="gratitude-eyebrow">Поддержали проект 18 человек из 1116 посетителей</div>
-        <div class="gratitude-sub">Если расписание помогает вам каждый день — поблагодарите автора приложения.</div>
+      <div class="gratitude-card fu fu3" id="aodGratitudeCard">
+        <div class="gratitude-main">
+          <div class="gratitude-copy">
+            <div class="gratitude-eyebrow">Поддержали проект 18 человек из 1130 посетителей</div>
+            <div class="gratitude-sub">Если расписание помогает вам каждый день — поблагодарите автора приложения.</div>
+          </div>
+          <a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="gratitude-cta">Поблагодарить</a>
+        </div>
       </div>
-      <a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="gratitude-cta">Поблагодарить</a>
     </div>
   </div>
   
@@ -371,7 +483,6 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 <!-- CAL SHEET -->
 <div class="overlay" id="calSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">📅 Добавить в календарь</div><div class="sheet-sub">Авторизация не нужна</div><button class="cal-btn cal-btn-primary" id="icsBtn">📥 Скачать .ics (Apple · Outlook · Яндекс)</button><button class="cal-btn" id="googleBtn"><svg width="15" height="15" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google Календарь</button><div class="cal-hint">💡 <strong>.ics файл</strong> — универсальный формат для Apple Calendar, Google, Outlook. Открыть файл → он сам предложит добавить события.</div><button class="cal-btn" style="margin-top:10px;" onclick="closeSheet('calSheet')">Отмена</button></div></div>
 
-<!-- RADIO MODAL -->
 
 <!-- SETTINGS SHEET -->
 <div class="overlay" id="settingsSheet"><div class="sheet"><div class="sheet-pull"><div class="sheet-handle"></div></div><div class="sheet-title">Настройки</div><div class="sheet-sub">Персонализируйте интерфейс</div>
@@ -439,8 +550,11 @@ $('themeBtn').onclick=()=>{const t=document.documentElement.getAttribute('data-t
 
 // CITY
 $('cityLabel').textContent=CITIES[cityIdx].name;
-function buildCityList(){const list=$('cityList');list.innerHTML='';CITIES.forEach((c,i)=>{const s=c.offset>0?`+${c.offset}`:c.offset<0?`${c.offset}`:'±0';const el=document.createElement('div');el.className='city-item'+(i===cityIdx?' ci-active':'');el.innerHTML=`<div><div class="ci-name">${c.name}</div><div class="ci-offset">Разница: ${s} мин</div></div>${i===cityIdx?'<span class="ci-check">✓</span>':''}`;el.onclick=()=>{cityIdx=i;localStorage.setItem('ramCity',i);$('cityLabel').textContent=c.name;closeSheet('citySheet');renderAll();};list.appendChild(el);});}
+const aodCityLabel=$('aodCompactCityLabel');if(aodCityLabel)aodCityLabel.textContent=CITIES[cityIdx].name;
+function buildCityList(){const list=$('cityList');list.innerHTML='';CITIES.forEach((c,i)=>{const s=c.offset>0?`+${c.offset}`:c.offset<0?`${c.offset}`:'±0';const el=document.createElement('div');el.className='city-item'+(i===cityIdx?' ci-active':'');el.innerHTML=`<div><div class="ci-name">${c.name}</div><div class="ci-offset">Разница: ${s} мин</div></div>${i===cityIdx?'<span class="ci-check">✓</span>':''}`;el.onclick=()=>{cityIdx=i;localStorage.setItem('ramCity',i);$('cityLabel').textContent=c.name;const aodLabel=$('aodCompactCityLabel');if(aodLabel)aodLabel.textContent=c.name;closeSheet('citySheet');renderAll();};list.appendChild(el);});}
 $('cityBtn').onclick=()=>{buildCityList();openSheet('citySheet');};
+$('aodCompactCityBtn').onclick=()=>{buildCityList();openSheet('citySheet');};
+$('aodExitBtn').onclick=()=>{localStorage.setItem(AOD_KEY,'0');localStorage.setItem(AOD_AUTO_PAUSED_KEY,'1');applyAodMode();};
 
 // SHEETS
 function openSheet(id){$(id).classList.add('open');document.body.style.overflow='hidden';}
@@ -448,6 +562,157 @@ function closeSheet(id){$(id).classList.remove('open');document.body.style.overf
 document.querySelectorAll('.overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}});});
 $('settingsBtn').onclick=()=>{openSheet('settingsSheet');registerEngagement();if(userEngagementScore>=2)maybeSendSupportPush();};
 $('calBtn').onclick=()=>openSheet('calSheet');
+
+
+// ALWAYS ON DISPLAY
+const AOD_KEY='ramAodEnabled';
+const AOD_AUTO_PAUSED_KEY='ramAodAutoPaused';
+const FEATURE_NOTICE_KEY='ramLandscapeFeatureSeen';
+const POSTS_NOTICE_SEEN_KEY='ramPostsSeenCount';
+const aodLandscapeQuery=window.matchMedia('(orientation: landscape)');
+let aodWakeLock=null;
+
+function getAodPhase(imsakT,iftarT){
+  const nowSec=new Date().getHours()*3600+new Date().getMinutes()*60+new Date().getSeconds();
+  const imSec=toMin(imsakT)*60;
+  const ifSec=toMin(iftarT)*60;
+  if(nowSec<imSec)return 'night';
+  if(nowSec<ifSec)return 'day';
+  return 'after';
+}
+
+function updateAodPrimaryTiles(imsakT,iftarT){
+  if(!document.body.classList.contains('aod-mode'))return;
+  const now=new Date();
+  const hh=String(now.getHours()).padStart(2,'0');
+  const mm=String(now.getMinutes()).padStart(2,'0');
+  const ss=String(now.getSeconds()).padStart(2,'0');
+  const imType=$('imsakCard')?.querySelector('.card-type');
+  const imTime=$('heroImsakTime');
+  const imName=$('imsakCard')?.querySelector('.card-name');
+  const imHint=$('imsakCard')?.querySelector('.card-tap-hint');
+  const curType=$('currentCard')?.querySelector('.card-type');
+  const curTime=$('heroCurrentTime');
+  const curName=$('currentCard')?.querySelector('.card-name');
+  const curHint=$('currentCard')?.querySelector('.card-tap-hint');
+  const ifType=$('iftarCard')?.querySelector('.card-type');
+  const ifTime=$('heroIftarTime');
+  const ifName=$('iftarCard')?.querySelector('.card-name');
+  const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
+  if(!imType||!imTime||!imName||!imHint||!curType||!curTime||!curName||!curHint||!ifType||!ifTime||!ifName||!ifHint)return;
+
+  $('imsakCard')?.classList.remove('aod-current');
+  $('currentCard')?.classList.add('aod-current');
+  $('iftarCard')?.classList.remove('aod-current');
+
+  imType.textContent='ИМСАК';
+  imTime.textContent=imsakT;
+  imName.textContent='Начало поста';
+  imHint.textContent='Нажмите чтобы прочитать дуа';
+
+  curType.textContent='СЕЙЧАС';
+  curTime.innerHTML=`<span class="aod-clock-main">${hh}:${mm}</span><span class="aod-clock-sec">:${ss}</span>`;
+  curName.textContent='Текущее время';
+  curHint.textContent='Обновляется каждую секунду';
+
+  ifType.textContent='ИФТАР';
+  ifTime.textContent=iftarT;
+  ifName.textContent='Разговение';
+  ifHint.textContent='Время разговения';
+  $('iftarCard')?.classList.add('iftar-card');
+  $('iftarCard')?.classList.remove('imsak-card');
+}
+
+function restoreDefaultTiles(imsakT,iftarT){
+  const imType=$('imsakCard')?.querySelector('.card-type');
+  const imName=$('imsakCard')?.querySelector('.card-name');
+  const imHint=$('imsakCard')?.querySelector('.card-tap-hint');
+  const ifType=$('iftarCard')?.querySelector('.card-type');
+  const ifName=$('iftarCard')?.querySelector('.card-name');
+  const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
+  $('imsakCard')?.classList.remove('aod-current');
+  $('currentCard')?.classList.remove('aod-current');
+  $('iftarCard')?.classList.add('iftar-card');
+  $('iftarCard')?.classList.remove('imsak-card');
+  if(imType)imType.textContent='Имсак';
+  if(ifType)ifType.textContent='Ифтар';
+  if($('heroImsakTime'))$('heroImsakTime').textContent=imsakT;
+  if($('heroCurrentTime'))$('heroCurrentTime').textContent='—';
+  if($('heroIftarTime'))$('heroIftarTime').textContent=iftarT;
+  if(imName)imName.textContent='Начало поста';
+  if(ifName)ifName.textContent='Разговение';
+  if(imHint)imHint.textContent='Нажмите чтобы прочитать дуа';
+  if(ifHint)ifHint.textContent='Нажмите чтобы прочитать дуа';
+}
+
+async function syncWakeLock(){
+  const active=document.body.classList.contains('aod-mode');
+  if(!('wakeLock' in navigator))return;
+  if(active && !document.hidden && !aodWakeLock){
+    try{aodWakeLock=await navigator.wakeLock.request('screen');aodWakeLock.addEventListener('release',()=>{aodWakeLock=null;});}catch(e){}
+  }
+  if((!active||document.hidden) && aodWakeLock){
+    try{await aodWakeLock.release();}catch(e){}
+    aodWakeLock=null;
+  }
+}
+
+function updateAodButton(){
+  const btn=$('aodBtn');
+  if(!btn)return;
+  const manual=localStorage.getItem(AOD_KEY)==='1';
+  const active=document.body.classList.contains('aod-mode');
+  btn.classList.toggle('aod-active',active);
+  btn.setAttribute('aria-pressed',String(manual));
+  btn.textContent=active?'⤡':'⤢';
+  btn.title=active?'Выйти из полноэкранного режима':'Включить полноэкранный режим';
+}
+
+
+async function syncFullscreen(){
+  const manual=localStorage.getItem(AOD_KEY)==='1';
+  if(manual && !document.fullscreenElement && document.documentElement.requestFullscreen){
+    try{
+      await document.documentElement.requestFullscreen({navigationUI:'hide'});
+      if(screen.orientation&&screen.orientation.lock){
+        try{await screen.orientation.lock('landscape');}catch(e){}
+      }
+    }catch(e){}
+    return;
+  }
+  if(!manual && document.fullscreenElement && document.exitFullscreen){
+    try{
+      if(screen.orientation&&screen.orientation.unlock){screen.orientation.unlock();}
+      await document.exitFullscreen();
+    }catch(e){}
+  }
+}
+
+function applyAodMode(){
+  const manual=localStorage.getItem(AOD_KEY)==='1';
+  const autoPaused=localStorage.getItem(AOD_AUTO_PAUSED_KEY)==='1';
+  const auto=false;
+  const active=manual||auto;
+  document.body.classList.toggle('aod-mode',active);
+  updateAodButton();
+  syncWakeLock();
+  syncFullscreen();
+  const compactLabel=$('aodCompactCityLabel');if(compactLabel)compactLabel.textContent=CITIES[cityIdx].name;
+  const row=DATA[viewIdx]||DATA[todayIdx()];
+  const t=adj(row);
+  if(active){updateAodPrimaryTiles(t.imsak,t.iftar);}else{restoreDefaultTiles(t.imsak,t.iftar);}
+}
+
+$('aodBtn').onclick=()=>{
+  const manual=localStorage.getItem(AOD_KEY)==='1';
+  localStorage.setItem(AOD_KEY,manual?'0':'1');
+  applyAodMode();
+};
+
+document.addEventListener('visibilitychange',syncWakeLock);
+aodLandscapeQuery.addEventListener('change',e=>{if(!e.matches){localStorage.setItem(AOD_AUTO_PAUSED_KEY,'0');}applyAodMode();});
+window.addEventListener('storage',e=>{if(e.key===AOD_KEY||e.key===AOD_AUTO_PAUSED_KEY){applyAodMode();}});
+document.addEventListener('fullscreenchange',updateAodButton);
 
 // SHARE - bottom button
 $('shareBottomBtn').onclick=()=>openSheet('shareSheet');
@@ -513,8 +778,13 @@ function updateNavCenter(){
   if(mmNode)mmNode.textContent=mm;
   if(secNode)secNode.textContent=ss;
   if(chipNode)chipNode.textContent=isViewedToday?'Сегодня':'Выбранный день';
-  $('navDateMain').textContent=`${d.getDate()} ${monthLabel} · ${dayLabel}`;
+  const fullDate=`${d.getDate()} ${monthLabel} · ${dayLabel}`;
+  $('navDateMain').textContent=fullDate;
   if(ramadanNode)ramadanNode.textContent=ramadanLabel;
+  const aodDate=$('aodCompactDate');
+  const aodRamadan=$('aodCompactRamadan');
+  if(aodDate)aodDate.textContent=fullDate;
+  if(aodRamadan)aodRamadan.textContent=ramadanLabel;
 }
 
 function renderDay(){
@@ -528,6 +798,7 @@ function renderDay(){
   $('nextDay').disabled=viewIdx>=DATA.length-1;
   $('heroImsakTime').textContent=t.imsak;
   $('heroIftarTime').textContent=t.iftar;
+  if(document.body.classList.contains('aod-mode')){updateAodPrimaryTiles(t.imsak,t.iftar);}else{restoreDefaultTiles(t.imsak,t.iftar);}
   const pb=$('progressBar');
   if(it){pb.style.display='';updateProgress(t.imsak,t.iftar);}else{pb.style.display='none';}
   const area=$('scheduleArea');let html='';
@@ -550,12 +821,12 @@ function updateProgress(imsakT,iftarT){
   if(nowSec<imSec){
     fill.style.background='var(--imsak)';
     fill.style.width=Math.max(2,(1-((imSec-nowSec)/(90*60)))*100)+'%';
-    lbl.style.color='var(--imsak)';txt.textContent='До Имсака';cnt.textContent=fmtSec(imSec-nowSec);
+    lbl.style.color='var(--imsak)';txt.textContent='до Имсака';cnt.textContent=fmtSec(imSec-nowSec);
   }else if(nowSec<ifSec){
     const tot=ifSec-imSec,pas=nowSec-imSec;
     fill.style.background='linear-gradient(90deg,var(--imsak),var(--iftar))';
     fill.style.width=(pas/tot*100).toFixed(1)+'%';
-    lbl.style.color='var(--iftar)';txt.textContent='До Ифтара';cnt.textContent=fmtSec(ifSec-nowSec);
+    lbl.style.color='var(--iftar)';txt.textContent='до Ифтара';cnt.textContent=fmtSec(ifSec-nowSec);
   }else{fill.style.background='var(--iftar)';fill.style.width='100%';lbl.style.color='var(--gold)';txt.textContent='Ифтар наступил';cnt.textContent='Приятного!';}
 }
 
@@ -610,6 +881,7 @@ function _updateHero(idx){
   updateNavCenter();
   $('heroImsakTime').textContent=t.imsak;
   $('heroIftarTime').textContent=t.iftar;
+  if(document.body.classList.contains('aod-mode')){updateAodPrimaryTiles(t.imsak,t.iftar);}else{restoreDefaultTiles(t.imsak,t.iftar);}
   if(it){$('progressBar').style.display='';updateProgress(t.imsak,t.iftar);}else{$('progressBar').style.display='none';}
 }
 
@@ -631,7 +903,7 @@ $('nextDay').onclick=()=>{if(viewIdx<DATA.length-1){viewIdx++;renderDay();}};
 
 // PRAYER
 function showPrayer(type){const p=PRAYERS[type];const row=DATA[viewIdx];const t=adj(row);const time=type==='imsak'?t.imsak:t.iftar;const color=type==='imsak'?'var(--imsak)':'var(--iftar)';$('prayerContent').innerHTML=`<div class="prayer-badge ${type==='imsak'?'pb-imsak':'pb-iftar'}">${p.badge}</div><div class="prayer-time" style="color:${color};">${time}</div><div class="prayer-city">${CITIES[cityIdx].name} · ${row[1]} ${MS[row[2]]}</div><div class="prayer-card"><div class="prayer-arabic">${p.arabic}</div><div class="prayer-translit">${p.translit}</div><div class="prayer-translation">${p.text}</div>${p.placeholder?'<div class="prayer-note">💬 Можно произнести про себя</div>':''}</div>`;openSheet('prayerSheet');}
-$('imsakCard').onclick=()=>showPrayer('imsak');
+$('imsakCard').onclick=()=>{showPrayer('imsak');};
 $('iftarCard').onclick=()=>showPrayer('iftar');
 
 // CALENDAR ICS
@@ -687,10 +959,39 @@ function updateZakatAccessState(){
   }
 }
 
+function showLandscapeFeatureNotice(){
+  const notice=$('landscapeFeatureNotice');
+  if(!notice)return;
+  if(localStorage.getItem(FEATURE_NOTICE_KEY)==='1')return;
+  notice.style.display='flex';
+  const close=()=>{notice.style.display='none';localStorage.setItem(FEATURE_NOTICE_KEY,'1');};
+  const btn=$('landscapeFeatureNoticeBtn');
+  if(btn)btn.onclick=close;
+}
+
+function showPostsNotice(release){
+  const wrap=$('newPostsNotice');
+  const title=$('newPostsNoticeTitle');
+  const body=$('newPostsNoticeBody');
+  const openBtn=$('newPostsNoticeOpen');
+  const dismissBtn=$('newPostsNoticeDismiss');
+  if(!wrap||!title||!body||!dismissBtn||!openBtn)return;
+  const seen=Number(localStorage.getItem(POSTS_NOTICE_SEEN_KEY)||'0');
+  const fresh=Math.max(0,release.availableCount-seen);
+  if(fresh<=0){wrap.style.display='none';return;}
+  title.textContent=fresh===1?'Вышел новый пост':'Вышли новые посты';
+  body.textContent=fresh===1?`Добавлен материал: ${release.availableArticles[release.availableCount-1].title}.`:`Добавлено ${fresh} новых материалов в разделе «Познавательно».`;
+  wrap.style.display='flex';
+  const markSeen=()=>{localStorage.setItem(POSTS_NOTICE_SEEN_KEY,String(release.availableCount));wrap.style.display='none';};
+  dismissBtn.onclick=markSeen;
+  openBtn.onclick=()=>{markSeen();};
+}
+
 function processAutoReleases(){
   if(!window.ContentRelease)return;
   const release=window.ContentRelease.getReleaseState();
   window.ContentRelease.showReleaseNotification(release);
+  showPostsNotice(release);
 }
 
 window.addEventListener('storage',e=>{
@@ -701,6 +1002,8 @@ window.addEventListener('storage',e=>{
 });
 
 // INIT
+applyAodMode();
+showLandscapeFeatureNotice();
 processAutoReleases();
 updateMaterialsUnreadBadge();
 updateZakatAccessState();
@@ -708,7 +1011,11 @@ viewIdx=todayIdx();
 renderAll();
 setInterval(()=>{
   updateNavCenter();
-  if(mode==='day'&&isToday(DATA[viewIdx])){updateProgress(adj(DATA[viewIdx]).imsak,adj(DATA[viewIdx]).iftar);}
+  if(mode==='day'){
+    const current=adj(DATA[viewIdx]);
+    if(document.body.classList.contains('aod-mode')){updateAodPrimaryTiles(current.imsak,current.iftar);}
+    if(isToday(DATA[viewIdx])){updateProgress(current.imsak,current.iftar);}
+  }
 },1000);
 </script>
 
