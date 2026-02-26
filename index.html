@@ -110,12 +110,15 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .progress-countdown{font-size:.85rem;font-weight:800;color:var(--gold);}
 .progress-track{height:4px;background:var(--surface3);border-radius:100px;overflow:hidden;}
 .progress-fill{height:100%;border-radius:100px;transition:width 1s linear;}
-.notice{display:flex;gap:10px;padding:11px 13px;border-radius:var(--r-sm);margin-bottom:9px;border:1px solid;}
+.notice{display:flex;gap:10px;padding:11px 13px;border-radius:var(--r-sm);margin-bottom:9px;border:1px solid;position:relative;align-items:flex-start;}
 .notice.laylat{background:var(--gold-soft);border-color:rgba(196,154,60,.2);}
 .notice.bayram{background:var(--iftar-soft);border-color:rgba(31,168,106,.2);}
 .notice-ico{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.notice-main{flex:1;min-width:0;}
 .notice-title{font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:1px;}
 .notice-body{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.4;}
+.notice-close{position:absolute;top:7px;right:7px;width:26px;height:26px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text3);font-size:.95rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.notice-close:active{transform:scale(.94);}
 .tabs-wrap{background:var(--surface);border-radius:var(--r-sm);padding:3px;display:flex;gap:2px;border:1px solid var(--border);margin-bottom:14px;box-shadow:var(--shadow-sm);}
 .tabs-wrap-top{margin-top:6px;}
 .tab{flex:1;padding:8px 4px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-family:var(--font-body);font-size:.76rem;font-weight:800;cursor:pointer;transition:all .18s;text-align:center;-webkit-tap-highlight-color:transparent;}
@@ -247,9 +250,9 @@ body.aod-mode .main{padding-top:8px;padding-bottom:0;min-height:calc(100vh - env
 body.aod-mode .aod-compact-bar{display:flex;}
 body.aod-mode .tabs-wrap,body.aod-mode #scheduleArea,body.aod-mode #noticesWrap,body.aod-mode .fitir-card,body.aod-mode .gratitude-card,body.aod-mode .app-footer,body.aod-mode .sticky-footer{display:none !important;}
 body.aod-mode .hero-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
-body.aod-mode .hero-card{min-height:clamp(170px,33vh,360px);padding:16px 14px;border-width:2px;}
+body.aod-mode .hero-card{min-height:clamp(170px,33vh,360px);padding:16px 14px;border-width:2px;display:flex;flex-direction:column;}
 body.aod-mode .card-type{font-size:1.05rem;}
-body.aod-mode .card-time{font-size:clamp(2.4rem,7.6vw,5.4rem);line-height:.93;}
+body.aod-mode .card-time{font-size:clamp(3.2rem,10vw,7.8rem);line-height:.85;flex:1;display:flex;align-items:center;margin-bottom:0;}
 body.aod-mode .card-name{font-size:1.08rem;}
 body.aod-mode .card-tap-hint{font-size:.8rem;opacity:.65;}
 body.aod-mode .day-nav,body.aod-mode .nav-ramadan-day{display:none !important;}
@@ -263,14 +266,21 @@ body.aod-mode .icon-btn{width:40px;height:40px;font-size:18px;}
 body.aod-mode .hero-card.aod-current{background:var(--surface);border-color:var(--border);}
 body.aod-mode .hero-card.aod-current .card-type{color:var(--text2);}
 body.aod-mode .hero-card.aod-current .card-time{color:var(--text);}
-body.aod-mode .aod-clock-main{font-family:'Smooch Sans',var(--font-body);font-size:clamp(4.2rem,14vw,9rem);line-height:.82;font-weight:800;letter-spacing:-.03em;color:var(--text);display:inline-block;}
-body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-size:clamp(1.5rem,3.8vw,2.8rem);line-height:1;font-weight:700;opacity:.68;margin-left:6px;vertical-align:baseline;color:var(--text2);}
+body.aod-mode .aod-clock-main{font-family:'Smooch Sans',var(--font-body);font-size:clamp(5rem,16vw,12rem);line-height:.82;font-weight:800;letter-spacing:-.03em;color:var(--text);display:inline-block;}
+body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-size:clamp(1.9rem,4.8vw,3.8rem);line-height:1;font-weight:700;opacity:.68;margin-left:6px;vertical-align:baseline;color:var(--text2);}
 
 @media (orientation: landscape){
   body.aod-mode .main{max-width:min(980px,96vw);margin:0 auto;padding:10px 14px 12px;}
   body.aod-mode .topbar-inner{max-width:min(980px,96vw);}
   body.aod-mode .hero-card{min-height:clamp(170px,38vh,360px);}
   body.aod-mode .status-grid{display:grid;grid-template-columns:minmax(0,1fr);}
+}
+@media (min-width: 1024px){
+  body.aod-mode .main{max-width:none;width:100%;margin:0;padding:14px 24px 18px;min-height:100vh;}
+  body.aod-mode .hero-card{min-height:clamp(280px,48vh,640px);}
+  body.aod-mode .card-time{font-size:clamp(4.8rem,13vw,12.5rem);}
+  body.aod-mode .status-grid{grid-template-columns:minmax(0,1fr) minmax(230px,320px);gap:12px;}
+  body.aod-mode .gratitude-card{display:block !important;margin:12px 0 0;}
 }
 @media (orientation: landscape) and (max-height: 500px){
   body.aod-mode .main{padding-top:6px;padding-bottom:6px;}
@@ -321,14 +331,12 @@ body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-siz
 
   <div class="notice fu" id="newPostsNotice" style="display:none;margin-bottom:10px;">
     <span class="notice-ico">📰</span>
-    <div>
+    <div class="notice-main">
       <div class="notice-title" id="newPostsNoticeTitle">Вышли новые материалы</div>
       <div class="notice-body" id="newPostsNoticeBody">В разделе «Познавательно» опубликованы новые посты.</div>
-      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
-        <a class="support-link" href="materials.html" id="newPostsNoticeOpen">Открыть посты</a>
-        <button class="cal-btn" id="newPostsNoticeDismiss" style="margin:0;padding:8px 12px;font-size:.72rem;">Скрыть</button>
-      </div>
+      <div style="margin-top:8px;"><a class="support-link" href="materials.html" id="newPostsNoticeOpen">Открыть посты</a></div>
     </div>
+    <button class="notice-close" id="newPostsNoticeDismiss" aria-label="Закрыть уведомление">✕</button>
   </div>
 
   <div class="tabs-wrap fu tabs-wrap-top">
