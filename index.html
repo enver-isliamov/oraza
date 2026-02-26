@@ -96,6 +96,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .card-name{font-size:.72rem;font-weight:700;color:var(--text2);}
 .card-tap-hint{font-size:.6rem;font-weight:600;color:var(--text3);margin-top:3px;}
 .status-grid{display:grid;grid-template-columns:2fr 1fr;gap:9px;align-items:stretch;margin-bottom:10px;}
+.status-grid .gratitude-card{grid-column:1/-1;margin:0;}
 .progress-bar{background:var(--surface);border-radius:var(--r-sm);padding:12px 14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:0;}
 .useful-tile{position:relative;display:flex;flex-direction:column;justify-content:center;gap:5px;text-decoration:none;padding:12px 10px;border-radius:var(--r-sm);border:1px solid rgba(196,154,60,.24);background:linear-gradient(145deg,rgba(196,154,60,.16),rgba(196,154,60,.04));box-shadow:var(--shadow-sm);}
 .useful-badge{position:absolute;right:7px;bottom:7px;min-width:17px;height:17px;padding:0 5px;border-radius:999px;background:#d94f5c;color:#fff;font-size:.6rem;font-weight:900;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(217,79,92,.35);animation:quickPulse 1.1s ease-in-out infinite;}
@@ -272,11 +273,9 @@ body.aod-mode .aod-clock-main{font-family:'Smooch Sans',var(--font-body);font-si
 body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-size:clamp(2.1rem,5.6vw,4.2rem);line-height:1;font-weight:700;opacity:.68;margin-left:6px;vertical-align:baseline;color:var(--text2);}
 body.aod-mode .status-grid{grid-template-columns:minmax(0,1fr);gap:9px;}
 body.aod-mode .status-grid .progress-bar{grid-column:1/-1;}
-body.aod-mode .aod-support-card{display:none;}
+body.aod-mode #aodGratitudeCard{display:none;}
 body.aod-mode #noticesWrap{display:none;}
 body.aod-mode .fitir-card{display:none;}
-body.aod-mode .gratitude-card.default-gratitude{display:none !important;}
-
 @media (orientation: landscape){
   body.aod-mode .main{max-width:min(980px,96vw);margin:0 auto;padding:10px 14px 12px;}
   body.aod-mode .topbar-inner{max-width:min(980px,96vw);}
@@ -287,7 +286,7 @@ body.aod-mode .gratitude-card.default-gratitude{display:none !important;}
   body.aod-mode .hero-card{min-height:clamp(260px,42vh,560px);}
   body.aod-mode .card-time{font-size:clamp(5.4rem,14vw,13rem);}
   body.aod-mode .status-grid{grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);gap:12px;}
-  body.aod-mode .aod-support-card{display:block !important;grid-column:1;grid-row:2;}
+  body.aod-mode #aodGratitudeCard{display:block !important;grid-column:1;grid-row:2;}
   body.aod-mode .status-grid .useful-tile{grid-column:2;grid-row:2;}
   body.aod-mode #noticesWrap{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0;}
   body.aod-mode #noticesWrap .notice{margin:0;height:100%;}
@@ -418,7 +417,7 @@ body.aod-mode .gratitude-card.default-gratitude{display:none !important;}
         
         <div class="useful-hint">Читать →</div>
       </a>
-      <div class="gratitude-card fu fu3 aod-support-card" id="aodGratitudeCard">
+      <div class="gratitude-card fu fu3" id="aodGratitudeCard">
         <div class="gratitude-main">
           <div class="gratitude-copy">
             <div class="gratitude-eyebrow">Поддержали проект 18 человек из 1130 посетителей</div>
@@ -426,14 +425,6 @@ body.aod-mode .gratitude-card.default-gratitude{display:none !important;}
           </div>
           <a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="gratitude-cta">Поблагодарить</a>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="gratitude-card fu fu3 default-gratitude">
-    <div class="gratitude-main">
-      <div class="gratitude-copy">
-        <div class="gratitude-eyebrow">Поддержали проект 18 человек из 1130 посетителей</div>
-        <div class="gratitude-sub">Если расписание помогает вам каждый день — поблагодарите автора приложения.</div>
       </div>
     </div>
   </div>
