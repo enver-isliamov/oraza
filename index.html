@@ -367,7 +367,7 @@ body.aod-mode .hero-card.aod-current .card-time{color:var(--text);}
 <div class="gratitude-card fu fu3">
     <div class="gratitude-main">
       <div class="gratitude-copy">
-        <div class="gratitude-eyebrow">Поддержали проект 18 человек из 1127 посетителей</div>
+        <div class="gratitude-eyebrow">Поддержали проект 18 человек из 1130 посетителей</div>
         <div class="gratitude-sub">Если расписание помогает вам каждый день — поблагодарите автора приложения.</div>
       </div>
       <a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="gratitude-cta">Поблагодарить</a>
@@ -571,6 +571,65 @@ function restoreDefaultTiles(imsakT,iftarT){
   $('imsakCard')?.classList.remove('aod-current');
   $('iftarCard')?.classList.add('iftar-card');
   $('iftarCard')?.classList.remove('imsak-card');
+  if(imType)imType.textContent='Имсак';
+  if(ifType)ifType.textContent='Ифтар';
+  if($('heroImsakTime'))$('heroImsakTime').textContent=imsakT;
+  if($('heroIftarTime'))$('heroIftarTime').textContent=iftarT;
+  if(imName)imName.textContent='Начало поста';
+  if(ifName)ifName.textContent='Разговение';
+  if(imHint)imHint.textContent='Нажмите чтобы прочитать дуа';
+  if(ifHint)ifHint.textContent='Нажмите чтобы прочитать дуа';
+}
+
+function getAodPhase(imsakT,iftarT){
+  const nowSec=new Date().getHours()*3600+new Date().getMinutes()*60+new Date().getSeconds();
+  const imSec=toMin(imsakT)*60;
+  const ifSec=toMin(iftarT)*60;
+  if(nowSec<imSec)return 'night';
+  if(nowSec<ifSec)return 'day';
+  return 'after';
+}
+
+function updateAodPrimaryTiles(imsakT,iftarT){
+  if(!document.body.classList.contains('aod-mode'))return;
+  const phase=getAodPhase(imsakT,iftarT);
+  const now=new Date();
+  const nowLabel=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const imType=$('imsakCard')?.querySelector('.card-type');
+  const imTime=$('heroImsakTime');
+  const imName=$('imsakCard')?.querySelector('.card-name');
+  const imHint=$('imsakCard')?.querySelector('.card-tap-hint');
+  const ifType=$('iftarCard')?.querySelector('.card-type');
+  const ifTime=$('heroIftarTime');
+  const ifName=$('iftarCard')?.querySelector('.card-name');
+  const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
+  if(!imType||!imTime||!imName||!imHint||!ifType||!ifTime||!ifName||!ifHint)return;
+
+  imType.textContent='Текущее';
+  imTime.textContent=nowLabel;
+  imName.textContent='Текущее время';
+  imHint.textContent='Обновляется каждую секунду';
+
+  if(phase==='night'){
+    ifType.textContent='Имсак';
+    ifTime.textContent=imsakT;
+    ifName.textContent='Ближайшее событие';
+    ifHint.textContent='Начало поста';
+  }else{
+    ifType.textContent='Ифтар';
+    ifTime.textContent=iftarT;
+    ifName.textContent=phase==='day'?'Ближайшее событие':'Следующий день';
+    ifHint.textContent=phase==='day'?'Время разговения':'Ифтар уже наступил';
+  }
+}
+
+function restoreDefaultTiles(imsakT,iftarT){
+  const imType=$('imsakCard')?.querySelector('.card-type');
+  const imName=$('imsakCard')?.querySelector('.card-name');
+  const imHint=$('imsakCard')?.querySelector('.card-tap-hint');
+  const ifType=$('iftarCard')?.querySelector('.card-type');
+  const ifName=$('iftarCard')?.querySelector('.card-name');
+  const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
   if(imType)imType.textContent='Имсак';
   if(ifType)ifType.textContent='Ифтар';
   if($('heroImsakTime'))$('heroImsakTime').textContent=imsakT;
