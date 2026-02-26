@@ -2,11 +2,12 @@
   const RELEASE_START_KEY = 'ramContentReleaseStart';
   const RELEASE_LAST_NOTIFIED_KEY = 'ramContentLastNotifiedCount';
   const DAY_MS = 24 * 60 * 60 * 1000;
+  const MIN_AVAILABLE_COUNT = 2;
 
   const ARTICLE_CATALOG = [
     {
       id: 'mahram',
-      title: 'Женщины, запретные для брака',
+      title: 'Кто такие махрамы: три категории женщин, запретных для брака',
       description: 'Краткая памятка о том, кто такие махрамы, какие бывают категории и какие правила связаны с этим статусом.',
       href: 'mahram.html',
       label: 'Открыть статью'
@@ -69,7 +70,7 @@
     const start = getStartDate();
     const today = normalizeDate(new Date());
     const daysPassed = Math.max(0, Math.floor((today - start) / DAY_MS));
-    const availableCount = Math.min(ARTICLE_CATALOG.length, daysPassed + 1);
+    const availableCount = Math.min(ARTICLE_CATALOG.length, Math.max(MIN_AVAILABLE_COUNT, daysPassed + 1));
     const availableArticles = ARTICLE_CATALOG.slice(0, availableCount);
     const publishedIds = new Set(availableArticles.map((a)=>a.id));
     const allZakatPublished = ZAKAT_ARTICLE_IDS.every((id)=>publishedIds.has(id));

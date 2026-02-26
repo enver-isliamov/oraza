@@ -233,9 +233,18 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .fu2{animation-delay:.08s;}
 .fu3{animation-delay:.12s;}
 
+
+.aod-compact-bar{display:none;align-items:center;gap:8px;margin-bottom:8px;padding:8px 10px;border-radius:12px;border:1px solid var(--border);background:var(--surface);}
+.aod-compact-main{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;}
+.aod-compact-date{font-size:.93rem;font-weight:900;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.aod-compact-ramadan{font-size:.73rem;font-weight:700;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.aod-compact-city{max-width:42vw;}
+.aod-exit-btn{min-width:36px;}
+
 body.aod-mode{overflow:auto;}
-body.aod-mode .topbar{border-bottom-color:var(--border);background:var(--bg);}
+body.aod-mode .topbar{display:none !important;}
 body.aod-mode .main{padding-top:8px;padding-bottom:0;min-height:calc(100vh - env(safe-area-inset-top,0px));}
+body.aod-mode .aod-compact-bar{display:flex;}
 body.aod-mode .tabs-wrap,body.aod-mode #scheduleArea,body.aod-mode #noticesWrap,body.aod-mode .fitir-card,body.aod-mode .gratitude-card,body.aod-mode .app-footer,body.aod-mode .sticky-footer{display:none !important;}
 body.aod-mode .hero-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
 body.aod-mode .hero-card{min-height:clamp(170px,33vh,360px);padding:16px 14px;border-width:2px;}
@@ -243,12 +252,7 @@ body.aod-mode .card-type{font-size:1.05rem;}
 body.aod-mode .card-time{font-size:clamp(2.4rem,7.6vw,5.4rem);line-height:.93;}
 body.aod-mode .card-name{font-size:1.08rem;}
 body.aod-mode .card-tap-hint{font-size:.8rem;opacity:.65;}
-body.aod-mode .day-nav{margin-bottom:8px;padding:14px 16px;border-radius:18px;border:1px solid var(--border);background:var(--surface);}
-body.aod-mode .day-nav .nav-center{width:100%;text-align:center;}
-body.aod-mode .day-nav .nav-meta{width:100%;}
-body.aod-mode .day-nav .nav-time-wrap,body.aod-mode .day-nav .nav-today-chip,body.aod-mode .day-nav .nav-arrow{display:none !important;}
-body.aod-mode .nav-date-main{font-size:clamp(1.35rem,3.3vw,2rem);font-weight:900;}
-body.aod-mode .nav-ramadan-day{font-size:clamp(1rem,2.4vw,1.3rem);font-weight:800;margin-bottom:10px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:10px 12px;}
+body.aod-mode .day-nav,body.aod-mode .nav-ramadan-day{display:none !important;}
 body.aod-mode .nav-clock-main{font-size:2rem;}
 body.aod-mode .nav-clock-sec{font-size:1rem;}
 body.aod-mode .progress-bar{padding:13px 13px;border-radius:16px;border-color:var(--border);background:var(--surface);}
@@ -265,15 +269,14 @@ body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-siz
 @media (orientation: landscape){
   body.aod-mode .main{max-width:min(980px,96vw);margin:0 auto;padding:10px 14px 12px;}
   body.aod-mode .topbar-inner{max-width:min(980px,96vw);}
-  body.aod-mode .day-nav{display:flex;align-items:center;justify-content:center;gap:10px;}
   body.aod-mode .hero-card{min-height:clamp(170px,38vh,360px);}
   body.aod-mode .status-grid{display:grid;grid-template-columns:minmax(0,1fr);}
 }
 @media (orientation: landscape) and (max-height: 500px){
   body.aod-mode .main{padding-top:6px;padding-bottom:6px;}
-  body.aod-mode .day-nav{padding:10px 12px;margin-bottom:6px;}
-  body.aod-mode .nav-date-main{font-size:clamp(1.1rem,2.8vw,1.4rem);}
-  body.aod-mode .nav-ramadan-day{font-size:.95rem;padding:7px 10px;margin-bottom:6px;}
+  body.aod-mode .aod-compact-bar{padding:7px 8px;margin-bottom:6px;}
+  body.aod-mode .aod-compact-date{font-size:.84rem;}
+  body.aod-mode .aod-compact-ramadan{font-size:.68rem;}
   body.aod-mode .hero-grid{gap:8px;margin-bottom:7px;}
   body.aod-mode .hero-card{min-height:clamp(145px,33vh,220px);padding:12px 12px;}
   body.aod-mode .card-type{font-size:.95rem;}
@@ -332,6 +335,15 @@ body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-siz
     <button class="tab active" data-mode="day" id="tabDay">Сегодня</button>
     <button class="tab" data-mode="week">Неделя</button>
     <button class="tab" data-mode="month">Месяц</button>
+  </div>
+
+  <div class="aod-compact-bar" id="aodCompactBar">
+    <div class="aod-compact-main">
+      <div class="aod-compact-date" id="aodCompactDate">—</div>
+      <div class="aod-compact-ramadan" id="aodCompactRamadan">—</div>
+    </div>
+    <button class="city-btn aod-compact-city" id="aodCompactCityBtn"><span class="city-dot"></span><span id="aodCompactCityLabel">Симферополь</span></button>
+    <button class="icon-btn aod-exit-btn" id="aodExitBtn" title="Выйти из AOD">⤡</button>
   </div>
 
   <div id="daySectionWrap">
@@ -513,8 +525,11 @@ $('themeBtn').onclick=()=>{const t=document.documentElement.getAttribute('data-t
 
 // CITY
 $('cityLabel').textContent=CITIES[cityIdx].name;
-function buildCityList(){const list=$('cityList');list.innerHTML='';CITIES.forEach((c,i)=>{const s=c.offset>0?`+${c.offset}`:c.offset<0?`${c.offset}`:'±0';const el=document.createElement('div');el.className='city-item'+(i===cityIdx?' ci-active':'');el.innerHTML=`<div><div class="ci-name">${c.name}</div><div class="ci-offset">Разница: ${s} мин</div></div>${i===cityIdx?'<span class="ci-check">✓</span>':''}`;el.onclick=()=>{cityIdx=i;localStorage.setItem('ramCity',i);$('cityLabel').textContent=c.name;closeSheet('citySheet');renderAll();};list.appendChild(el);});}
+const aodCityLabel=$('aodCompactCityLabel');if(aodCityLabel)aodCityLabel.textContent=CITIES[cityIdx].name;
+function buildCityList(){const list=$('cityList');list.innerHTML='';CITIES.forEach((c,i)=>{const s=c.offset>0?`+${c.offset}`:c.offset<0?`${c.offset}`:'±0';const el=document.createElement('div');el.className='city-item'+(i===cityIdx?' ci-active':'');el.innerHTML=`<div><div class="ci-name">${c.name}</div><div class="ci-offset">Разница: ${s} мин</div></div>${i===cityIdx?'<span class="ci-check">✓</span>':''}`;el.onclick=()=>{cityIdx=i;localStorage.setItem('ramCity',i);$('cityLabel').textContent=c.name;const aodLabel=$('aodCompactCityLabel');if(aodLabel)aodLabel.textContent=c.name;closeSheet('citySheet');renderAll();};list.appendChild(el);});}
 $('cityBtn').onclick=()=>{buildCityList();openSheet('citySheet');};
+$('aodCompactCityBtn').onclick=()=>{buildCityList();openSheet('citySheet');};
+$('aodExitBtn').onclick=()=>{localStorage.setItem(AOD_KEY,'0');localStorage.setItem(AOD_AUTO_PAUSED_KEY,'1');applyAodMode();};
 
 // SHEETS
 function openSheet(id){$(id).classList.add('open');document.body.style.overflow='hidden';}
@@ -526,8 +541,10 @@ $('calBtn').onclick=()=>openSheet('calSheet');
 
 // ALWAYS ON DISPLAY
 const AOD_KEY='ramAodEnabled';
+const AOD_AUTO_PAUSED_KEY='ramAodAutoPaused';
 const FEATURE_NOTICE_KEY='ramLandscapeFeatureSeen';
 const POSTS_NOTICE_SEEN_KEY='ramPostsSeenCount';
+const aodLandscapeQuery=window.matchMedia('(orientation: landscape)');
 let aodWakeLock=null;
 
 function getAodPhase(imsakT,iftarT){
@@ -646,11 +663,14 @@ async function syncFullscreen(){
 
 function applyAodMode(){
   const manual=localStorage.getItem(AOD_KEY)==='1';
-  const active=manual;
+  const autoPaused=localStorage.getItem(AOD_AUTO_PAUSED_KEY)==='1';
+  const auto=aodLandscapeQuery.matches&&!autoPaused;
+  const active=manual||auto;
   document.body.classList.toggle('aod-mode',active);
   updateAodButton();
   syncWakeLock();
   syncFullscreen();
+  const compactLabel=$('aodCompactCityLabel');if(compactLabel)compactLabel.textContent=CITIES[cityIdx].name;
   const row=DATA[viewIdx]||DATA[todayIdx()];
   const t=adj(row);
   if(active){updateAodPrimaryTiles(t.imsak,t.iftar);}else{restoreDefaultTiles(t.imsak,t.iftar);}
@@ -663,7 +683,8 @@ $('aodBtn').onclick=()=>{
 };
 
 document.addEventListener('visibilitychange',syncWakeLock);
-window.addEventListener('storage',e=>{if(e.key===AOD_KEY){applyAodMode();}});
+aodLandscapeQuery.addEventListener('change',e=>{if(!e.matches){localStorage.setItem(AOD_AUTO_PAUSED_KEY,'0');}applyAodMode();});
+window.addEventListener('storage',e=>{if(e.key===AOD_KEY||e.key===AOD_AUTO_PAUSED_KEY){applyAodMode();}});
 document.addEventListener('fullscreenchange',updateAodButton);
 
 // SHARE - bottom button
@@ -730,8 +751,13 @@ function updateNavCenter(){
   if(mmNode)mmNode.textContent=mm;
   if(secNode)secNode.textContent=ss;
   if(chipNode)chipNode.textContent=isViewedToday?'Сегодня':'Выбранный день';
-  $('navDateMain').textContent=`${d.getDate()} ${monthLabel} · ${dayLabel}`;
+  const fullDate=`${d.getDate()} ${monthLabel} · ${dayLabel}`;
+  $('navDateMain').textContent=fullDate;
   if(ramadanNode)ramadanNode.textContent=ramadanLabel;
+  const aodDate=$('aodCompactDate');
+  const aodRamadan=$('aodCompactRamadan');
+  if(aodDate)aodDate.textContent=fullDate;
+  if(aodRamadan)aodRamadan.textContent=ramadanLabel;
 }
 
 function renderDay(){
@@ -850,7 +876,7 @@ $('nextDay').onclick=()=>{if(viewIdx<DATA.length-1){viewIdx++;renderDay();}};
 
 // PRAYER
 function showPrayer(type){const p=PRAYERS[type];const row=DATA[viewIdx];const t=adj(row);const time=type==='imsak'?t.imsak:t.iftar;const color=type==='imsak'?'var(--imsak)':'var(--iftar)';$('prayerContent').innerHTML=`<div class="prayer-badge ${type==='imsak'?'pb-imsak':'pb-iftar'}">${p.badge}</div><div class="prayer-time" style="color:${color};">${time}</div><div class="prayer-city">${CITIES[cityIdx].name} · ${row[1]} ${MS[row[2]]}</div><div class="prayer-card"><div class="prayer-arabic">${p.arabic}</div><div class="prayer-translit">${p.translit}</div><div class="prayer-translation">${p.text}</div>${p.placeholder?'<div class="prayer-note">💬 Можно произнести про себя</div>':''}</div>`;openSheet('prayerSheet');}
-$('imsakCard').onclick=()=>showPrayer('imsak');
+$('imsakCard').onclick=()=>{if(document.body.classList.contains('aod-mode'))return;showPrayer('imsak');};
 $('iftarCard').onclick=()=>showPrayer('iftar');
 
 // CALENDAR ICS
