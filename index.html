@@ -243,9 +243,12 @@ body.aod-mode .card-type{font-size:1.05rem;}
 body.aod-mode .card-time{font-size:clamp(2.8rem,8.3vw,5.6rem);line-height:.95;}
 body.aod-mode .card-name{font-size:1.08rem;}
 body.aod-mode .card-tap-hint{font-size:.8rem;opacity:.65;}
-body.aod-mode .day-nav{margin-bottom:10px;padding:14px;border-radius:18px;border:1px solid var(--border);background:var(--surface);}
-body.aod-mode .nav-date-main{font-size:1.12rem;}
-body.aod-mode .nav-ramadan-day{font-size:.92rem;margin-bottom:10px;}
+body.aod-mode .day-nav{margin-bottom:8px;padding:14px 16px;border-radius:18px;border:1px solid var(--border);background:var(--surface);}
+body.aod-mode .day-nav .nav-center{width:100%;text-align:center;}
+body.aod-mode .day-nav .nav-meta{width:100%;}
+body.aod-mode .day-nav .nav-time-wrap,body.aod-mode .day-nav .nav-today-chip,body.aod-mode .day-nav .nav-arrow{display:none !important;}
+body.aod-mode .nav-date-main{font-size:clamp(1.35rem,3.3vw,2rem);font-weight:900;}
+body.aod-mode .nav-ramadan-day{font-size:clamp(1rem,2.4vw,1.3rem);font-weight:800;margin-bottom:10px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:10px 12px;}
 body.aod-mode .nav-clock-main{font-size:2rem;}
 body.aod-mode .nav-clock-sec{font-size:1rem;}
 body.aod-mode .progress-bar{padding:16px 15px;border-radius:16px;border-color:var(--border);background:var(--surface);}
@@ -253,11 +256,14 @@ body.aod-mode .progress-label,body.aod-mode .progress-countdown{font-size:1.05re
 body.aod-mode .progress-track{height:14px;}
 body.aod-mode .topbar-inner{max-width:620px;}
 body.aod-mode .icon-btn{width:40px;height:40px;font-size:18px;}
+body.aod-mode .hero-card.aod-current{background:var(--surface);border-color:var(--border);}
+body.aod-mode .hero-card.aod-current .card-type{color:var(--text2);}
+body.aod-mode .hero-card.aod-current .card-time{color:var(--text);}
 
 @media (orientation: landscape){
   body.aod-mode .main{max-width:min(980px,96vw);margin:0 auto;padding:10px 14px 12px;}
   body.aod-mode .topbar-inner{max-width:min(980px,96vw);}
-  body.aod-mode .day-nav{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;}
+  body.aod-mode .day-nav{display:flex;align-items:center;justify-content:center;gap:10px;}
   body.aod-mode .hero-card{min-height:42vh;}
   body.aod-mode .status-grid{display:grid;grid-template-columns:minmax(0,1fr);}
 }
@@ -504,11 +510,75 @@ $('calBtn').onclick=()=>openSheet('calSheet');
 const AOD_KEY='ramAodEnabled';
 const FEATURE_NOTICE_KEY='ramLandscapeFeatureSeen';
 const POSTS_NOTICE_SEEN_KEY='ramPostsSeenCount';
-const aodLandscapeQuery=window.matchMedia('(orientation: landscape)');
 let aodWakeLock=null;
 
-function shouldUseLandscapeAod(){
-  return aodLandscapeQuery.matches;
+function getAodPhase(imsakT,iftarT){
+  const nowSec=new Date().getHours()*3600+new Date().getMinutes()*60+new Date().getSeconds();
+  const imSec=toMin(imsakT)*60;
+  const ifSec=toMin(iftarT)*60;
+  if(nowSec<imSec)return 'night';
+  if(nowSec<ifSec)return 'day';
+  return 'after';
+}
+
+function updateAodPrimaryTiles(imsakT,iftarT){
+  if(!document.body.classList.contains('aod-mode'))return;
+  const phase=getAodPhase(imsakT,iftarT);
+  const now=new Date();
+  const nowLabel=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const imType=$('imsakCard')?.querySelector('.card-type');
+  const imTime=$('heroImsakTime');
+  const imName=$('imsakCard')?.querySelector('.card-name');
+  const imHint=$('imsakCard')?.querySelector('.card-tap-hint');
+  const ifType=$('iftarCard')?.querySelector('.card-type');
+  const ifTime=$('heroIftarTime');
+  const ifName=$('iftarCard')?.querySelector('.card-name');
+  const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
+  if(!imType||!imTime||!imName||!imHint||!ifType||!ifTime||!ifName||!ifHint)return;
+
+  $('imsakCard')?.classList.add('aod-current');
+  $('iftarCard')?.classList.remove('aod-current');
+
+  imType.textContent='Текущее';
+  imTime.textContent=nowLabel;
+  imName.textContent='Текущее время';
+  imHint.textContent='Обновляется каждую секунду';
+
+  if(phase==='night'){
+    ifType.textContent='Имсак';
+    ifTime.textContent=imsakT;
+    ifName.textContent='Ближайшее событие';
+    ifHint.textContent='Начало поста';
+    $('iftarCard')?.classList.add('imsak-card');
+    $('iftarCard')?.classList.remove('iftar-card');
+  }else{
+    ifType.textContent='Ифтар';
+    ifTime.textContent=iftarT;
+    ifName.textContent=phase==='day'?'Ближайшее событие':'Следующий день';
+    ifHint.textContent=phase==='day'?'Время разговения':'Ифтар уже наступил';
+    $('iftarCard')?.classList.add('iftar-card');
+    $('iftarCard')?.classList.remove('imsak-card');
+  }
+}
+
+function restoreDefaultTiles(imsakT,iftarT){
+  const imType=$('imsakCard')?.querySelector('.card-type');
+  const imName=$('imsakCard')?.querySelector('.card-name');
+  const imHint=$('imsakCard')?.querySelector('.card-tap-hint');
+  const ifType=$('iftarCard')?.querySelector('.card-type');
+  const ifName=$('iftarCard')?.querySelector('.card-name');
+  const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
+  $('imsakCard')?.classList.remove('aod-current');
+  $('iftarCard')?.classList.add('iftar-card');
+  $('iftarCard')?.classList.remove('imsak-card');
+  if(imType)imType.textContent='Имсак';
+  if(ifType)ifType.textContent='Ифтар';
+  if($('heroImsakTime'))$('heroImsakTime').textContent=imsakT;
+  if($('heroIftarTime'))$('heroIftarTime').textContent=iftarT;
+  if(imName)imName.textContent='Начало поста';
+  if(ifName)ifName.textContent='Разговение';
+  if(imHint)imHint.textContent='Нажмите чтобы прочитать дуа';
+  if(ifHint)ifHint.textContent='Нажмите чтобы прочитать дуа';
 }
 
 function getAodPhase(imsakT,iftarT){
@@ -615,7 +685,7 @@ async function syncFullscreen(){
 
 function applyAodMode(){
   const manual=localStorage.getItem(AOD_KEY)==='1';
-  const active=manual||shouldUseLandscapeAod();
+  const active=manual;
   document.body.classList.toggle('aod-mode',active);
   updateAodButton();
   syncWakeLock();
@@ -631,7 +701,6 @@ $('aodBtn').onclick=()=>{
   applyAodMode();
 };
 
-aodLandscapeQuery.addEventListener('change',applyAodMode);
 document.addEventListener('visibilitychange',syncWakeLock);
 window.addEventListener('storage',e=>{if(e.key===AOD_KEY){applyAodMode();}});
 document.addEventListener('fullscreenchange',updateAodButton);
