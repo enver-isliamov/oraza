@@ -85,6 +85,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .hero-card::after{content:'↗';position:absolute;top:11px;right:12px;font-size:.68rem;font-weight:700;opacity:.28;}
 .hero-card.imsak-card{background:linear-gradient(150deg,rgba(217,79,92,.11) 0%,rgba(217,79,92,.03) 100%);border-color:rgba(217,79,92,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),var(--shadow-sm);}
 .hero-card.iftar-card{background:linear-gradient(150deg,rgba(31,168,106,.11) 0%,rgba(31,168,106,.03) 100%);border-color:rgba(31,168,106,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),var(--shadow-sm);}
+.hero-card.current-card{background:var(--surface);border-color:var(--border);display:none;}
 [data-theme="dark"] .hero-card{box-shadow:none;}
 .card-type{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;}
 .imsak-card .card-type{color:var(--imsak);}
@@ -110,12 +111,15 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .progress-countdown{font-size:.85rem;font-weight:800;color:var(--gold);}
 .progress-track{height:4px;background:var(--surface3);border-radius:100px;overflow:hidden;}
 .progress-fill{height:100%;border-radius:100px;transition:width 1s linear;}
-.notice{display:flex;gap:10px;padding:11px 13px;border-radius:var(--r-sm);margin-bottom:9px;border:1px solid;}
+.notice{display:flex;gap:10px;padding:11px 13px;border-radius:var(--r-sm);margin-bottom:9px;border:1px solid;position:relative;align-items:flex-start;}
 .notice.laylat{background:var(--gold-soft);border-color:rgba(196,154,60,.2);}
 .notice.bayram{background:var(--iftar-soft);border-color:rgba(31,168,106,.2);}
 .notice-ico{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.notice-main{flex:1;min-width:0;}
 .notice-title{font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:1px;}
 .notice-body{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.4;}
+.notice-close{position:absolute;top:7px;right:7px;width:26px;height:26px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text3);font-size:.95rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.notice-close:active{transform:scale(.94);}
 .tabs-wrap{background:var(--surface);border-radius:var(--r-sm);padding:3px;display:flex;gap:2px;border:1px solid var(--border);margin-bottom:14px;box-shadow:var(--shadow-sm);}
 .tabs-wrap-top{margin-top:6px;}
 .tab{flex:1;padding:8px 4px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-family:var(--font-body);font-size:.76rem;font-weight:800;cursor:pointer;transition:all .18s;text-align:center;-webkit-tap-highlight-color:transparent;}
@@ -245,11 +249,12 @@ body.aod-mode{overflow:auto;}
 body.aod-mode .topbar{display:none !important;}
 body.aod-mode .main{padding-top:8px;padding-bottom:0;min-height:calc(100vh - env(safe-area-inset-top,0px));}
 body.aod-mode .aod-compact-bar{display:flex;}
-body.aod-mode .tabs-wrap,body.aod-mode #scheduleArea,body.aod-mode #noticesWrap,body.aod-mode .fitir-card,body.aod-mode .gratitude-card,body.aod-mode .app-footer,body.aod-mode .sticky-footer{display:none !important;}
-body.aod-mode .hero-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
-body.aod-mode .hero-card{min-height:clamp(170px,33vh,360px);padding:16px 14px;border-width:2px;}
+body.aod-mode .tabs-wrap,body.aod-mode #scheduleArea,body.aod-mode .app-footer,body.aod-mode .sticky-footer{display:none !important;}
+body.aod-mode .hero-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+body.aod-mode .hero-card.current-card{display:flex;}
+body.aod-mode .hero-card{min-height:clamp(170px,33vh,360px);padding:16px 14px;border-width:2px;display:flex;flex-direction:column;}
 body.aod-mode .card-type{font-size:1.05rem;}
-body.aod-mode .card-time{font-size:clamp(2.4rem,7.6vw,5.4rem);line-height:.93;}
+body.aod-mode .card-time{font-size:clamp(3.8rem,12vw,9.4rem);line-height:.82;flex:1;display:flex;align-items:center;margin-bottom:0;}
 body.aod-mode .card-name{font-size:1.08rem;}
 body.aod-mode .card-tap-hint{font-size:.8rem;opacity:.65;}
 body.aod-mode .day-nav,body.aod-mode .nav-ramadan-day{display:none !important;}
@@ -263,14 +268,30 @@ body.aod-mode .icon-btn{width:40px;height:40px;font-size:18px;}
 body.aod-mode .hero-card.aod-current{background:var(--surface);border-color:var(--border);}
 body.aod-mode .hero-card.aod-current .card-type{color:var(--text2);}
 body.aod-mode .hero-card.aod-current .card-time{color:var(--text);}
-body.aod-mode .aod-clock-main{font-family:'Smooch Sans',var(--font-body);font-size:clamp(4.2rem,14vw,9rem);line-height:.82;font-weight:800;letter-spacing:-.03em;color:var(--text);display:inline-block;}
-body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-size:clamp(1.5rem,3.8vw,2.8rem);line-height:1;font-weight:700;opacity:.68;margin-left:6px;vertical-align:baseline;color:var(--text2);}
+body.aod-mode .aod-clock-main{font-family:'Smooch Sans',var(--font-body);font-size:clamp(5.8rem,18vw,14rem);line-height:.8;font-weight:800;letter-spacing:-.03em;color:var(--text);display:inline-block;}
+body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-size:clamp(2.1rem,5.6vw,4.2rem);line-height:1;font-weight:700;opacity:.68;margin-left:6px;vertical-align:baseline;color:var(--text2);}
+body.aod-mode .status-grid{grid-template-columns:minmax(0,1fr);gap:9px;}
+body.aod-mode .status-grid .progress-bar{grid-column:1/-1;}
+body.aod-mode .aod-support-card{display:none;}
+body.aod-mode #noticesWrap{display:none;}
+body.aod-mode .fitir-card{display:none;}
+body.aod-mode .gratitude-card.default-gratitude{display:none !important;}
 
 @media (orientation: landscape){
   body.aod-mode .main{max-width:min(980px,96vw);margin:0 auto;padding:10px 14px 12px;}
   body.aod-mode .topbar-inner{max-width:min(980px,96vw);}
   body.aod-mode .hero-card{min-height:clamp(170px,38vh,360px);}
-  body.aod-mode .status-grid{display:grid;grid-template-columns:minmax(0,1fr);}
+}
+@media (min-width: 1024px) and (orientation: landscape){
+  body.aod-mode .main{max-width:none;width:100%;margin:0;padding:14px 24px 18px;min-height:100vh;}
+  body.aod-mode .hero-card{min-height:clamp(260px,42vh,560px);}
+  body.aod-mode .card-time{font-size:clamp(5.4rem,14vw,13rem);}
+  body.aod-mode .status-grid{grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);gap:12px;}
+  body.aod-mode .aod-support-card{display:block !important;grid-column:1;grid-row:2;}
+  body.aod-mode .status-grid .useful-tile{grid-column:2;grid-row:2;}
+  body.aod-mode #noticesWrap{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0;}
+  body.aod-mode #noticesWrap .notice{margin:0;height:100%;}
+  body.aod-mode .fitir-card{display:block !important;margin:0;}
 }
 @media (orientation: landscape) and (max-height: 500px){
   body.aod-mode .main{padding-top:6px;padding-bottom:6px;}
@@ -284,6 +305,7 @@ body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-siz
   body.aod-mode .card-tap-hint{font-size:.72rem;}
   body.aod-mode .aod-clock-main{font-size:clamp(3rem,11vw,5.2rem);}
   body.aod-mode .aod-clock-sec{font-size:clamp(1rem,3.3vw,1.8rem);}
+  body.aod-mode .status-grid{grid-template-columns:minmax(0,1fr);}
   body.aod-mode .progress-bar{padding:10px 11px;}
   body.aod-mode .progress-label,body.aod-mode .progress-countdown{font-size:.92rem;}
   body.aod-mode .progress-track{height:10px;}
@@ -321,14 +343,12 @@ body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-siz
 
   <div class="notice fu" id="newPostsNotice" style="display:none;margin-bottom:10px;">
     <span class="notice-ico">📰</span>
-    <div>
+    <div class="notice-main">
       <div class="notice-title" id="newPostsNoticeTitle">Вышли новые материалы</div>
       <div class="notice-body" id="newPostsNoticeBody">В разделе «Познавательно» опубликованы новые посты.</div>
-      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
-        <a class="support-link" href="materials.html" id="newPostsNoticeOpen">Открыть посты</a>
-        <button class="cal-btn" id="newPostsNoticeDismiss" style="margin:0;padding:8px 12px;font-size:.72rem;">Скрыть</button>
-      </div>
+      <div style="margin-top:8px;"><a class="support-link" href="materials.html" id="newPostsNoticeOpen">Открыть посты</a></div>
     </div>
+    <button class="notice-close" id="newPostsNoticeDismiss" aria-label="Закрыть уведомление">✕</button>
   </div>
 
   <div class="tabs-wrap fu tabs-wrap-top">
@@ -371,6 +391,12 @@ body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-siz
         <div class="card-name">Начало поста</div>
         <div class="card-tap-hint">Нажмите чтобы прочитать дуа</div>
       </div>
+      <div class="hero-card current-card fu fu2" id="currentCard">
+        <div class="card-type">Сейчас</div>
+        <div class="card-time" id="heroCurrentTime">—</div>
+        <div class="card-name">Текущее время</div>
+        <div class="card-tap-hint">Обновляется каждую секунду</div>
+      </div>
       <div class="hero-card iftar-card fu fu2" id="iftarCard">
         <div class="card-type">Ифтар</div>
         <div class="card-time" id="heroIftarTime">—</div>
@@ -386,15 +412,24 @@ body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-siz
         </div>
         <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
       </div>
-      <a class="useful-tile fu fu3" href="materials.html" aria-label="Познавательно">
+      <a class="useful-tile fu fu3" id="statusUsefulTile" href="materials.html" aria-label="Познавательно">
         <span class="useful-badge" id="materialsUnreadBadge">0</span>
         <div class="useful-eyebrow">Познавательно</div>
         
         <div class="useful-hint">Читать →</div>
       </a>
+      <div class="gratitude-card fu fu3 aod-support-card" id="aodGratitudeCard">
+        <div class="gratitude-main">
+          <div class="gratitude-copy">
+            <div class="gratitude-eyebrow">Поддержали проект 18 человек из 1130 посетителей</div>
+            <div class="gratitude-sub">Если расписание помогает вам каждый день — поблагодарите автора приложения.</div>
+          </div>
+          <a href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener" class="gratitude-cta">Поблагодарить</a>
+        </div>
+      </div>
     </div>
   </div>
-<div class="gratitude-card fu fu3">
+  <div class="gratitude-card fu fu3 default-gratitude">
     <div class="gratitude-main">
       <div class="gratitude-copy">
         <div class="gratitude-eyebrow">Поддержали проект 18 человек из 1130 посетителей</div>
@@ -558,7 +593,6 @@ function getAodPhase(imsakT,iftarT){
 
 function updateAodPrimaryTiles(imsakT,iftarT){
   if(!document.body.classList.contains('aod-mode'))return;
-  const phase=getAodPhase(imsakT,iftarT);
   const now=new Date();
   const hh=String(now.getHours()).padStart(2,'0');
   const mm=String(now.getMinutes()).padStart(2,'0');
@@ -567,35 +601,36 @@ function updateAodPrimaryTiles(imsakT,iftarT){
   const imTime=$('heroImsakTime');
   const imName=$('imsakCard')?.querySelector('.card-name');
   const imHint=$('imsakCard')?.querySelector('.card-tap-hint');
+  const curType=$('currentCard')?.querySelector('.card-type');
+  const curTime=$('heroCurrentTime');
+  const curName=$('currentCard')?.querySelector('.card-name');
+  const curHint=$('currentCard')?.querySelector('.card-tap-hint');
   const ifType=$('iftarCard')?.querySelector('.card-type');
   const ifTime=$('heroIftarTime');
   const ifName=$('iftarCard')?.querySelector('.card-name');
   const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
-  if(!imType||!imTime||!imName||!imHint||!ifType||!ifTime||!ifName||!ifHint)return;
+  if(!imType||!imTime||!imName||!imHint||!curType||!curTime||!curName||!curHint||!ifType||!ifTime||!ifName||!ifHint)return;
 
-  $('imsakCard')?.classList.add('aod-current');
+  $('imsakCard')?.classList.remove('aod-current');
+  $('currentCard')?.classList.add('aod-current');
   $('iftarCard')?.classList.remove('aod-current');
 
-  imType.textContent='СЕЙЧАС';
-  imTime.innerHTML=`<span class="aod-clock-main">${hh}:${mm}</span><span class="aod-clock-sec">:${ss}</span>`;
-  imName.textContent='Текущее время';
-  imHint.textContent='Обновляется каждую секунду';
+  imType.textContent='ИМСАК';
+  imTime.textContent=imsakT;
+  imName.textContent='Начало поста';
+  imHint.textContent='Нажмите чтобы прочитать дуа';
 
-  if(phase==='night'){
-    ifType.textContent='ИМСАК';
-    ifTime.textContent=imsakT;
-    ifName.textContent='Ближайшее событие';
-    ifHint.textContent='Начало поста';
-    $('iftarCard')?.classList.add('imsak-card');
-    $('iftarCard')?.classList.remove('iftar-card');
-  }else{
-    ifType.textContent='ИФТАР';
-    ifTime.textContent=iftarT;
-    ifName.textContent=phase==='day'?'Ближайшее событие':'Следующий день';
-    ifHint.textContent=phase==='day'?'Время разговения':'Ифтар уже наступил';
-    $('iftarCard')?.classList.add('iftar-card');
-    $('iftarCard')?.classList.remove('imsak-card');
-  }
+  curType.textContent='СЕЙЧАС';
+  curTime.innerHTML=`<span class="aod-clock-main">${hh}:${mm}</span><span class="aod-clock-sec">:${ss}</span>`;
+  curName.textContent='Текущее время';
+  curHint.textContent='Обновляется каждую секунду';
+
+  ifType.textContent='ИФТАР';
+  ifTime.textContent=iftarT;
+  ifName.textContent='Разговение';
+  ifHint.textContent='Время разговения';
+  $('iftarCard')?.classList.add('iftar-card');
+  $('iftarCard')?.classList.remove('imsak-card');
 }
 
 function restoreDefaultTiles(imsakT,iftarT){
@@ -606,11 +641,13 @@ function restoreDefaultTiles(imsakT,iftarT){
   const ifName=$('iftarCard')?.querySelector('.card-name');
   const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
   $('imsakCard')?.classList.remove('aod-current');
+  $('currentCard')?.classList.remove('aod-current');
   $('iftarCard')?.classList.add('iftar-card');
   $('iftarCard')?.classList.remove('imsak-card');
   if(imType)imType.textContent='Имсак';
   if(ifType)ifType.textContent='Ифтар';
   if($('heroImsakTime'))$('heroImsakTime').textContent=imsakT;
+  if($('heroCurrentTime'))$('heroCurrentTime').textContent='—';
   if($('heroIftarTime'))$('heroIftarTime').textContent=iftarT;
   if(imName)imName.textContent='Начало поста';
   if(ifName)ifName.textContent='Разговение';
@@ -664,7 +701,7 @@ async function syncFullscreen(){
 function applyAodMode(){
   const manual=localStorage.getItem(AOD_KEY)==='1';
   const autoPaused=localStorage.getItem(AOD_AUTO_PAUSED_KEY)==='1';
-  const auto=aodLandscapeQuery.matches&&!autoPaused;
+  const auto=false;
   const active=manual||auto;
   document.body.classList.toggle('aod-mode',active);
   updateAodButton();
@@ -794,12 +831,12 @@ function updateProgress(imsakT,iftarT){
   if(nowSec<imSec){
     fill.style.background='var(--imsak)';
     fill.style.width=Math.max(2,(1-((imSec-nowSec)/(90*60)))*100)+'%';
-    lbl.style.color='var(--imsak)';txt.textContent='Таймер до Имсака';cnt.textContent=fmtSec(imSec-nowSec);
+    lbl.style.color='var(--imsak)';txt.textContent='до Имсака';cnt.textContent=fmtSec(imSec-nowSec);
   }else if(nowSec<ifSec){
     const tot=ifSec-imSec,pas=nowSec-imSec;
     fill.style.background='linear-gradient(90deg,var(--imsak),var(--iftar))';
     fill.style.width=(pas/tot*100).toFixed(1)+'%';
-    lbl.style.color='var(--iftar)';txt.textContent='Таймер до Ифтара';cnt.textContent=fmtSec(ifSec-nowSec);
+    lbl.style.color='var(--iftar)';txt.textContent='до Ифтара';cnt.textContent=fmtSec(ifSec-nowSec);
   }else{fill.style.background='var(--iftar)';fill.style.width='100%';lbl.style.color='var(--gold)';txt.textContent='Ифтар наступил';cnt.textContent='Приятного!';}
 }
 
@@ -876,7 +913,7 @@ $('nextDay').onclick=()=>{if(viewIdx<DATA.length-1){viewIdx++;renderDay();}};
 
 // PRAYER
 function showPrayer(type){const p=PRAYERS[type];const row=DATA[viewIdx];const t=adj(row);const time=type==='imsak'?t.imsak:t.iftar;const color=type==='imsak'?'var(--imsak)':'var(--iftar)';$('prayerContent').innerHTML=`<div class="prayer-badge ${type==='imsak'?'pb-imsak':'pb-iftar'}">${p.badge}</div><div class="prayer-time" style="color:${color};">${time}</div><div class="prayer-city">${CITIES[cityIdx].name} · ${row[1]} ${MS[row[2]]}</div><div class="prayer-card"><div class="prayer-arabic">${p.arabic}</div><div class="prayer-translit">${p.translit}</div><div class="prayer-translation">${p.text}</div>${p.placeholder?'<div class="prayer-note">💬 Можно произнести про себя</div>':''}</div>`;openSheet('prayerSheet');}
-$('imsakCard').onclick=()=>{if(document.body.classList.contains('aod-mode'))return;showPrayer('imsak');};
+$('imsakCard').onclick=()=>{showPrayer('imsak');};
 $('iftarCard').onclick=()=>showPrayer('iftar');
 
 // CALENDAR ICS
