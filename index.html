@@ -233,26 +233,58 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .fu2{animation-delay:.08s;}
 .fu3{animation-delay:.12s;}
 
-body.aod-mode{background:#090806;color:#faf4e9;overflow:hidden;}
-body.aod-mode .topbar{border-bottom-color:rgba(250,244,233,.1);background:#090806;}
-body.aod-mode .main{padding-top:10px;padding-bottom:0;}
+body.aod-mode{overflow:auto;}
+body.aod-mode .topbar{border-bottom-color:var(--border);background:var(--bg);}
+body.aod-mode .main{padding-top:8px;padding-bottom:0;min-height:calc(100vh - env(safe-area-inset-top,0px));}
 body.aod-mode .tabs-wrap,body.aod-mode #scheduleArea,body.aod-mode #noticesWrap,body.aod-mode .fitir-card,body.aod-mode .gratitude-card,body.aod-mode .app-footer,body.aod-mode .sticky-footer{display:none !important;}
-body.aod-mode .hero-grid{grid-template-columns:1fr;gap:12px;}
-body.aod-mode .hero-card{min-height:31vh;padding:22px 18px;border-width:2px;}
-body.aod-mode .card-type{font-size:1rem;}
-body.aod-mode .card-time{font-size:clamp(3rem,11vw,5rem);line-height:1;}
-body.aod-mode .card-name{font-size:1.05rem;}
-body.aod-mode .card-tap-hint{font-size:.84rem;opacity:.75;}
-body.aod-mode .day-nav{margin-bottom:10px;padding:14px;border-radius:18px;border:1px solid rgba(250,244,233,.12);background:#11100d;}
-body.aod-mode .nav-date-main{font-size:1.12rem;}
-body.aod-mode .nav-ramadan-day{font-size:.92rem;margin-bottom:10px;}
+body.aod-mode .hero-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+body.aod-mode .hero-card{min-height:clamp(170px,33vh,360px);padding:16px 14px;border-width:2px;}
+body.aod-mode .card-type{font-size:1.05rem;}
+body.aod-mode .card-time{font-size:clamp(2.4rem,7.6vw,5.4rem);line-height:.93;}
+body.aod-mode .card-name{font-size:1.08rem;}
+body.aod-mode .card-tap-hint{font-size:.8rem;opacity:.65;}
+body.aod-mode .day-nav{margin-bottom:8px;padding:14px 16px;border-radius:18px;border:1px solid var(--border);background:var(--surface);}
+body.aod-mode .day-nav .nav-center{width:100%;text-align:center;}
+body.aod-mode .day-nav .nav-meta{width:100%;}
+body.aod-mode .day-nav .nav-time-wrap,body.aod-mode .day-nav .nav-today-chip,body.aod-mode .day-nav .nav-arrow{display:none !important;}
+body.aod-mode .nav-date-main{font-size:clamp(1.35rem,3.3vw,2rem);font-weight:900;}
+body.aod-mode .nav-ramadan-day{font-size:clamp(1rem,2.4vw,1.3rem);font-weight:800;margin-bottom:10px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:10px 12px;}
 body.aod-mode .nav-clock-main{font-size:2rem;}
 body.aod-mode .nav-clock-sec{font-size:1rem;}
-body.aod-mode .progress-bar{padding:16px 15px;border-radius:16px;border-color:rgba(250,244,233,.12);background:#11100d;}
-body.aod-mode .progress-label,body.aod-mode .progress-countdown{font-size:1rem;}
-body.aod-mode .progress-track{height:16px;}
+body.aod-mode .progress-bar{padding:13px 13px;border-radius:16px;border-color:var(--border);background:var(--surface);}
+body.aod-mode .progress-label,body.aod-mode .progress-countdown{font-size:1.05rem;}
+body.aod-mode .progress-track{height:14px;}
 body.aod-mode .topbar-inner{max-width:620px;}
 body.aod-mode .icon-btn{width:40px;height:40px;font-size:18px;}
+body.aod-mode .hero-card.aod-current{background:var(--surface);border-color:var(--border);}
+body.aod-mode .hero-card.aod-current .card-type{color:var(--text2);}
+body.aod-mode .hero-card.aod-current .card-time{color:var(--text);}
+body.aod-mode .aod-clock-main{font-family:'Smooch Sans',var(--font-body);font-size:clamp(4.2rem,14vw,9rem);line-height:.82;font-weight:800;letter-spacing:-.03em;color:var(--text);display:inline-block;}
+body.aod-mode .aod-clock-sec{font-family:'Smooch Sans',var(--font-body);font-size:clamp(1.5rem,3.8vw,2.8rem);line-height:1;font-weight:700;opacity:.68;margin-left:6px;vertical-align:baseline;color:var(--text2);}
+
+@media (orientation: landscape){
+  body.aod-mode .main{max-width:min(980px,96vw);margin:0 auto;padding:10px 14px 12px;}
+  body.aod-mode .topbar-inner{max-width:min(980px,96vw);}
+  body.aod-mode .day-nav{display:flex;align-items:center;justify-content:center;gap:10px;}
+  body.aod-mode .hero-card{min-height:clamp(170px,38vh,360px);}
+  body.aod-mode .status-grid{display:grid;grid-template-columns:minmax(0,1fr);}
+}
+@media (orientation: landscape) and (max-height: 500px){
+  body.aod-mode .main{padding-top:6px;padding-bottom:6px;}
+  body.aod-mode .day-nav{padding:10px 12px;margin-bottom:6px;}
+  body.aod-mode .nav-date-main{font-size:clamp(1.1rem,2.8vw,1.4rem);}
+  body.aod-mode .nav-ramadan-day{font-size:.95rem;padding:7px 10px;margin-bottom:6px;}
+  body.aod-mode .hero-grid{gap:8px;margin-bottom:7px;}
+  body.aod-mode .hero-card{min-height:clamp(145px,33vh,220px);padding:12px 12px;}
+  body.aod-mode .card-type{font-size:.95rem;}
+  body.aod-mode .card-name{font-size:.9rem;}
+  body.aod-mode .card-tap-hint{font-size:.72rem;}
+  body.aod-mode .aod-clock-main{font-size:clamp(3rem,11vw,5.2rem);}
+  body.aod-mode .aod-clock-sec{font-size:clamp(1rem,3.3vw,1.8rem);}
+  body.aod-mode .progress-bar{padding:10px 11px;}
+  body.aod-mode .progress-label,body.aod-mode .progress-countdown{font-size:.92rem;}
+  body.aod-mode .progress-track{height:10px;}
+}
 </style>
 </head>
 <body>
@@ -262,7 +294,7 @@ body.aod-mode .icon-btn{width:40px;height:40px;font-size:18px;}
     <div class="brand">Рамадан <em>1447</em><small>Рамазан Айы · Крым</small></div>
     <div class="topbar-actions">
       <button class="city-btn" id="cityBtn"><span class="city-dot"></span><span id="cityLabel">Симферополь</span><span style="font-size:.55rem;opacity:.4;margin-left:2px;">▾</span></button>
-      <button class="icon-btn" id="aodBtn" title="Режим всегда на экране" aria-pressed="false">⛶</button>
+      <button class="icon-btn" id="aodBtn" title="Полноэкранный режим" aria-pressed="false">⤢</button>
       <button class="icon-btn" id="settingsBtn" title="Настройки">⚙️</button>
     </div>
   </div>
@@ -275,6 +307,26 @@ body.aod-mode .icon-btn{width:40px;height:40px;font-size:18px;}
     <button class="ib-close" id="installBannerClose">✕</button>
   </div>
 
+  <div class="notice fu" id="landscapeFeatureNotice" style="display:none;margin-bottom:10px;">
+    <span class="notice-ico">🆕</span>
+    <div>
+      <div class="notice-title">Новый полноэкранный режим</div>
+      <div class="notice-body">Нажмите <strong>⤢</strong>, чтобы развернуть экран в горизонтальном формате. Это удобно в дороге, на кухне и во время намаза, когда нужен крупный таймер без лишних элементов.</div>
+      <button class="cal-btn" id="landscapeFeatureNoticeBtn" style="margin-top:8px;padding:9px 12px;font-size:.72rem;">Понятно</button>
+    </div>
+  </div>
+
+  <div class="notice fu" id="newPostsNotice" style="display:none;margin-bottom:10px;">
+    <span class="notice-ico">📰</span>
+    <div>
+      <div class="notice-title" id="newPostsNoticeTitle">Вышли новые материалы</div>
+      <div class="notice-body" id="newPostsNoticeBody">В разделе «Познавательно» опубликованы новые посты.</div>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+        <a class="support-link" href="materials.html" id="newPostsNoticeOpen">Открыть посты</a>
+        <button class="cal-btn" id="newPostsNoticeDismiss" style="margin:0;padding:8px 12px;font-size:.72rem;">Скрыть</button>
+      </div>
+    </div>
+  </div>
 
   <div class="tabs-wrap fu tabs-wrap-top">
     <button class="tab active" data-mode="day" id="tabDay">Сегодня</button>
@@ -474,11 +526,79 @@ $('calBtn').onclick=()=>openSheet('calSheet');
 
 // ALWAYS ON DISPLAY
 const AOD_KEY='ramAodEnabled';
-const aodLandscapeQuery=window.matchMedia('(orientation: landscape) and (max-height: 560px)');
+const FEATURE_NOTICE_KEY='ramLandscapeFeatureSeen';
+const POSTS_NOTICE_SEEN_KEY='ramPostsSeenCount';
 let aodWakeLock=null;
 
-function shouldUseLandscapeAod(){
-  return aodLandscapeQuery.matches;
+function getAodPhase(imsakT,iftarT){
+  const nowSec=new Date().getHours()*3600+new Date().getMinutes()*60+new Date().getSeconds();
+  const imSec=toMin(imsakT)*60;
+  const ifSec=toMin(iftarT)*60;
+  if(nowSec<imSec)return 'night';
+  if(nowSec<ifSec)return 'day';
+  return 'after';
+}
+
+function updateAodPrimaryTiles(imsakT,iftarT){
+  if(!document.body.classList.contains('aod-mode'))return;
+  const phase=getAodPhase(imsakT,iftarT);
+  const now=new Date();
+  const hh=String(now.getHours()).padStart(2,'0');
+  const mm=String(now.getMinutes()).padStart(2,'0');
+  const ss=String(now.getSeconds()).padStart(2,'0');
+  const imType=$('imsakCard')?.querySelector('.card-type');
+  const imTime=$('heroImsakTime');
+  const imName=$('imsakCard')?.querySelector('.card-name');
+  const imHint=$('imsakCard')?.querySelector('.card-tap-hint');
+  const ifType=$('iftarCard')?.querySelector('.card-type');
+  const ifTime=$('heroIftarTime');
+  const ifName=$('iftarCard')?.querySelector('.card-name');
+  const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
+  if(!imType||!imTime||!imName||!imHint||!ifType||!ifTime||!ifName||!ifHint)return;
+
+  $('imsakCard')?.classList.add('aod-current');
+  $('iftarCard')?.classList.remove('aod-current');
+
+  imType.textContent='СЕЙЧАС';
+  imTime.innerHTML=`<span class="aod-clock-main">${hh}:${mm}</span><span class="aod-clock-sec">:${ss}</span>`;
+  imName.textContent='Текущее время';
+  imHint.textContent='Обновляется каждую секунду';
+
+  if(phase==='night'){
+    ifType.textContent='ИМСАК';
+    ifTime.textContent=imsakT;
+    ifName.textContent='Ближайшее событие';
+    ifHint.textContent='Начало поста';
+    $('iftarCard')?.classList.add('imsak-card');
+    $('iftarCard')?.classList.remove('iftar-card');
+  }else{
+    ifType.textContent='ИФТАР';
+    ifTime.textContent=iftarT;
+    ifName.textContent=phase==='day'?'Ближайшее событие':'Следующий день';
+    ifHint.textContent=phase==='day'?'Время разговения':'Ифтар уже наступил';
+    $('iftarCard')?.classList.add('iftar-card');
+    $('iftarCard')?.classList.remove('imsak-card');
+  }
+}
+
+function restoreDefaultTiles(imsakT,iftarT){
+  const imType=$('imsakCard')?.querySelector('.card-type');
+  const imName=$('imsakCard')?.querySelector('.card-name');
+  const imHint=$('imsakCard')?.querySelector('.card-tap-hint');
+  const ifType=$('iftarCard')?.querySelector('.card-type');
+  const ifName=$('iftarCard')?.querySelector('.card-name');
+  const ifHint=$('iftarCard')?.querySelector('.card-tap-hint');
+  $('imsakCard')?.classList.remove('aod-current');
+  $('iftarCard')?.classList.add('iftar-card');
+  $('iftarCard')?.classList.remove('imsak-card');
+  if(imType)imType.textContent='Имсак';
+  if(ifType)ifType.textContent='Ифтар';
+  if($('heroImsakTime'))$('heroImsakTime').textContent=imsakT;
+  if($('heroIftarTime'))$('heroIftarTime').textContent=iftarT;
+  if(imName)imName.textContent='Начало поста';
+  if(ifName)ifName.textContent='Разговение';
+  if(imHint)imHint.textContent='Нажмите чтобы прочитать дуа';
+  if(ifHint)ifHint.textContent='Нажмите чтобы прочитать дуа';
 }
 
 async function syncWakeLock(){
@@ -500,16 +620,40 @@ function updateAodButton(){
   const active=document.body.classList.contains('aod-mode');
   btn.classList.toggle('aod-active',active);
   btn.setAttribute('aria-pressed',String(manual));
-  btn.textContent=active?'🕯️':'⛶';
-  btn.title=active?'Отключить режим всегда на экране':'Режим всегда на экране';
+  btn.textContent=active?'⤡':'⤢';
+  btn.title=active?'Выйти из полноэкранного режима':'Включить полноэкранный режим';
+}
+
+
+async function syncFullscreen(){
+  const manual=localStorage.getItem(AOD_KEY)==='1';
+  if(manual && !document.fullscreenElement && document.documentElement.requestFullscreen){
+    try{
+      await document.documentElement.requestFullscreen({navigationUI:'hide'});
+      if(screen.orientation&&screen.orientation.lock){
+        try{await screen.orientation.lock('landscape');}catch(e){}
+      }
+    }catch(e){}
+    return;
+  }
+  if(!manual && document.fullscreenElement && document.exitFullscreen){
+    try{
+      if(screen.orientation&&screen.orientation.unlock){screen.orientation.unlock();}
+      await document.exitFullscreen();
+    }catch(e){}
+  }
 }
 
 function applyAodMode(){
   const manual=localStorage.getItem(AOD_KEY)==='1';
-  const active=manual||shouldUseLandscapeAod();
+  const active=manual;
   document.body.classList.toggle('aod-mode',active);
   updateAodButton();
   syncWakeLock();
+  syncFullscreen();
+  const row=DATA[viewIdx]||DATA[todayIdx()];
+  const t=adj(row);
+  if(active){updateAodPrimaryTiles(t.imsak,t.iftar);}else{restoreDefaultTiles(t.imsak,t.iftar);}
 }
 
 $('aodBtn').onclick=()=>{
@@ -518,9 +662,9 @@ $('aodBtn').onclick=()=>{
   applyAodMode();
 };
 
-aodLandscapeQuery.addEventListener('change',applyAodMode);
 document.addEventListener('visibilitychange',syncWakeLock);
 window.addEventListener('storage',e=>{if(e.key===AOD_KEY){applyAodMode();}});
+document.addEventListener('fullscreenchange',updateAodButton);
 
 // SHARE - bottom button
 $('shareBottomBtn').onclick=()=>openSheet('shareSheet');
@@ -601,6 +745,7 @@ function renderDay(){
   $('nextDay').disabled=viewIdx>=DATA.length-1;
   $('heroImsakTime').textContent=t.imsak;
   $('heroIftarTime').textContent=t.iftar;
+  if(document.body.classList.contains('aod-mode')){updateAodPrimaryTiles(t.imsak,t.iftar);}else{restoreDefaultTiles(t.imsak,t.iftar);}
   const pb=$('progressBar');
   if(it){pb.style.display='';updateProgress(t.imsak,t.iftar);}else{pb.style.display='none';}
   const area=$('scheduleArea');let html='';
@@ -623,12 +768,12 @@ function updateProgress(imsakT,iftarT){
   if(nowSec<imSec){
     fill.style.background='var(--imsak)';
     fill.style.width=Math.max(2,(1-((imSec-nowSec)/(90*60)))*100)+'%';
-    lbl.style.color='var(--imsak)';txt.textContent='До Имсака';cnt.textContent=fmtSec(imSec-nowSec);
+    lbl.style.color='var(--imsak)';txt.textContent='Таймер до Имсака';cnt.textContent=fmtSec(imSec-nowSec);
   }else if(nowSec<ifSec){
     const tot=ifSec-imSec,pas=nowSec-imSec;
     fill.style.background='linear-gradient(90deg,var(--imsak),var(--iftar))';
     fill.style.width=(pas/tot*100).toFixed(1)+'%';
-    lbl.style.color='var(--iftar)';txt.textContent='До Ифтара';cnt.textContent=fmtSec(ifSec-nowSec);
+    lbl.style.color='var(--iftar)';txt.textContent='Таймер до Ифтара';cnt.textContent=fmtSec(ifSec-nowSec);
   }else{fill.style.background='var(--iftar)';fill.style.width='100%';lbl.style.color='var(--gold)';txt.textContent='Ифтар наступил';cnt.textContent='Приятного!';}
 }
 
@@ -683,6 +828,7 @@ function _updateHero(idx){
   updateNavCenter();
   $('heroImsakTime').textContent=t.imsak;
   $('heroIftarTime').textContent=t.iftar;
+  if(document.body.classList.contains('aod-mode')){updateAodPrimaryTiles(t.imsak,t.iftar);}else{restoreDefaultTiles(t.imsak,t.iftar);}
   if(it){$('progressBar').style.display='';updateProgress(t.imsak,t.iftar);}else{$('progressBar').style.display='none';}
 }
 
@@ -760,10 +906,39 @@ function updateZakatAccessState(){
   }
 }
 
+function showLandscapeFeatureNotice(){
+  const notice=$('landscapeFeatureNotice');
+  if(!notice)return;
+  if(localStorage.getItem(FEATURE_NOTICE_KEY)==='1')return;
+  notice.style.display='flex';
+  const close=()=>{notice.style.display='none';localStorage.setItem(FEATURE_NOTICE_KEY,'1');};
+  const btn=$('landscapeFeatureNoticeBtn');
+  if(btn)btn.onclick=close;
+}
+
+function showPostsNotice(release){
+  const wrap=$('newPostsNotice');
+  const title=$('newPostsNoticeTitle');
+  const body=$('newPostsNoticeBody');
+  const openBtn=$('newPostsNoticeOpen');
+  const dismissBtn=$('newPostsNoticeDismiss');
+  if(!wrap||!title||!body||!dismissBtn||!openBtn)return;
+  const seen=Number(localStorage.getItem(POSTS_NOTICE_SEEN_KEY)||'0');
+  const fresh=Math.max(0,release.availableCount-seen);
+  if(fresh<=0){wrap.style.display='none';return;}
+  title.textContent=fresh===1?'Вышел новый пост':'Вышли новые посты';
+  body.textContent=fresh===1?`Добавлен материал: ${release.availableArticles[release.availableCount-1].title}.`:`Добавлено ${fresh} новых материалов в разделе «Познавательно».`;
+  wrap.style.display='flex';
+  const markSeen=()=>{localStorage.setItem(POSTS_NOTICE_SEEN_KEY,String(release.availableCount));wrap.style.display='none';};
+  dismissBtn.onclick=markSeen;
+  openBtn.onclick=()=>{markSeen();};
+}
+
 function processAutoReleases(){
   if(!window.ContentRelease)return;
   const release=window.ContentRelease.getReleaseState();
   window.ContentRelease.showReleaseNotification(release);
+  showPostsNotice(release);
 }
 
 window.addEventListener('storage',e=>{
@@ -775,6 +950,7 @@ window.addEventListener('storage',e=>{
 
 // INIT
 applyAodMode();
+showLandscapeFeatureNotice();
 processAutoReleases();
 updateMaterialsUnreadBadge();
 updateZakatAccessState();
@@ -782,7 +958,11 @@ viewIdx=todayIdx();
 renderAll();
 setInterval(()=>{
   updateNavCenter();
-  if(mode==='day'&&isToday(DATA[viewIdx])){updateProgress(adj(DATA[viewIdx]).imsak,adj(DATA[viewIdx]).iftar);}
+  if(mode==='day'){
+    const current=adj(DATA[viewIdx]);
+    if(document.body.classList.contains('aod-mode')){updateAodPrimaryTiles(current.imsak,current.iftar);}
+    if(isToday(DATA[viewIdx])){updateProgress(current.imsak,current.iftar);}
+  }
 },1000);
 </script>
 
