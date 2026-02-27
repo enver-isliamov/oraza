@@ -49,7 +49,7 @@ body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--
 .footer-wrap { padding-bottom: 26px; }
 .support-note { margin-top: 18px; border-top: 1px solid #e0e0e0; padding-top: 14px; display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
 .support-title { margin: 0; font-size: 14px; line-height: 1.4; font-weight: 400; }
-.support-button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 18px;border-radius:999px;background:linear-gradient(180deg,rgba(31,168,106,.95),rgba(31,168,106,.82));color:#fff;text-decoration:none;font-size:16px;font-weight:700;}
+.support-button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 18px;border-radius:10px;background:linear-gradient(180deg,rgba(31,168,106,.95),rgba(31,168,106,.82));color:#fff;text-decoration:none;font-size:16px;font-weight:500;}
 @media (max-width: 980px) {
   .topbar,.topbar-inner,.main,.footer-wrap{padding:0 16px;}
   .article { max-width: 760px; }
