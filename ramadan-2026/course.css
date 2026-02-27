@@ -258,7 +258,7 @@ body {
 
 .course-card-meta {
   color: var(--muted);
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -280,7 +280,7 @@ body {
 
 .support-title {
   margin: 0;
-  font-size: 8px;
+  font-size: 14px;
   line-height: 1.4;
   font-weight: 400;
 }
