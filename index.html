@@ -36,6 +36,10 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .icon-btn.theme-active{background:var(--gold-soft);border-color:rgba(196,154,60,.3);}
 .icon-btn.aod-active{background:var(--iftar-soft);border-color:rgba(31,168,106,.35);color:var(--iftar);}
 .fitir-card{background:linear-gradient(135deg,rgba(196,154,60,.13) 0%,rgba(196,154,60,.05) 100%);border:1px solid rgba(196,154,60,.22);border-radius:var(--r);padding:16px 16px 14px;margin-bottom:10px;position:relative;overflow:hidden;display:block;color:inherit;text-decoration:none;}
+.course-cta{display:block;border-radius:var(--r);padding:14px;border:1px solid rgba(127,44,224,.28);background:linear-gradient(145deg,rgba(127,44,224,.16),rgba(127,44,224,.04));box-shadow:var(--shadow-sm);text-decoration:none;color:inherit;margin-bottom:10px;}
+.course-cta-title{font-size:.95rem;font-weight:900;line-height:1.2;color:var(--text);}
+.course-cta-sub{font-size:.74rem;font-weight:700;color:var(--text2);margin-top:5px;}
+.course-cta-link{margin-top:8px;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7f2ce0;}
 .fitir-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(196,154,60,.15),transparent 70%);pointer-events:none;}
 .fitir-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .fitir-ico{font-size:1.3rem;flex-shrink:0;}
@@ -121,6 +125,14 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .notice-body{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.4;}
 .notice-close{position:absolute;top:7px;right:7px;width:26px;height:26px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text3);font-size:.95rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .notice-close:active{transform:scale(.94);}
+.top-popups{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);left:50%;transform:translateX(-50%);width:min(94vw,560px);display:grid;gap:8px;z-index:60;pointer-events:none;}
+.popup-notice{display:none;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow);pointer-events:auto;}
+.popup-notice .notice-title{font-size:.74rem;margin-bottom:0;}
+.popup-notice .notice-body{font-size:.66rem;line-height:1.3;}
+.popup-notice .cal-btn,.popup-notice .support-link{margin-top:4px;padding:6px 9px;font-size:.64rem;border-radius:9px;}
+.popup-notice .notice-close{position:static;width:22px;height:22px;font-size:.85rem;}
+body.aod-mode .top-popups{display:none !important;}
+
 .tabs-wrap{background:var(--surface);border-radius:var(--r-sm);padding:3px;display:flex;gap:2px;border:1px solid var(--border);margin-bottom:14px;box-shadow:var(--shadow-sm);}
 .tabs-wrap-top{margin-top:6px;}
 .tab{flex:1;padding:8px 4px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-family:var(--font-body);font-size:.76rem;font-weight:800;cursor:pointer;transition:all .18s;text-align:center;-webkit-tap-highlight-color:transparent;}
@@ -276,6 +288,7 @@ body.aod-mode .status-grid .progress-bar{grid-column:1/-1;}
 body.aod-mode #aodGratitudeCard{display:none;}
 body.aod-mode #noticesWrap{display:none;}
 body.aod-mode .fitir-card{display:none;}
+body.aod-mode .course-cta{display:none;}
 @media (orientation: landscape){
   body.aod-mode .main{max-width:min(980px,96vw);margin:0 auto;padding:10px 14px 12px;}
   body.aod-mode .topbar-inner{max-width:min(980px,96vw);}
@@ -291,6 +304,7 @@ body.aod-mode .fitir-card{display:none;}
   body.aod-mode #noticesWrap{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0;}
   body.aod-mode #noticesWrap .notice{margin:0;height:100%;}
   body.aod-mode .fitir-card{display:block !important;margin:0;}
+  body.aod-mode .course-cta{display:block !important;margin:0;}
 }
 @media (orientation: landscape) and (max-height: 500px){
   body.aod-mode .main{padding-top:6px;padding-bottom:6px;}
@@ -331,23 +345,25 @@ body.aod-mode .fitir-card{display:none;}
     <button class="ib-close" id="installBannerClose">✕</button>
   </div>
 
-  <div class="notice fu" id="landscapeFeatureNotice" style="display:none;margin-bottom:10px;">
-    <span class="notice-ico">🆕</span>
-    <div>
-      <div class="notice-title">Новый полноэкранный режим</div>
-      <div class="notice-body">Нажмите <strong>⤢</strong>, чтобы развернуть экран в горизонтальном формате. Это удобно в дороге, на кухне и во время намаза, когда нужен крупный таймер без лишних элементов.</div>
-      <button class="cal-btn" id="landscapeFeatureNoticeBtn" style="margin-top:8px;padding:9px 12px;font-size:.72rem;">Понятно</button>
+  <div class="top-popups" id="topPopups">
+    <div class="popup-notice fu" id="landscapeFeatureNotice">
+      <span class="notice-ico">🆕</span>
+      <div>
+        <div class="notice-title">Новый полноэкранный режим</div>
+        <div class="notice-body">Нажмите <strong>⤢</strong>, чтобы открыть большой таймер в горизонтальном режиме.</div>
+        <button class="cal-btn" id="landscapeFeatureNoticeBtn">Понятно</button>
+      </div>
     </div>
-  </div>
 
-  <div class="notice fu" id="newPostsNotice" style="display:none;margin-bottom:10px;">
-    <span class="notice-ico">📰</span>
-    <div class="notice-main">
-      <div class="notice-title" id="newPostsNoticeTitle">Вышли новые материалы</div>
-      <div class="notice-body" id="newPostsNoticeBody">В разделе «Познавательно» опубликованы новые посты.</div>
-      <div style="margin-top:8px;"><a class="support-link" href="materials.html" id="newPostsNoticeOpen">Открыть посты</a></div>
+    <div class="popup-notice fu" id="newPostsNotice">
+      <span class="notice-ico">📰</span>
+      <div class="notice-main">
+        <div class="notice-title" id="newPostsNoticeTitle">Вышли новые материалы</div>
+        <div class="notice-body" id="newPostsNoticeBody">В разделе «Познавательно» опубликованы новые посты.</div>
+        <a class="support-link" href="materials.html" id="newPostsNoticeOpen">Открыть</a>
+      </div>
+      <button class="notice-close" id="newPostsNoticeDismiss" aria-label="Закрыть уведомление">✕</button>
     </div>
-    <button class="notice-close" id="newPostsNoticeDismiss" aria-label="Закрыть уведомление">✕</button>
   </div>
 
   <div class="tabs-wrap fu tabs-wrap-top">
@@ -441,6 +457,12 @@ body.aod-mode .fitir-card{display:none;}
 
   
 
+  <a class="course-cta fu fu3" href="ramadan-2026/index.html" aria-label="Рамадан 2026 — 30 дней наставления">
+    <div class="course-cta-title">Рамадан 2026 — 30 дней наставления</div>
+    <div class="course-cta-sub">Пошаговый ежедневный курс: намерение, основы поста и духовная подготовка.</div>
+    <div class="course-cta-link">Открыть курс →</div>
+  </a>
+
   <div class="fitir-card fu fu3" id="fitirCard" aria-label="Закят в Исламе">
     <div class="fitir-header">
       <div class="fitir-ico">🤲</div>
@@ -510,6 +532,7 @@ body.aod-mode .fitir-card{display:none;}
   <div class="share-item" id="shareTelegram"><div class="share-ico">✈️</div><div><div class="share-name">Telegram</div><div class="share-desc">Отправить в Telegram</div></div></div>
   <div class="share-item" id="shareViber"><div class="share-ico">📳</div><div><div class="share-name">Viber</div><div class="share-desc">Отправить в Viber</div></div></div>
   <div class="share-item" id="shareVK"><div class="share-ico">🔵</div><div><div class="share-name">ВКонтакте</div><div class="share-desc">Поделиться ВКонтакте</div></div></div>
+  <div class="share-item" id="shareInstagramStory"><div class="share-ico">📸</div><div><div class="share-name">Instagram Stories</div><div class="share-desc">Поделиться готовой сториз с УТП и скрином</div></div></div>
   <div class="share-item" id="shareCopy"><div class="share-ico">🔗</div><div><div class="share-name" id="shareCopyLabel">Скопировать ссылку</div><div class="share-desc">Скопировать в буфер обмена</div></div></div>
 </div>
 <button class="cal-btn" style="margin-top:14px;" onclick="closeSheet('shareSheet')">Отмена</button>
@@ -718,6 +741,103 @@ document.addEventListener('fullscreenchange',updateAodButton);
 $('shareBottomBtn').onclick=()=>openSheet('shareSheet');
 const SHARE_URL='https://enver-isliamov.github.io/oraza/';
 const SHARE_TEXT='📅 Расписание Рамадан 1447 — Крым. Имсак, Ифтар, Ораза Байрамы. Удобное мобильное приложение:';
+const STORY_UTP='Имсак и Ифтар в одном приложении — быстро и без рекламы';
+
+function drawRoundRect(ctx,x,y,w,h,r){
+  const rr=Math.min(r,w/2,h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+rr,y);
+  ctx.arcTo(x+w,y,x+w,y+h,rr);
+  ctx.arcTo(x+w,y+h,x,y+h,rr);
+  ctx.arcTo(x,y+h,x,y,rr);
+  ctx.arcTo(x,y,x+w,y,rr);
+  ctx.closePath();
+}
+
+async function buildStoryCard(){
+  const canvas=document.createElement('canvas');
+  canvas.width=1080;
+  canvas.height=1920;
+  const ctx=canvas.getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,1080,1920);
+  grad.addColorStop(0,'#1f1a13');
+  grad.addColorStop(1,'#6f4e1f');
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,1080,1920);
+
+  ctx.fillStyle='#f8f1e6';
+  ctx.font='700 56px Nunito, sans-serif';
+  ctx.fillText('Рамадан 1447 · Крым',80,150);
+  ctx.font='800 68px Nunito, sans-serif';
+  ctx.fillText(STORY_UTP,80,240,920);
+
+  drawRoundRect(ctx,70,320,940,1180,46);
+  ctx.fillStyle='rgba(255,255,255,0.9)';
+  ctx.fill();
+
+  const row=DATA[viewIdx]||DATA[todayIdx()];
+  const t=adj(row);
+  const dateLabel=`${row[1]} ${MS[row[2]]}`;
+  ctx.fillStyle='#2a2118';
+  ctx.font='700 46px Nunito, sans-serif';
+  ctx.fillText(`Сегодня · ${dateLabel}`,120,420);
+
+  ctx.font='800 62px Nunito, sans-serif';
+  ctx.fillStyle='#d94f5c';
+  ctx.fillText(`Имсак ${t.imsak}`,120,540);
+  ctx.fillStyle='#1fa86a';
+  ctx.fillText(`Ифтар ${t.iftar}`,120,650);
+
+  ctx.font='700 38px Nunito, sans-serif';
+  ctx.fillStyle='#5a5248';
+  ctx.fillText('Скрин расписания на сегодня',120,730);
+
+  drawRoundRect(ctx,120,780,840,580,28);
+  ctx.fillStyle='#efe7dc';
+  ctx.fill();
+  ctx.fillStyle='#1a1612';
+  ctx.font='700 34px Nunito, sans-serif';
+  ctx.fillText('• Точный таймер поста',170,900);
+  ctx.fillText('• Работает офлайн',170,980);
+  ctx.fillText('• Удобный полноэкранный режим',170,1060);
+  ctx.fillText('• Познавательные материалы каждый день',170,1140);
+
+  ctx.font='700 36px Nunito, sans-serif';
+  ctx.fillStyle='#2a2118';
+  ctx.fillText('enver-isliamov.github.io/oraza',180,1440);
+
+  return new Promise((resolve)=>canvas.toBlob(resolve,'image/png',0.95));
+}
+
+async function shareInstagramStory(){
+  try{
+    const blob=await buildStoryCard();
+    if(!blob)return;
+    const file=new File([blob],'ramadan-story.png',{type:'image/png'});
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({
+        title:'Рамадан 1447 · Сториз',
+        text:'Готовая сториз с расписанием, УТП и ссылкой на приложение.',
+        files:[file],
+        url:SHARE_URL
+      });
+    }else{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download='ramadan-story.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      alert('Сториз сохранена. Загрузите изображение в Instagram вручную.');
+    }
+  }catch(e){
+    alert('Не удалось подготовить сториз на этом устройстве.');
+  }finally{
+    closeSheet('shareSheet');
+  }
+}
 function setupShare(){
   if(navigator.share){
     $('shareNative').style.display='flex';
@@ -731,6 +851,7 @@ function setupShare(){
   $('shareTelegram').onclick=()=>{window.open(`https://t.me/share/url?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(SHARE_TEXT)}`,'_blank');closeSheet('shareSheet');};
   $('shareViber').onclick=()=>{window.open(`viber://forward?text=${encodeURIComponent(SHARE_TEXT+' '+SHARE_URL)}`,'_blank');closeSheet('shareSheet');};
   $('shareVK').onclick=()=>{window.open(`https://vk.com/share.php?url=${encodeURIComponent(SHARE_URL)}&title=${encodeURIComponent(SHARE_TEXT)}`,'_blank');closeSheet('shareSheet');};
+  $('shareInstagramStory').onclick=shareInstagramStory;
   $('shareCopy').onclick=()=>{
     const full=SHARE_TEXT+' '+SHARE_URL;
     if(navigator.clipboard){navigator.clipboard.writeText(full).then(()=>{$('shareCopyLabel').textContent='✓ Скопировано!';setTimeout(()=>{$('shareCopyLabel').textContent='Скопировать ссылку';},2000);});}
@@ -963,7 +1084,7 @@ function showLandscapeFeatureNotice(){
   const notice=$('landscapeFeatureNotice');
   if(!notice)return;
   if(localStorage.getItem(FEATURE_NOTICE_KEY)==='1')return;
-  notice.style.display='flex';
+  notice.style.display='grid';
   const close=()=>{notice.style.display='none';localStorage.setItem(FEATURE_NOTICE_KEY,'1');};
   const btn=$('landscapeFeatureNoticeBtn');
   if(btn)btn.onclick=close;
@@ -981,7 +1102,7 @@ function showPostsNotice(release){
   if(fresh<=0){wrap.style.display='none';return;}
   title.textContent=fresh===1?'Вышел новый пост':'Вышли новые посты';
   body.textContent=fresh===1?`Добавлен материал: ${release.availableArticles[release.availableCount-1].title}.`:`Добавлено ${fresh} новых материалов в разделе «Познавательно».`;
-  wrap.style.display='flex';
+  wrap.style.display='grid';
   const markSeen=()=>{localStorage.setItem(POSTS_NOTICE_SEEN_KEY,String(release.availableCount));wrap.style.display='none';};
   dismissBtn.onclick=markSeen;
   openBtn.onclick=()=>{markSeen();};
