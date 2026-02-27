@@ -34,12 +34,11 @@
   const READ_PROGRESS_KEY='ramReadProgress';
   const READ_COMPAT_KEY='ramReadArticles';
   const WORDS_PER_MINUTE=180;
-  const REQUIRED_RATIO=0.3;
-  const articleId=document.body.getAttribute('data-article-id');
+    const articleId=document.body.getAttribute('data-article-id');
   const mainText=(document.querySelector('main')?.textContent||'').trim();
   const words=(mainText.match(/[A-Za-zА-Яа-яЁё0-9]+/g)||[]).length;
   const estimatedReadSeconds=Math.max(60,Math.ceil((words/WORDS_PER_MINUTE)*60));
-  const requiredSeconds=Math.max(45,Math.ceil(estimatedReadSeconds*REQUIRED_RATIO));
+  const requiredSeconds=15;
   let sessionStartedAt=Date.now();
   let activeMs=0;
   function parseStoredObject(key){try{const parsed=JSON.parse(localStorage.getItem(key)||'{}');return parsed&&typeof parsed==='object'?parsed:{};}catch(e){return {};}}

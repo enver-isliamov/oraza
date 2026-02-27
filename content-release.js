@@ -7,6 +7,7 @@
   const ARTICLE_CATALOG = [
     {
       id: 'mahram',
+      section: 'general',
       title: 'Кто такие махрамы: три категории женщин, запретных для брака',
       description: 'Краткая памятка о том, кто такие махрамы, какие бывают категории и какие правила связаны с этим статусом.',
       href: 'mahram.html',
@@ -14,6 +15,7 @@
     },
     {
       id: 'chelebidzhihan',
+      section: 'general',
       title: '23 февраля: Номан Челебиджихан',
       description: 'Краткая историческая справка о Номане Челебиджихане и трагических событиях 23 февраля 1918 года.',
       href: 'chelebidzhihan.html',
@@ -21,6 +23,7 @@
     },
     {
       id: 'zakat-ushr',
+      section: 'zakat',
       title: 'Ушр (транзитный налог)',
       description: 'Разбор отличий ‘ушра от госналогов и закята, а также правил транзитной пошлины.',
       href: 'zakat-ushr.html',
@@ -28,6 +31,7 @@
     },
     {
       id: 'zakat-payment',
+      section: 'zakat',
       title: 'О выплате закята',
       description: 'Что такое закят, как он стал обязательным и какие аяты подчеркивают его важность.',
       href: 'zakat-payment.html',
@@ -35,6 +39,7 @@
     },
     {
       id: 'zakat-who-pays',
+      section: 'zakat',
       title: 'Кто платит закят',
       description: 'Условия обязательности, нисаб, исключения и особенности выплаты закята в бизнесе.',
       href: 'zakat-who-pays.html',
@@ -42,6 +47,7 @@
     },
     {
       id: 'zakat-directions',
+      section: 'zakat',
       title: 'Направления реализации закята',
       description: 'Кому выплачивается закят согласно Корану и каковы правила его распределения.',
       href: 'zakat-directions.html',
@@ -49,7 +55,7 @@
     }
   ];
 
-  const ZAKAT_ARTICLE_IDS = ['zakat-ushr', 'zakat-payment', 'zakat-who-pays', 'zakat-directions'];
+  const ZAKAT_ARTICLE_IDS = ARTICLE_CATALOG.filter((article)=>article.section==='zakat').map((article)=>article.id);
 
   function normalizeDate(d){
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -132,6 +138,7 @@
     RELEASE_START_KEY,
     ARTICLE_CATALOG,
     ZAKAT_ARTICLE_IDS,
+    getZakatArticles: ()=>ARTICLE_CATALOG.filter((article)=>article.section==='zakat'),
     getReleaseState,
     showReleaseNotification
   };
