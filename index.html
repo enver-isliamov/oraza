@@ -36,6 +36,10 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .icon-btn.theme-active{background:var(--gold-soft);border-color:rgba(196,154,60,.3);}
 .icon-btn.aod-active{background:var(--iftar-soft);border-color:rgba(31,168,106,.35);color:var(--iftar);}
 .fitir-card{background:linear-gradient(135deg,rgba(196,154,60,.13) 0%,rgba(196,154,60,.05) 100%);border:1px solid rgba(196,154,60,.22);border-radius:var(--r);padding:16px 16px 14px;margin-bottom:10px;position:relative;overflow:hidden;display:block;color:inherit;text-decoration:none;}
+.course-cta{display:block;border-radius:var(--r);padding:14px;border:1px solid rgba(127,44,224,.28);background:linear-gradient(145deg,rgba(127,44,224,.16),rgba(127,44,224,.04));box-shadow:var(--shadow-sm);text-decoration:none;color:inherit;margin-bottom:10px;}
+.course-cta-title{font-size:.95rem;font-weight:900;line-height:1.2;color:var(--text);}
+.course-cta-sub{font-size:.74rem;font-weight:700;color:var(--text2);margin-top:5px;}
+.course-cta-link{margin-top:8px;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7f2ce0;}
 .fitir-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(196,154,60,.15),transparent 70%);pointer-events:none;}
 .fitir-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .fitir-ico{font-size:1.3rem;flex-shrink:0;}
@@ -121,7 +125,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .notice-body{font-size:.74rem;font-weight:600;color:var(--text2);line-height:1.4;}
 .notice-close{position:absolute;top:7px;right:7px;width:26px;height:26px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text3);font-size:.95rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .notice-close:active{transform:scale(.94);}
-.top-popups{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);left:50%;transform:translateX(-50%);width:min(94vw,560px);display:grid;gap:8px;z-index:50;pointer-events:none;}
+.top-popups{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);left:50%;transform:translateX(-50%);width:min(94vw,560px);display:grid;gap:8px;z-index:60;pointer-events:none;}
 .popup-notice{display:none;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow);pointer-events:auto;}
 .popup-notice .notice-title{font-size:.74rem;margin-bottom:0;}
 .popup-notice .notice-body{font-size:.66rem;line-height:1.3;}
@@ -284,6 +288,7 @@ body.aod-mode .status-grid .progress-bar{grid-column:1/-1;}
 body.aod-mode #aodGratitudeCard{display:none;}
 body.aod-mode #noticesWrap{display:none;}
 body.aod-mode .fitir-card{display:none;}
+body.aod-mode .course-cta{display:none;}
 @media (orientation: landscape){
   body.aod-mode .main{max-width:min(980px,96vw);margin:0 auto;padding:10px 14px 12px;}
   body.aod-mode .topbar-inner{max-width:min(980px,96vw);}
@@ -299,6 +304,7 @@ body.aod-mode .fitir-card{display:none;}
   body.aod-mode #noticesWrap{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0;}
   body.aod-mode #noticesWrap .notice{margin:0;height:100%;}
   body.aod-mode .fitir-card{display:block !important;margin:0;}
+  body.aod-mode .course-cta{display:block !important;margin:0;}
 }
 @media (orientation: landscape) and (max-height: 500px){
   body.aod-mode .main{padding-top:6px;padding-bottom:6px;}
@@ -450,6 +456,12 @@ body.aod-mode .fitir-card{display:none;}
   </div>
 
   
+
+  <a class="course-cta fu fu3" href="ramadan-2026/index.html" aria-label="Рамадан 2026 — 30 дней наставления">
+    <div class="course-cta-title">Рамадан 2026 — 30 дней наставления</div>
+    <div class="course-cta-sub">Пошаговый ежедневный курс: намерение, основы поста и духовная подготовка.</div>
+    <div class="course-cta-link">Открыть курс →</div>
+  </a>
 
   <div class="fitir-card fu fu3" id="fitirCard" aria-label="Закят в Исламе">
     <div class="fitir-header">
