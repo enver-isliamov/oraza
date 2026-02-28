@@ -8,6 +8,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Рамадан">
 <meta name="description" content="Расписание Имсак и Ифтар. Рамадан 1447. Крым.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Рамадан 1447 · Крым">
+<meta property="og:description" content="Имсак и Ифтар, плюс ежедневный курс на каждый день Рамадана.">
+<meta property="og:url" content="https://oraza.ru">
+<meta property="og:image" content="https://oraza.ru/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Рамадан 1447 · Крым">
+<meta name="twitter:description" content="Имсак и Ифтар, плюс ежедневный курс на каждый день Рамадана.">
+<meta name="twitter:image" content="https://oraza.ru/logo.png">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
@@ -739,9 +748,9 @@ document.addEventListener('fullscreenchange',updateAodButton);
 
 // SHARE - bottom button
 $('shareBottomBtn').onclick=()=>openSheet('shareSheet');
-const SHARE_URL='https://enver-isliamov.github.io/oraza/';
-const SHARE_TEXT='📅 Расписание Рамадан 1447 — Крым. Имсак, Ифтар, Ораза Байрамы. Удобное мобильное приложение:';
-const STORY_UTP='Имсак и Ифтар в одном приложении — быстро и без рекламы';
+const SHARE_URL='https://oraza.ru';
+const SHARE_TEXT='📅 Расписание Рамадан 1447 — Крым. Имсак, Ифтар и новый ежедневный курс на каждый день месяца:';
+const STORY_UTP='Имсак, Ифтар и курс на каждый день — в одном приложении';
 
 function drawRoundRect(ctx,x,y,w,h,r){
   const rr=Math.min(r,w/2,h/2);
@@ -790,23 +799,61 @@ async function buildStoryCard(){
 
   ctx.font='700 38px Nunito, sans-serif';
   ctx.fillStyle='#5a5248';
-  ctx.fillText('Скрин расписания на сегодня',120,730);
+  ctx.fillText('Скриншот главной страницы + УТП',120,730);
 
-  drawRoundRect(ctx,120,780,840,580,28);
+  drawRoundRect(ctx,120,780,840,520,28);
   ctx.fillStyle='#efe7dc';
   ctx.fill();
+
+  const screenshot=await captureMainPageShot();
+  if(screenshot){
+    const maxW=780;
+    const maxH=460;
+    const scale=Math.min(maxW/screenshot.width,maxH/screenshot.height);
+    const dw=screenshot.width*scale;
+    const dh=screenshot.height*scale;
+    const dx=150+(maxW-dw)/2;
+    const dy=810+(maxH-dh)/2;
+    ctx.imageSmoothingEnabled=true;
+    ctx.imageSmoothingQuality='high';
+    ctx.drawImage(screenshot,dx,dy,dw,dh);
+  }else{
+    ctx.fillStyle='#1a1612';
+    ctx.font='700 32px Nunito, sans-serif';
+    ctx.fillText('• Имсак и Ифтар без рекламы',170,930);
+    ctx.fillText('• Ежедневный курс уже внутри',170,1000);
+    ctx.fillText('• Удобно делиться с близкими',170,1070);
+  }
+
   ctx.fillStyle='#1a1612';
-  ctx.font='700 34px Nunito, sans-serif';
-  ctx.fillText('• Точный таймер поста',170,900);
-  ctx.fillText('• Работает офлайн',170,980);
-  ctx.fillText('• Удобный полноэкранный режим',170,1060);
-  ctx.fillText('• Познавательные материалы каждый день',170,1140);
+  ctx.font='700 32px Nunito, sans-serif';
+  ctx.fillText('Ежедневный курс уже добавлен на каждый день',120,1365);
 
   ctx.font='700 36px Nunito, sans-serif';
   ctx.fillStyle='#2a2118';
-  ctx.fillText('enver-isliamov.github.io/oraza',180,1440);
+  ctx.fillText('oraza.ru',430,1440);
 
   return new Promise((resolve)=>canvas.toBlob(resolve,'image/png',0.95));
+}
+
+async function captureMainPageShot(){
+  try{
+    const source=document.querySelector('.wrap')||document.body;
+    const rect=source.getBoundingClientRect();
+    const clone=source.cloneNode(true);
+    clone.style.margin='0';
+    clone.style.width=`${Math.max(360,Math.min(900,Math.round(rect.width)))}px`;
+    clone.style.background=getComputedStyle(document.body).backgroundColor||'#f6f3ee';
+    const html=`<svg xmlns="http://www.w3.org/2000/svg" width="${Math.round(rect.width)}" height="${Math.round(rect.height)}"><foreignObject width="100%" height="100%">${new XMLSerializer().serializeToString(clone)}</foreignObject></svg>`;
+    const blob=new Blob([html],{type:'image/svg+xml;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const img=new Image();
+    await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=url;});
+    URL.revokeObjectURL(url);
+    return img;
+  }catch(e){
+    return null;
+  }
 }
 
 async function shareInstagramStory(){
