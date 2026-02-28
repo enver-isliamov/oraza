@@ -750,7 +750,7 @@ document.addEventListener('fullscreenchange',updateAodButton);
 $('shareBottomBtn').onclick=()=>openSheet('shareSheet');
 const SHARE_URL='https://oraza.ru';
 const SHARE_TEXT='📅 Расписание Рамадан 1447 — Крым. Имсак, Ифтар и новый ежедневный курс на каждый день месяца:';
-const STORY_UTP='Имсак, Ифтар и курс на каждый день — в одном приложении';
+const STORY_UTP='Расписание на каждый день — в одном приложении';
 
 function drawRoundRect(ctx,x,y,w,h,r){
   const rr=Math.min(r,w/2,h/2);
@@ -799,7 +799,7 @@ async function buildStoryCard(){
 
   ctx.font='700 38px Nunito, sans-serif';
   ctx.fillStyle='#5a5248';
-  ctx.fillText('Скриншот главной страницы + УТП',120,730);
+  ctx.fillText('Очень удобно пользоваться',120,730);
 
   drawRoundRect(ctx,120,780,840,520,28);
   ctx.fillStyle='#efe7dc';
