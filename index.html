@@ -541,7 +541,7 @@ body.aod-mode .course-cta{display:none;}
   <div class="share-item" id="shareTelegram"><div class="share-ico">✈️</div><div><div class="share-name">Telegram</div><div class="share-desc">Отправить в Telegram</div></div></div>
   <div class="share-item" id="shareViber"><div class="share-ico">📳</div><div><div class="share-name">Viber</div><div class="share-desc">Отправить в Viber</div></div></div>
   <div class="share-item" id="shareVK"><div class="share-ico">🔵</div><div><div class="share-name">ВКонтакте</div><div class="share-desc">Поделиться ВКонтакте</div></div></div>
-  <div class="share-item" id="shareInstagramStory"><div class="share-ico">📸</div><div><div class="share-name">Instagram Stories</div><div class="share-desc">Поделиться готовой сториз с УТП и скрином</div></div></div>
+  <div class="share-item" id="shareInstagramStory"><div class="share-ico">📸</div><div><div class="share-name">Instagram</div><div class="share-desc">Поделиться готовой публикацией</div></div></div>
   <div class="share-item" id="shareCopy"><div class="share-ico">🔗</div><div><div class="share-name" id="shareCopyLabel">Скопировать ссылку</div><div class="share-desc">Скопировать в буфер обмена</div></div></div>
 </div>
 <button class="cal-btn" style="margin-top:14px;" onclick="closeSheet('shareSheet')">Отмена</button>
@@ -883,7 +883,7 @@ async function shareInstagramStory(){
     if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
       await navigator.share({
         title:'Рамадан 1447 · Сториз',
-        text:'Готовая сториз с расписанием, УТП и ссылкой на приложение.',
+        text:'Готовая сториз с расписанием и ссылкой на приложение.',
         files:[file],
         url:SHARE_URL
       });
