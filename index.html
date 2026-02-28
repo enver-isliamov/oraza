@@ -805,25 +805,44 @@ async function buildStoryCard(){
   ctx.fillStyle='#efe7dc';
   ctx.fill();
 
-  const screenshot=await captureMainPageShot();
-  if(screenshot){
-    const maxW=780;
-    const maxH=460;
-    const scale=Math.min(maxW/screenshot.width,maxH/screenshot.height);
-    const dw=screenshot.width*scale;
-    const dh=screenshot.height*scale;
-    const dx=150+(maxW-dw)/2;
-    const dy=810+(maxH-dh)/2;
-    ctx.imageSmoothingEnabled=true;
-    ctx.imageSmoothingQuality='high';
-    ctx.drawImage(screenshot,dx,dy,dw,dh);
-  }else{
-    ctx.fillStyle='#1a1612';
-    ctx.font='700 32px Nunito, sans-serif';
-    ctx.fillText('• Имсак и Ифтар без рекламы',170,930);
-    ctx.fillText('• Ежедневный курс уже внутри',170,1000);
-    ctx.fillText('• Удобно делиться с близкими',170,1070);
-  }
+  drawRoundRect(ctx,150,810,780,460,24);
+  ctx.fillStyle='#f6f3ee';
+  ctx.fill();
+
+  drawRoundRect(ctx,175,840,730,120,18);
+  ctx.fillStyle='#ffffff';
+  ctx.fill();
+  ctx.fillStyle='#1a1612';
+  ctx.font='800 30px Nunito, sans-serif';
+  ctx.fillText('Рамадан 1447 · Крым',210,892);
+  ctx.font='700 22px Nunito, sans-serif';
+  ctx.fillStyle='#5a5248';
+  ctx.fillText('Главная страница приложения',210,930);
+
+  drawRoundRect(ctx,175,980,350,145,22);
+  ctx.fillStyle='rgba(217,79,92,0.12)';
+  ctx.fill();
+  ctx.fillStyle='#d94f5c';
+  ctx.font='800 22px Nunito, sans-serif';
+  ctx.fillText('ИМСАК',205,1020);
+  ctx.font='900 52px Nunito, sans-serif';
+  ctx.fillText(t.imsak,205,1092);
+
+  drawRoundRect(ctx,555,980,350,145,22);
+  ctx.fillStyle='rgba(31,168,106,0.12)';
+  ctx.fill();
+  ctx.fillStyle='#1fa86a';
+  ctx.font='800 22px Nunito, sans-serif';
+  ctx.fillText('ИФТАР',585,1020);
+  ctx.font='900 52px Nunito, sans-serif';
+  ctx.fillText(t.iftar,585,1092);
+
+  drawRoundRect(ctx,175,1148,730,94,20);
+  ctx.fillStyle='rgba(127,44,224,0.12)';
+  ctx.fill();
+  ctx.fillStyle='#7f2ce0';
+  ctx.font='800 28px Nunito, sans-serif';
+  ctx.fillText('Ежедневный курс уже внутри',205,1206);
 
   ctx.fillStyle='#1a1612';
   ctx.font='700 32px Nunito, sans-serif';
