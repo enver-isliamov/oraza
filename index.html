@@ -540,7 +540,6 @@ body.aod-mode .course-cta{display:none;}
   <div class="share-item" id="shareWhatsapp"><div class="share-ico">💬</div><div><div class="share-name">WhatsApp</div><div class="share-desc">Отправить в WhatsApp</div></div></div>
   <div class="share-item" id="shareTelegram"><div class="share-ico">✈️</div><div><div class="share-name">Telegram</div><div class="share-desc">Отправить в Telegram</div></div></div>
   <div class="share-item" id="shareViber"><div class="share-ico">📳</div><div><div class="share-name">Viber</div><div class="share-desc">Отправить в Viber</div></div></div>
-  <div class="share-item" id="shareVK"><div class="share-ico">🔵</div><div><div class="share-name">ВКонтакте</div><div class="share-desc">Поделиться ВКонтакте</div></div></div>
   <div class="share-item" id="shareInstagramStory"><div class="share-ico">📸</div><div><div class="share-name">Instagram</div><div class="share-desc">Поделиться готовой публикацией</div></div></div>
   <div class="share-item" id="shareCopy"><div class="share-ico">🔗</div><div><div class="share-name" id="shareCopyLabel">Скопировать ссылку</div><div class="share-desc">Скопировать в буфер обмена</div></div></div>
 </div>
@@ -916,7 +915,6 @@ function setupShare(){
   $('shareWhatsapp').onclick=()=>{window.open(`https://wa.me/?text=${encodeURIComponent(SHARE_TEXT+' '+SHARE_URL)}`,'_blank');closeSheet('shareSheet');};
   $('shareTelegram').onclick=()=>{window.open(`https://t.me/share/url?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(SHARE_TEXT)}`,'_blank');closeSheet('shareSheet');};
   $('shareViber').onclick=()=>{window.open(`viber://forward?text=${encodeURIComponent(SHARE_TEXT+' '+SHARE_URL)}`,'_blank');closeSheet('shareSheet');};
-  $('shareVK').onclick=()=>{window.open(`https://vk.com/share.php?url=${encodeURIComponent(SHARE_URL)}&title=${encodeURIComponent(SHARE_TEXT)}`,'_blank');closeSheet('shareSheet');};
   $('shareInstagramStory').onclick=shareInstagramStory;
   $('shareCopy').onclick=()=>{
     const full=SHARE_TEXT+' '+SHARE_URL;
