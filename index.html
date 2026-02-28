@@ -927,22 +927,23 @@ function setupShare(){
 setupShare();
 
 // USER NOTIFICATIONS
-const SUPPORT_PUSH_KEY='ramSupportPushSeen';
+const INSTAGRAM_PUSH_KEY='ramInstagramPushSeen';
 let userEngagementScore=0;
 function registerEngagement(){userEngagementScore=Math.min(10,userEngagementScore+1);}
 ['click','scroll','touchstart'].forEach(evt=>window.addEventListener(evt,registerEngagement,{passive:true}));
 
-function maybeSendSupportPush(){
-  if(localStorage.getItem(SUPPORT_PUSH_KEY))return;
+function maybeSendInstagramPush(){
+  if(localStorage.getItem(INSTAGRAM_PUSH_KEY))return;
   if(!('Notification' in window))return;
   if(Notification.permission!=='granted')return;
   try{
-    new Notification('Спасибо, что пользуетесь приложением', {body:'Расписание уже помогает многим. Проект поддержали 18 человек — вы тоже можете присоединиться и поблагодарить автора.'});
-    localStorage.setItem(SUPPORT_PUSH_KEY,'1');
+    const n=new Notification('Поделитесь приложением в Instagram 📸', {body:'Stories уже подготовлена — откройте «Поделиться» и отправьте её друзьям.'});
+    n.onclick=()=>{window.focus();openSheet('shareSheet');};
+    localStorage.setItem(INSTAGRAM_PUSH_KEY,'1');
   }catch(e){}
 }
 
-setTimeout(()=>{if(userEngagementScore>=3){maybeSendSupportPush();}},45000);
+setTimeout(()=>{if(userEngagementScore>=3){maybeSendInstagramPush();}},45000);
 
 // DAY VIEW
 function updateNavCenter(){
