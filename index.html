@@ -145,6 +145,20 @@ body.aod-mode .top-popups{display:none !important;}
 
 .tabs-wrap{background:var(--surface);border-radius:var(--r-sm);padding:3px;display:flex;gap:2px;border:1px solid var(--border);margin-bottom:14px;box-shadow:var(--shadow-sm);}
 .tabs-wrap-top{margin-top:6px;}
+.main > #scheduleArea,.main > .course-cta,.main > #noticesWrap,.main > .fitir-card{margin-bottom:10px;}
+#noticesWrap{display:grid;gap:10px;}
+#noticesWrap .notice{margin-bottom:0;}
+.tour-overlay{position:fixed;inset:0;background:rgba(9,12,20,.52);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:95;display:none;padding:calc(env(safe-area-inset-top,0px) + 10px) 12px calc(env(safe-area-inset-bottom,0px) + 12px);}
+.tour-overlay.open{display:block;}
+.tour-highlight{position:fixed;border:2px solid var(--gold);border-radius:14px;box-shadow:0 0 0 9999px rgba(9,12,20,.18),0 10px 28px rgba(0,0,0,.24);pointer-events:none;z-index:96;transition:all .25s ease;}
+.tour-card{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);max-width:460px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:var(--shadow-lg);z-index:97;}
+.tour-step{font-size:.63rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.tour-title{font-size:.86rem;font-weight:900;color:var(--text);line-height:1.3;margin-bottom:4px;}
+.tour-body{font-size:.74rem;font-weight:600;line-height:1.45;color:var(--text2);}
+.tour-actions{display:flex;gap:8px;margin-top:10px;}
+.tour-actions .cal-btn{margin:0;padding:9px 10px;font-size:.72rem;}
+body.aod-mode .tour-overlay{display:none !important;}
+
 .tab{flex:1;padding:8px 4px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-family:var(--font-body);font-size:.76rem;font-weight:800;cursor:pointer;transition:all .18s;text-align:center;-webkit-tap-highlight-color:transparent;}
 .tab.active{background:var(--text);color:var(--bg);box-shadow:0 1px 6px rgba(0,0,0,.15);}
 .section-lbl{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:9px;padding-left:2px;}
@@ -379,6 +393,19 @@ body.aod-mode .course-cta{display:none;}
         <a class="support-link" href="materials.html" id="newPostsNoticeOpen">Открыть</a>
       </div>
       <button class="notice-close" id="newPostsNoticeDismiss" aria-label="Закрыть уведомление">✕</button>
+    </div>
+  </div>
+
+  <div class="tour-overlay" id="tourOverlay" aria-hidden="true">
+    <div class="tour-highlight" id="tourHighlight"></div>
+    <div class="tour-card">
+      <div class="tour-step" id="tourStep">Шаг 1/1</div>
+      <div class="tour-title" id="tourTitle">Подсказка</div>
+      <div class="tour-body" id="tourBody">Описание</div>
+      <div class="tour-actions">
+        <button class="cal-btn" id="tourSkipBtn">Пропустить</button>
+        <button class="cal-btn cal-btn-primary" id="tourNextBtn">Далее</button>
+      </div>
     </div>
   </div>
 
@@ -619,6 +646,7 @@ const AOD_KEY='ramAodEnabled';
 const AOD_AUTO_PAUSED_KEY='ramAodAutoPaused';
 const FEATURE_NOTICE_KEY='ramLandscapeFeatureSeen';
 const POSTS_NOTICE_SEEN_KEY='ramPostsSeenCount';
+const TOUR_SEEN_KEY='ramUiTourSeenV1';
 const NOTICE_QUEUE_DELAY=2400;
 let activePopupNotice=null;
 const popupNoticeQueue=[];
@@ -1250,11 +1278,54 @@ window.addEventListener('storage',e=>{
   }
 });
 
+
+function maybeStartUiTour(){
+  if(localStorage.getItem(TOUR_SEEN_KEY)==='1')return;
+  const overlay=$('tourOverlay');
+  const highlight=$('tourHighlight');
+  const stepNode=$('tourStep');
+  const titleNode=$('tourTitle');
+  const bodyNode=$('tourBody');
+  const nextBtn=$('tourNextBtn');
+  const skipBtn=$('tourSkipBtn');
+  if(!overlay||!highlight||!stepNode||!titleNode||!bodyNode||!nextBtn||!skipBtn)return;
+  const steps=[
+    {el:'#imsakCard',title:'Нажмите на Имсак',body:'По карточке Имсак можно нажать и сразу прочитать дуа перед началом поста.'},
+    {el:'#iftarCard',title:'Нажмите на Ифтар',body:'По карточке Ифтар открывается дуа для разговения.'},
+    {el:'#navRamadanDay',title:'Переход к уроку дня',body:'Эта метка открывает материал курса именно для текущего дня Рамадана.'},
+    {el:'.course-cta',title:'Полный курс на 30 дней',body:'Здесь открыт вход в весь курс, если хотите посмотреть остальные дни.'},
+    {el:'#fitirCard',title:'Дополнительные разделы',body:'В карточке ниже — важные материалы и быстрый переход к разделу Закят.'}
+  ];
+  let idx=0;
+  const finish=()=>{overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');localStorage.setItem(TOUR_SEEN_KEY,'1');};
+  const render=()=>{
+    const step=steps[idx];
+    const target=document.querySelector(step.el);
+    if(!target){idx++;if(idx>=steps.length){finish();return;}render();return;}
+    target.scrollIntoView({behavior:'smooth',block:'center'});
+    const r=target.getBoundingClientRect();
+    highlight.style.top=`${Math.max(6,r.top-6)}px`;
+    highlight.style.left=`${Math.max(6,r.left-6)}px`;
+    highlight.style.width=`${Math.min(window.innerWidth-12, r.width+12)}px`;
+    highlight.style.height=`${Math.min(window.innerHeight-12, r.height+12)}px`;
+    stepNode.textContent=`Шаг ${idx+1}/${steps.length}`;
+    titleNode.textContent=step.title;
+    bodyNode.textContent=step.body;
+    nextBtn.textContent=idx===steps.length-1?'Понятно':'Далее';
+  };
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden','false');
+  render();
+  nextBtn.onclick=()=>{idx++;if(idx>=steps.length){finish();return;}render();};
+  skipBtn.onclick=finish;
+}
+
 // INIT
 applyAodMode();
 showLandscapeFeatureNotice();
 processAutoReleases();
 runPopupNoticeQueue();
+setTimeout(()=>{if(!activePopupNotice)maybeStartUiTour();else{const waitTour=()=>{if(!activePopupNotice){maybeStartUiTour();}else setTimeout(waitTour,1200);};waitTour();}},700);
 updateMaterialsUnreadBadge();
 updateZakatAccessState();
 viewIdx=todayIdx();
