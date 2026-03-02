@@ -228,6 +228,12 @@ body.aod-mode .top-popups{display:none !important;}
 .footer-tg a{color:var(--gold);text-decoration:none;font-weight:700;}
 .support-link{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--text2);text-decoration:none;padding:6px 11px;border-radius:999px;border:1px solid var(--border);background:var(--surface2);transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .support-link:active{transform:scale(.97);}
+a.support-link[href*="pay.cloudtips.ru"]{justify-content:center;padding:10px 16px;border-radius:8px;border:0;background:#161718;color:#fff;position:relative;overflow:hidden;isolation:isolate;text-transform:uppercase;letter-spacing:.03em;}
+a.support-link[href*="pay.cloudtips.ru"]::before{content:"";position:absolute;top:-60px;left:0;width:100%;height:200px;background:#7293ff;box-shadow:inset 0 0 50px rgba(0,0,0,.7);z-index:-2;transition:.6s;}
+a.support-link[href*="pay.cloudtips.ru"]::after{content:"";position:absolute;width:200%;height:200%;top:0;left:0;transform:translate(-25%,-75%);border-radius:45%;background:rgba(20,20,20,1);box-shadow:0 0 10px 5px #7293ff,inset 0 0 5px #7293ff;animation:support-liquid-rotate 5s linear infinite;opacity:.85;z-index:-1;}
+a.support-link[href*="pay.cloudtips.ru"]:hover::before{top:-120px;}
+a.support-link[href*="pay.cloudtips.ru"]:hover{box-shadow:0 0 5px #7293ff,inset 0 0 5px #7293ff;transition-delay:.2s;}
+@keyframes support-liquid-rotate{0%{transform:translate(-25%,-75%) rotate(0)}100%{transform:translate(-25%,-75%) rotate(360deg)}}
 .gratitude-card{margin:10px 0 14px;padding:10px 10px 9px;border-radius:14px;border:1px solid rgba(31,168,106,.18);background:linear-gradient(150deg,rgba(31,168,106,.11) 0%,rgba(31,168,106,.03) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),var(--shadow-sm);}
 .gratitude-main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;}
 .gratitude-copy{min-width:0;}
