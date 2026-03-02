@@ -1,0 +1,36 @@
+.nav-ramadan-day-wrap{display:flex;justify-content:center;margin:6px 0 4px;}
+
+.nav-ramadan-day{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  box-shadow:var(--shadow-sm);
+  text-decoration:none;
+  color:var(--text);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+
+.nav-ramadan-day:hover{transform:translateY(-1px);}
+.nav-ramadan-day:active{transform:scale(.985);}
+.nav-ramadan-day:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+.nav-ramadan-day-icon{
+  display:grid;
+  place-items:center;
+  width:26px;
+  height:26px;
+  flex-shrink:0;
+  font-size:16px;
+  border-radius:8px;
+  background:var(--surface2);
+  color:var(--text2);
+  border:1px solid var(--border);
+}
+
+.nav-ramadan-day-icon svg{width:16px;height:16px;}
+
+.nav-ramadan-day-text{font-size:.75rem;font-weight:800;line-height:1;white-space:nowrap;color:var(--text2);}
