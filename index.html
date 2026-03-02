@@ -23,6 +23,7 @@
 <link rel="shortcut icon" href="logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="logo.png">
 <link rel="stylesheet" href="support-cta.css">
+<link rel="stylesheet" href="ramadan-label.css">
 <title>Рамадан 1447 · Крым</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&family=Smooch+Sans:wght@700;800&display=swap" rel="stylesheet">
@@ -88,7 +89,6 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .nav-date-main{font-size:.81rem;font-weight:800;color:var(--text);line-height:1.2;}
 .nav-date-sub{display:none;}
 .nav-today-chip{display:inline-flex;align-items:center;width:fit-content;margin:0 0 2px;padding:2px 8px;border-radius:2px;background:var(--gold);color:#fff;font-size:.45rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;}
-.nav-ramadan-day{text-align:center;margin-top:5px;font-size:.7rem;font-weight:800;color:var(--gold);letter-spacing:.03em;}
 .chip{display:inline-block;font-size:.56rem;font-weight:800;padding:1px 6px;border-radius:100px;letter-spacing:.07em;text-transform:uppercase;vertical-align:middle;margin-left:5px;}
 .chip-today{background:var(--gold);color:#fff;}
 .chip-laylat{background:rgba(196,154,60,.2);color:var(--gold);}
@@ -286,7 +286,7 @@ body.aod-mode .card-type{font-size:1.05rem;}
 body.aod-mode .card-time{font-size:clamp(3.8rem,12vw,9.4rem);line-height:.82;flex:1;display:flex;align-items:center;margin-bottom:0;}
 body.aod-mode .card-name{font-size:1.08rem;}
 body.aod-mode .card-tap-hint{font-size:.8rem;opacity:.65;}
-body.aod-mode .day-nav,body.aod-mode .nav-ramadan-day{display:none !important;}
+body.aod-mode .day-nav,body.aod-mode .nav-ramadan-day-wrap{display:none !important;}
 body.aod-mode .nav-clock-main{font-size:2rem;}
 body.aod-mode .nav-clock-sec{font-size:1rem;}
 body.aod-mode .progress-bar{padding:13px 13px;border-radius:16px;border-color:var(--border);background:var(--surface);}
@@ -414,7 +414,17 @@ body.aod-mode .course-cta{display:none;}
       </div>
       <button class="nav-arrow" id="nextDay">›</button>
     </div>
-    <div class="nav-ramadan-day" id="navRamadanDay">—</div>
+    <div class="nav-ramadan-day-wrap">
+      <a class="nav-ramadan-day" id="navRamadanDay" href="ramadan-2026/index.html" aria-label="Открыть курс Рамадана на сегодня">
+        <span class="nav-ramadan-day-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" role="presentation">
+            <path d="M12 8V21M12 8H7.2C5.985 8 5 7.015 5 5.8C5 4.585 5.985 3.6 7.2 3.6C9.44 3.6 12 8 12 8ZM12 8H16.8C18.015 8 19 7.015 19 5.8C19 4.585 18.015 3.6 16.8 3.6C14.56 3.6 12 8 12 8Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 8H20V12.2H4V8Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="nav-ramadan-day-text" id="navRamadanDayText">—</span>
+      </a>
+    </div>
     <div class="hero-grid">
       <div class="hero-card imsak-card fu fu1" id="imsakCard">
         <div class="card-type">Имсак</div>
@@ -962,10 +972,12 @@ function updateNavCenter(){
   const mm=String(now.getMinutes()).padStart(2,'0');
   const ss=String(now.getSeconds()).padStart(2,'0');
   const ramadanLabel=row?`${row[0]}-й день Рамадана`:'Рамадан';
+  const dayNumber=row?row[0]:null;
   const hhNode=$('navClockHours');
   const mmNode=$('navClockMinutes');
   const secNode=$('navCurrentSeconds');
   const ramadanNode=$('navRamadanDay');
+  const ramadanTextNode=$('navRamadanDayText');
   const chipNode=$('navTodayChip');
   if(hhNode)hhNode.textContent=hh;
   if(mmNode)mmNode.textContent=mm;
@@ -973,7 +985,20 @@ function updateNavCenter(){
   if(chipNode)chipNode.textContent=isViewedToday?'Сегодня':'Выбранный день';
   const fullDate=`${d.getDate()} ${monthLabel} · ${dayLabel}`;
   $('navDateMain').textContent=fullDate;
-  if(ramadanNode)ramadanNode.textContent=ramadanLabel;
+  if(ramadanTextNode)ramadanTextNode.textContent=ramadanLabel;
+  if(ramadanNode){
+    if(dayNumber&&dayNumber>=1&&dayNumber<=30){
+      ramadanNode.href=`ramadan-2026/day-${dayNumber}.html`;
+      ramadanNode.setAttribute('aria-label',`Открыть курс Рамадана: день ${dayNumber}`);
+      ramadanNode.style.pointerEvents='';
+      ramadanNode.style.opacity='';
+    }else{
+      ramadanNode.href='ramadan-2026/index.html';
+      ramadanNode.setAttribute('aria-label','Открыть курс Рамадана');
+      ramadanNode.style.pointerEvents='none';
+      ramadanNode.style.opacity='.7';
+    }
+  }
   const aodDate=$('aodCompactDate');
   const aodRamadan=$('aodCompactRamadan');
   if(aodDate)aodDate.textContent=fullDate;
