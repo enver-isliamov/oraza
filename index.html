@@ -47,10 +47,10 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .icon-btn.theme-active{background:var(--gold-soft);border-color:rgba(196,154,60,.3);}
 .icon-btn.aod-active{background:var(--iftar-soft);border-color:rgba(31,168,106,.35);color:var(--iftar);}
 .fitir-card{background:linear-gradient(135deg,rgba(196,154,60,.13) 0%,rgba(196,154,60,.05) 100%);border:1px solid rgba(196,154,60,.22);border-radius:var(--r);padding:16px 16px 14px;margin-bottom:10px;position:relative;overflow:hidden;display:block;color:inherit;text-decoration:none;}
-.course-cta{display:block;border-radius:var(--r);padding:14px;border:1px solid rgba(127,44,224,.28);background:linear-gradient(145deg,rgba(127,44,224,.16),rgba(127,44,224,.04));box-shadow:var(--shadow-sm);text-decoration:none;color:inherit;margin-bottom:10px;}
-.course-cta-title{font-size:.95rem;font-weight:900;line-height:1.2;color:var(--text);}
-.course-cta-sub{font-size:.74rem;font-weight:700;color:var(--text2);margin-top:5px;}
-.course-cta-link{margin-top:8px;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7f2ce0;}
+.course-cta{display:block;border-radius:12px;padding:10px 12px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);text-decoration:none;color:inherit;margin:0 0 8px;}
+.course-cta-title{font-size:.82rem;font-weight:900;line-height:1.2;color:var(--text);}
+.course-cta-sub{font-size:.68rem;font-weight:700;color:var(--text2);margin-top:3px;line-height:1.35;}
+.course-cta-link{margin-top:6px;font-size:.63rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--text3);}
 .fitir-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(196,154,60,.15),transparent 70%);pointer-events:none;}
 .fitir-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .fitir-ico{font-size:1.3rem;flex-shrink:0;}
@@ -417,9 +417,9 @@ body.aod-mode .course-cta{display:none;}
     <div class="nav-ramadan-day-wrap">
       <a class="nav-ramadan-day" id="navRamadanDay" href="ramadan-2026/index.html" aria-label="Открыть курс Рамадана на сегодня">
         <span class="nav-ramadan-day-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" role="presentation">
-            <path d="M12 8V21M12 8H7.2C5.985 8 5 7.015 5 5.8C5 4.585 5.985 3.6 7.2 3.6C9.44 3.6 12 8 12 8ZM12 8H16.8C18.015 8 19 7.015 19 5.8C19 4.585 18.015 3.6 16.8 3.6C14.56 3.6 12 8 12 8Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M4 8H20V12.2H4V8Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>
+          <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" role="presentation">
+            <path d="M514 912c-219.9 0-398.9-178.9-398.9-398.8S294 114.3 514 114.3c219.9 0 398.8 178.9 398.8 398.9C912.8 733.1 733.9 912 514 912z m0-701.5c-166.9 0-302.7 135.8-302.7 302.7S347.1 815.9 514 815.9s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5z" fill="#BDD2EF" />
+            <path d="M437.1 345.9L687 490.2c17.7 10.2 17.7 35.7 0 45.9L437.1 680.5c-17.7 10.2-39.8-2.6-39.8-23V368.9c0-20.4 22.1-33.2 39.8-23z" fill="#2867CE" />
           </svg>
         </span>
         <span class="nav-ramadan-day-text" id="navRamadanDayText">—</span>
@@ -473,6 +473,12 @@ body.aod-mode .course-cta{display:none;}
   
   <div id="scheduleArea"></div>
 
+  <a class="course-cta fu fu3" href="ramadan-2026/index.html" aria-label="Рамадан 2026 — 30 дней наставления">
+    <div class="course-cta-title">Рамадан 2026 — 30 дней наставления</div>
+    <div class="course-cta-sub">Пошаговый ежедневный курс: намерение, основы поста и духовная подготовка.</div>
+    <div class="course-cta-link">Открыть курс →</div>
+  </a>
+
   <div id="noticesWrap">
     <div class="notice laylat fu fu1"><span class="notice-ico">🌙</span><div><div class="notice-title">Ночь Ляйлятуль-Кадр</div><div class="notice-body">16–17 Март · Къадир геджеси.
       <p></p>В исламе — почитаемая ночь месяца поста Рамадан, связанная с ниспосланием пророку Мухаммеду Корана в виде откровения в пещере Хира горы Джабаль аль-Нур
@@ -483,11 +489,7 @@ body.aod-mode .course-cta{display:none;}
 
   
 
-  <a class="course-cta fu fu3" href="ramadan-2026/index.html" aria-label="Рамадан 2026 — 30 дней наставления">
-    <div class="course-cta-title">Рамадан 2026 — 30 дней наставления</div>
-    <div class="course-cta-sub">Пошаговый ежедневный курс: намерение, основы поста и духовная подготовка.</div>
-    <div class="course-cta-link">Открыть курс →</div>
-  </a>
+  
 
   <div class="fitir-card fu fu3" id="fitirCard" aria-label="Закят в Исламе">
     <div class="fitir-header">
@@ -617,6 +619,9 @@ const AOD_KEY='ramAodEnabled';
 const AOD_AUTO_PAUSED_KEY='ramAodAutoPaused';
 const FEATURE_NOTICE_KEY='ramLandscapeFeatureSeen';
 const POSTS_NOTICE_SEEN_KEY='ramPostsSeenCount';
+const NOTICE_QUEUE_DELAY=2400;
+let activePopupNotice=null;
+const popupNoticeQueue=[];
 const aodLandscapeQuery=window.matchMedia('(orientation: landscape)');
 let aodWakeLock=null;
 
@@ -1177,14 +1182,32 @@ function updateZakatAccessState(){
   }
 }
 
+function enqueuePopupNotice(renderFn){
+  popupNoticeQueue.push(renderFn);
+}
+
+function runPopupNoticeQueue(){
+  if(activePopupNotice||popupNoticeQueue.length===0)return;
+  const next=popupNoticeQueue.shift();
+  next();
+}
+
 function showLandscapeFeatureNotice(){
   const notice=$('landscapeFeatureNotice');
   if(!notice)return;
   if(localStorage.getItem(FEATURE_NOTICE_KEY)==='1')return;
-  notice.style.display='grid';
-  const close=()=>{notice.style.display='none';localStorage.setItem(FEATURE_NOTICE_KEY,'1');};
-  const btn=$('landscapeFeatureNoticeBtn');
-  if(btn)btn.onclick=close;
+  enqueuePopupNotice(()=>{
+    activePopupNotice=notice;
+    notice.style.display='grid';
+    const close=()=>{
+      notice.style.display='none';
+      localStorage.setItem(FEATURE_NOTICE_KEY,'1');
+      activePopupNotice=null;
+      setTimeout(runPopupNoticeQueue,NOTICE_QUEUE_DELAY);
+    };
+    const btn=$('landscapeFeatureNoticeBtn');
+    if(btn)btn.onclick=close;
+  });
 }
 
 function showPostsNotice(release){
@@ -1199,10 +1222,18 @@ function showPostsNotice(release){
   if(fresh<=0){wrap.style.display='none';return;}
   title.textContent=fresh===1?'Вышел новый пост':'Вышли новые посты';
   body.textContent=fresh===1?`Добавлен материал: ${release.availableArticles[release.availableCount-1].title}.`:`Добавлено ${fresh} новых материалов в разделе «Познавательно».`;
-  wrap.style.display='grid';
-  const markSeen=()=>{localStorage.setItem(POSTS_NOTICE_SEEN_KEY,String(release.availableCount));wrap.style.display='none';};
-  dismissBtn.onclick=markSeen;
-  openBtn.onclick=()=>{markSeen();};
+  enqueuePopupNotice(()=>{
+    activePopupNotice=wrap;
+    wrap.style.display='grid';
+    const markSeen=()=>{
+      localStorage.setItem(POSTS_NOTICE_SEEN_KEY,String(release.availableCount));
+      wrap.style.display='none';
+      activePopupNotice=null;
+      setTimeout(runPopupNoticeQueue,NOTICE_QUEUE_DELAY);
+    };
+    dismissBtn.onclick=markSeen;
+    openBtn.onclick=()=>{markSeen();};
+  });
 }
 
 function processAutoReleases(){
@@ -1223,6 +1254,7 @@ window.addEventListener('storage',e=>{
 applyAodMode();
 showLandscapeFeatureNotice();
 processAutoReleases();
+runPopupNoticeQueue();
 updateMaterialsUnreadBadge();
 updateZakatAccessState();
 viewIdx=todayIdx();
