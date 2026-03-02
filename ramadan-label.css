@@ -1,0 +1,97 @@
+:root{
+  --ramadan-label-accent:#5f4bd8;
+  --ramadan-label-accent-soft:#ece9ff;
+  --ramadan-label-text:#3f31a6;
+  --ramadan-label-wave-opacity:.55;
+  --ramadan-label-wave-speed:8s;
+  --ramadan-label-wave-blur:12px;
+}
+
+.nav-ramadan-day-wrap{display:flex;justify-content:center;margin-top:6px;margin-bottom:4px;}
+
+.nav-ramadan-day{
+  position:relative;
+  isolation:isolate;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:12px;
+  border:1px solid color-mix(in srgb, var(--ramadan-label-accent) 26%, white);
+  background:linear-gradient(155deg,#f7f6ff 0%,#efecff 100%);
+  box-shadow:0 6px 16px rgba(95,75,216,.16), inset 0 1px 0 rgba(255,255,255,.9);
+  text-decoration:none;
+  color:var(--ramadan-label-text);
+  overflow:hidden;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+
+.nav-ramadan-day::before,
+.nav-ramadan-day::after{
+  content:"";
+  position:absolute;
+  inset:auto -20% -52% -20%;
+  height:46px;
+  z-index:-1;
+  border-radius:50%;
+  pointer-events:none;
+  opacity:var(--ramadan-label-wave-opacity);
+  filter:blur(var(--ramadan-label-wave-blur));
+}
+
+.nav-ramadan-day::before{
+  background:radial-gradient(circle at 30% 50%, rgba(111,88,244,.42), rgba(111,88,244,0));
+  animation:ramadanLabelWave var(--ramadan-label-wave-speed) ease-in-out infinite;
+}
+
+.nav-ramadan-day::after{
+  background:radial-gradient(circle at 70% 50%, rgba(156,128,255,.42), rgba(156,128,255,0));
+  animation:ramadanLabelWave calc(var(--ramadan-label-wave-speed) * 1.2) ease-in-out infinite reverse;
+}
+
+.nav-ramadan-day:hover{transform:translateY(-1px);}
+.nav-ramadan-day:active{transform:translateY(0) scale(.985);}
+
+.nav-ramadan-day:focus-visible{
+  outline:2px solid color-mix(in srgb, var(--ramadan-label-accent) 60%, white);
+  outline-offset:2px;
+}
+
+.nav-ramadan-day-icon{
+  display:grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  flex-shrink:0;
+  border-radius:9px;
+  background:var(--ramadan-label-accent-soft);
+  color:var(--ramadan-label-accent);
+  border:1px solid rgba(95,75,216,.16);
+}
+
+.nav-ramadan-day-icon svg{width:18px;height:18px;}
+
+.nav-ramadan-day-text{
+  font-size:.76rem;
+  font-weight:900;
+  line-height:1;
+  white-space:nowrap;
+}
+
+[data-theme="dark"] .nav-ramadan-day{
+  background:linear-gradient(150deg,rgba(95,75,216,.24),rgba(52,40,123,.44));
+  color:#ddd6ff;
+  border-color:rgba(152,132,255,.38);
+  box-shadow:0 8px 20px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+[data-theme="dark"] .nav-ramadan-day-icon{
+  background:rgba(236,233,255,.12);
+  border-color:rgba(216,209,255,.22);
+  color:#c8bcff;
+}
+
+@keyframes ramadanLabelWave{
+  0%,100%{transform:translateX(-8%) translateY(7px) scaleX(1);}
+  50%{transform:translateX(8%) translateY(-3px) scaleX(1.16);}
+}
