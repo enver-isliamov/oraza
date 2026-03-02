@@ -1,8 +1,8 @@
 :root {
   --support-cta-bg: #123524;
   --support-cta-liquid: #2fbf71;
-  --support-cta-wave: #0f2b1f;
-  --support-cta-glow: #57d891;
+  --support-cta-wave: ##2ba76c;
+  --support-cta-glow: #ffffff20;
 }
 
 .support-button,
