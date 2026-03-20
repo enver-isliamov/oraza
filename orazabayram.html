@@ -207,23 +207,6 @@
       border-radius: 50%;
       background: rgba(9, 32, 35, 0.92);
     }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 18px;
-    }
-
     h1 {
       margin: 0;
       font-size: clamp(42px, 7vw, 76px);
@@ -264,20 +247,17 @@
       margin-top: 28px;
     }
 
-    button,
-    .secondary-link {
+    button {
       border: none;
       cursor: pointer;
       border-radius: 999px;
       padding: 16px 24px;
       font: inherit;
       font-weight: 800;
-      text-decoration: none;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
-    button:hover,
-    .secondary-link:hover {
+    button:hover {
       transform: translateY(-2px);
     }
 
@@ -286,13 +266,6 @@
       color: #14302f;
       box-shadow: 0 16px 28px rgba(255, 211, 110, 0.26);
     }
-
-    .secondary-link {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-main);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
     .message-box {
       margin: 20px auto 0;
       min-height: 24px;
@@ -328,11 +301,74 @@
     }
 
     @media (max-width: 640px) {
-      .wrap { padding: 20px 12px; }
-      .card { padding: 24px 18px; border-radius: 24px; }
-      .actions { flex-direction: column; }
-      button, .secondary-link { width: 100%; }
-      .lantern { opacity: 0.16; }
+      .wrap { padding: 14px 10px; align-items: stretch; }
+      .card {
+        width: 100%;
+        min-height: calc(100vh - 28px);
+        padding: 22px 16px 20px;
+        border-radius: 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .crescent {
+        width: 88px;
+        height: 88px;
+        margin-bottom: 14px;
+      }
+      h1 {
+        font-size: clamp(34px, 11vw, 52px);
+        line-height: 1;
+      }
+      .lead,
+      .thanks {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .thanks {
+        margin-top: 18px;
+        padding: 14px;
+        border-radius: 18px;
+      }
+      .actions {
+        margin-top: 22px;
+      }
+      button {
+        width: 100%;
+        padding: 15px 18px;
+        font-size: 15px;
+      }
+      .message-box {
+        margin-top: 16px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .footer-note {
+        margin-top: 16px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .lantern {
+        opacity: 0.12;
+      }
+    }
+
+    @media (max-width: 420px) {
+      body {
+        background:
+          radial-gradient(circle at top left, rgba(255, 220, 138, 0.28), transparent 32%),
+          linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 58%, #12735f 78%, var(--bg-bottom) 100%);
+      }
+      .card {
+        min-height: calc(100vh - 20px);
+        padding: 18px 14px;
+      }
+      .sparkles span:nth-child(n+7),
+      .lantern.right {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -358,7 +394,6 @@
   <main class="wrap">
     <section class="card" aria-labelledby="greeting-title">
       <div class="crescent" aria-hidden="true"></div>
-      <div class="eyebrow">Праздничная открытка · Orazabayram</div>
       <h1 id="greeting-title">Ораза байрам мубарек олсун!</h1>
       <p class="lead">
         Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью,
@@ -372,7 +407,6 @@
 
       <div class="actions">
         <button class="share-btn" id="shareButton" type="button">Поздравить близких в соцсетях</button>
-        <a class="secondary-link" href="ramadan-2026/index.html">Открыть курс Рамадана</a>
       </div>
 
       <div class="message-box" id="statusMessage" aria-live="polite"></div>
@@ -404,7 +438,7 @@
       try {
         if (navigator.share) {
           await navigator.share(shareData);
-          setStatus('Спасибо! Открытка готова к отправке вашим близким.');
+          setStatus('Поздравление готово к отправке вашим близким.');
           return;
         }
 
