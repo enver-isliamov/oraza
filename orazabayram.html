@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0d4f44">
-  <meta name="description" content="Праздничная открытка к Ораза-байраму с тёплым поздравлением, анимацией и превью для отправки близким.">
+  <meta name="description" content="Ораза байрам мубарек олсун! Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью, благими встречами и искренними молитвами.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Ораза байрам мубарек олсун!">
-  <meta property="og:description" content="Праздничное поздравление к Ораза-байраму с превью открытки и возможностью отправить его близким.">
+  <meta property="og:description" content="Ораза байрам мубарек олсун! Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью, благими встречами и искренними молитвами.">
   <meta property="og:url" content="https://oraza.ru/orazabayram.html">
   <meta property="og:image" content="https://oraza.ru/orazabayram-preview.svg">
   <meta property="og:image:alt" content="Праздничная открытка с поздравлением Ораза байрам мубарек олсун!">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ораза байрам мубарек олсун!">
-  <meta name="twitter:description" content="Праздничное поздравление к Ораза-байраму с превью открытки и возможностью отправить его близким.">
+  <meta name="twitter:description" content="Ораза байрам мубарек олсун! Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью, благими встречами и искренними молитвами.">
   <meta name="twitter:image" content="https://oraza.ru/orazabayram-preview.svg">
   <title>Ораза байрам мубарек олсун!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -275,20 +275,6 @@
       animation: contentBreath 7s ease-in-out infinite;
     }
 
-    .thanks {
-      margin: 22px auto 0;
-      max-width: 560px;
-      padding: 16px 18px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 12px;
-      line-height: 1.55;
-      color: var(--text-soft);
-      animation: contentBreath 7s ease-in-out infinite;
-      animation-delay: -2.2s;
-    }
-
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -340,12 +326,6 @@
       font-size: 11px;
       color: var(--accent);
       font-weight: 600;
-    }
-
-    .footer-note {
-      margin-top: 26px;
-      font-size: 10px;
-      color: rgba(255, 250, 240, 0.72);
     }
 
     @keyframes twinkle {
@@ -406,7 +386,7 @@
       left: -9999px;
       top: 0;
       width: 1200px;
-      height: 1600px;
+      height: 1500px;
       overflow: hidden;
       pointer-events: none;
       opacity: 0;
@@ -414,7 +394,7 @@
 
     .share-preview-root {
       width: 1200px;
-      height: 1600px;
+      height: 1500px;
       overflow: hidden;
       position: relative;
       font-family: 'Montserrat', system-ui, sans-serif;
@@ -427,42 +407,59 @@
 
     .share-preview-root .wrap {
       min-height: 100%;
-      padding: 72px;
+      padding: 76px;
     }
 
     .share-preview-root .card {
       width: 100%;
       max-width: none;
-      padding: 72px 72px 64px;
+      min-height: 100%;
+      padding: 88px 88px 82px;
+      border-radius: 44px 44px 44px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       animation: none;
     }
 
+    .share-preview-root .card::before {
+      width: 280px;
+      height: 280px;
+      top: -130px;
+      right: -70px;
+    }
+
+    .share-preview-root .card::after {
+      width: 300px;
+      height: 300px;
+      bottom: -160px;
+      left: -100px;
+    }
+
     .share-preview-root .card-shimmer,
-    .share-preview-root .footer-note,
     .share-preview-root .message-box,
-    .share-preview-root .actions,
-    .share-preview-root .thanks {
+    .share-preview-root .actions {
       display: none;
     }
 
     .share-preview-root .crescent {
-      width: 138px;
-      height: 138px;
-      margin-bottom: 28px;
+      width: 150px;
+      height: 150px;
+      margin-bottom: 36px;
       animation: none;
     }
 
     .share-preview-root h1 {
-      font-size: 132px;
-      line-height: 0.92;
+      font-size: 140px;
+      line-height: 0.94;
       animation: none;
     }
 
     .share-preview-root .lead {
-      max-width: 720px;
-      margin-top: 30px;
-      font-size: 32px;
-      line-height: 1.65;
+      max-width: 780px;
+      margin-top: 34px;
+      font-size: 34px;
+      line-height: 1.62;
       animation: none;
     }
 
@@ -486,15 +483,9 @@
         font-size: clamp(56px, 17vw, 82px);
         line-height: 1;
       }
-      .lead,
-      .thanks {
+      .lead {
         font-size: 10px;
         line-height: 1.4;
-      }
-      .thanks {
-        margin-top: 18px;
-        padding: 14px;
-        border-radius: 18px;
       }
       .actions {
         margin-top: 22px;
@@ -511,11 +502,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      .footer-note {
-        margin-top: 16px;
-        font-size: 10px;
-        line-height: 1.4;
       }
       .lantern {
         opacity: 0.12;
@@ -567,18 +553,11 @@
         Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью,
         благими встречами и искренними молитвами.
       </p>
-      <div class="thanks">
-        Спасибо всем нашим пользователям за то, что весь этот месяц были с нами,
-        читали, поддерживали и разделяли атмосферу Рамадана. Пусть ваши добрые дела,
-        терпение и молитвы будут приняты.
-      </div>
-
       <div class="actions">
         <button class="share-btn" id="shareButton" type="button"><span>Поздравить близких в соцсетях</span></button>
       </div>
 
       <div class="message-box" id="statusMessage" aria-live="polite"></div>
-      <p class="footer-note">Нажмите кнопку, чтобы отправить открытку через доступные социальные сети и мессенджеры.</p>
     </section>
   </main>
 
@@ -610,8 +589,7 @@
     const shareStage = document.getElementById('shareStage');
     const shareData = {
       title: 'Ораза байрам мубарек олсун!',
-      text: 'Ораза байрам мубарек олсун! Светлого праздника, мира, тепла и радости вам и вашим близким.',
-      url: new URL('orazabayram.html', window.location.href).toString()
+      text: 'Ораза байрам мубарек олсун! Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью, благими встречами и искренними молитвами.'
     };
 
     const setStatus = (message, isError = false) => {
@@ -629,7 +607,7 @@
         .map((node) => node.textContent)
         .join('\n');
       const svgMarkup = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
           <foreignObject width="100%" height="100%">
             <div xmlns="http://www.w3.org/1999/xhtml" class="share-preview-root">
               <style>${styleMarkup}</style>
@@ -654,7 +632,7 @@
 
       const canvas = document.createElement('canvas');
       canvas.width = 1200;
-      canvas.height = 1600;
+      canvas.height = 1500;
       const ctx = canvas.getContext('2d');
 
       if (!ctx) {
@@ -674,9 +652,8 @@
     };
 
     const copyGreeting = async () => {
-      const textToCopy = `${shareData.text} ${shareData.url}`;
-      await navigator.clipboard.writeText(textToCopy);
-      setStatus('Поздравление и ссылка скопированы — теперь их можно отправить близким.');
+      await navigator.clipboard.writeText(shareData.text);
+      setStatus('Текст поздравления скопирован — теперь его можно отправить близким.');
     };
 
     shareButton.addEventListener('click', async () => {
@@ -697,7 +674,7 @@
 
         if (navigator.share) {
           await navigator.share(shareData);
-          setStatus('Ссылка на открытку готова к отправке.');
+          setStatus('Поздравление готово к отправке.');
           return;
         }
 
@@ -706,7 +683,7 @@
           return;
         }
 
-        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
+        const shareUrl = `https://t.me/share/url?text=${encodeURIComponent(shareData.text)}`;
         window.open(shareUrl, '_blank', 'noopener');
         setStatus('Открыли окно для отправки поздравления.');
       } catch (error) {
