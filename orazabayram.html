@@ -9,12 +9,12 @@
   <meta property="og:title" content="Ораза байрам мубарек олсун!">
   <meta property="og:description" content="Ораза байрам мубарек олсун! Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью, благими встречами и искренними молитвами.">
   <meta property="og:url" content="https://oraza.ru/orazabayram.html">
-  <meta property="og:image" content="https://oraza.ru/orazabayram-preview.svg">
+  <meta property="og:image" content="https://oraza.ru/OMU.png">
   <meta property="og:image:alt" content="Праздничная открытка с поздравлением Ораза байрам мубарек олсун!">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ораза байрам мубарек олсун!">
   <meta name="twitter:description" content="Ораза байрам мубарек олсун! Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью, благими встречами и искренними молитвами.">
-  <meta name="twitter:image" content="https://oraza.ru/orazabayram-preview.svg">
+  <meta name="twitter:image" content="https://oraza.ru/OMU.png">
   <title>Ораза байрам мубарек олсун!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,239 +40,22 @@
       margin: 0;
       min-height: 100vh;
       font-family: 'Montserrat', system-ui, sans-serif;
-      color: var(--text-main);
-      background:
-        radial-gradient(circle at top left, rgba(255, 220, 138, 0.35), transparent 30%),
-        radial-gradient(circle at top right, rgba(142, 241, 202, 0.14), transparent 28%),
-        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, #12735f 75%, var(--bg-bottom) 100%);
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: -20%;
-      background:
-        linear-gradient(120deg, transparent 24%, rgba(255, 223, 143, 0.1) 42%, rgba(255, 255, 255, 0.06) 50%, transparent 66%),
-        radial-gradient(circle at 50% 20%, rgba(255, 226, 150, 0.08), transparent 36%);
-      mix-blend-mode: screen;
-      opacity: 0.72;
-      pointer-events: none;
-      animation: backgroundSheen 16s linear infinite;
-    }
-
-    .sky-glow,
-    .sparkles,
-    .lanterns {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .sky-glow::before,
-    .sky-glow::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(20px);
-      opacity: 0.7;
-      animation: floatGlow 7s ease-in-out infinite;
-    }
-
-    .sky-glow::before {
-      width: 220px;
-      height: 220px;
-      top: 8%;
-      left: 10%;
-      background: rgba(255, 215, 110, 0.25);
-    }
-
-    .sky-glow::after {
-      width: 280px;
-      height: 280px;
-      right: 8%;
-      top: 16%;
-      background: rgba(142, 241, 202, 0.14);
-      animation-delay: -3s;
-    }
-
-    .sparkles span,
-    .lantern {
-      position: absolute;
-      display: block;
-    }
-
-    .sparkles span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(255, 240, 193, 0.95);
-      box-shadow: 0 0 14px rgba(255, 217, 126, 0.9);
-      animation: twinkle 3.6s ease-in-out infinite;
-    }
-
-    .sparkles span:nth-child(1) { top: 12%; left: 12%; animation-delay: 0s; }
-    .sparkles span:nth-child(2) { top: 24%; left: 78%; animation-delay: 1s; }
-    .sparkles span:nth-child(3) { top: 14%; left: 52%; animation-delay: 2.2s; }
-    .sparkles span:nth-child(4) { top: 38%; left: 18%; animation-delay: 1.4s; }
-    .sparkles span:nth-child(5) { top: 48%; left: 84%; animation-delay: 0.5s; }
-    .sparkles span:nth-child(6) { top: 58%; left: 8%; animation-delay: 2.8s; }
-    .sparkles span:nth-child(7) { top: 68%; left: 74%; animation-delay: 1.8s; }
-    .sparkles span:nth-child(8) { top: 82%; left: 46%; animation-delay: 0.8s; }
-
-    .lantern {
-      width: 56px;
-      height: 94px;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255, 224, 146, 0.95), rgba(230, 154, 42, 0.85));
-      box-shadow: 0 0 32px rgba(255, 212, 108, 0.45);
-      opacity: 0.24;
-      animation: sway 6s ease-in-out infinite;
-    }
-
-    .lantern::before,
-    .lantern::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .lantern::before {
-      top: -28px;
-      width: 2px;
-      height: 28px;
-      background: rgba(255, 232, 176, 0.6);
-    }
-
-    .lantern::after {
-      bottom: -8px;
-      width: 16px;
-      height: 16px;
-      border-radius: 0 0 10px 10px;
-      background: rgba(255, 211, 110, 0.8);
-    }
-
-    .lantern.left { left: 7%; top: 10%; }
-    .lantern.right { right: 9%; top: 18%; animation-delay: -2.5s; }
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 16px;
-    }
-
-    .card {
-      width: min(100%, 760px);
-      padding: 28px;
-      border-radius: 30px;
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-      animation: cardFloat 8s ease-in-out infinite;
-    }
-
-    .card::before,
-    .card::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      z-index: -1;
-      opacity: 0.7;
-    }
-
-    .card::selection,
-    .card *::selection {
-      background: rgba(255, 211, 110, 0.24);
-    }
-
-    .card::before {
-      width: 220px;
-      height: 220px;
-      top: -120px;
-      right: -80px;
-      background: radial-gradient(circle, rgba(255, 211, 110, 0.42), transparent 70%);
-    }
-
-    .card::after {
-      width: 240px;
-      height: 240px;
-      bottom: -150px;
-      left: -110px;
-      background: radial-gradient(circle, rgba(142, 241, 202, 0.22), transparent 72%);
-    }
-
-    .card-shimmer {
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .card-shimmer::before {
-      content: '';
-      position: absolute;
-      inset: -35%;
-      background: linear-gradient(115deg, transparent 35%, rgba(255, 227, 159, 0.18) 48%, rgba(255, 255, 255, 0.09) 52%, transparent 64%);
-      transform: translateX(-48%) rotate(8deg);
-      animation: shimmerSweep 9.5s ease-in-out infinite;
-    }
-
-    .crescent {
-      width: 108px;
-      height: 108px;
-      margin: 0 auto 18px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #fff4cb 0%, #ffd36e 48%, #d89f29 100%);
-      box-shadow: 0 0 28px rgba(255, 220, 138, 0.45);
-      position: relative;
-      animation: pulseMoon 4.5s ease-in-out infinite;
-    }
-
-    .crescent::after {
-      content: '';
-      position: absolute;
-      inset: 10px 8px 10px 34px;
-      border-radius: 50%;
-      background: rgba(9, 32, 35, 0.92);
-    }
-    h1 {
-      margin: 0;
-      font-size: clamp(72px, 12vw, 124px);
-      line-height: 0.9;
-      font-family: 'Marck Script', cursive;
-      font-weight: 400;
-      color: var(--text-main);
-      text-wrap: balance;
-      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
-      background: linear-gradient(180deg, #fffdf5 0%, #ffe6a5 52%, #fffdf5 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: titleGlow 6s ease-in-out infinite;
-    }
-
-    .lead {
-      margin: 18px auto 0;
-      max-width: 590px;
-      font-size: clamp(13px, 1.5vw, 15px);
-      line-height: 1.7;
-      color: var(--text-soft);
-      text-wrap: pretty;
+@@ -275,101 +275,109 @@
       animation: contentBreath 7s ease-in-out infinite;
+    }
+
+    .thanks {
+      margin: 22px auto 0;
+      max-width: 560px;
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--text-soft);
+      animation: contentBreath 7s ease-in-out infinite;
+      animation-delay: -2.2s;
     }
 
     .actions {
@@ -283,7 +66,8 @@
       margin-top: 22px;
     }
 
-    button {
+    button,
+    .action-link {
       border: none;
       cursor: pointer;
       border-radius: 999px;
@@ -291,9 +75,14 @@
       font: inherit;
       font-weight: 700;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    button:hover {
+    button:hover,
+    .action-link:hover {
       transform: translateY(-2px);
     }
 
@@ -320,6 +109,14 @@
       position: relative;
       z-index: 1;
     }
+
+    .support-btn {
+      background: linear-gradient(135deg, rgba(255, 211, 110, 0.94), rgba(211, 155, 32, 0.94));
+      color: #14342f;
+      box-shadow: 0 16px 30px rgba(211, 155, 32, 0.22);
+      font-size: 11px;
+    }
+
     .message-box {
       margin: 20px auto 0;
       min-height: 24px;
@@ -353,14 +150,7 @@
       0%, 100% { transform: scale(1); box-shadow: 0 0 28px rgba(255, 220, 138, 0.45); }
       50% { transform: scale(1.06); box-shadow: 0 0 42px rgba(255, 220, 138, 0.6); }
     }
-
-    @keyframes cardFloat {
-      0%, 100% { transform: translate3d(0, 0, 0); }
-      50% { transform: translate3d(0, -6px, 0); }
-    }
-
-    @keyframes shimmerSweep {
-      0%, 100% { transform: translateX(-54%) rotate(8deg); opacity: 0.2; }
+@@ -384,161 +392,175 @@
       50% { transform: translateX(54%) rotate(8deg); opacity: 1; }
     }
 
@@ -438,7 +228,8 @@
 
     .share-preview-root .card-shimmer,
     .share-preview-root .message-box,
-    .share-preview-root .actions {
+    .share-preview-root .actions,
+    .share-preview-root .thanks {
       display: none;
     }
 
@@ -483,14 +274,21 @@
         font-size: clamp(56px, 17vw, 82px);
         line-height: 1;
       }
-      .lead {
+      .lead,
+      .thanks {
         font-size: 10px;
         line-height: 1.4;
+      }
+      .thanks {
+        margin-top: 18px;
+        padding: 14px;
+        border-radius: 18px;
       }
       .actions {
         margin-top: 22px;
       }
-      button {
+      button,
+      .action-link {
         width: auto;
         max-width: 100%;
         padding: 8px 12px;
@@ -528,11 +326,7 @@
       *, *::before, *::after {
         animation: none !important;
         transition: none !important;
-        scroll-behavior: auto !important;
-      }
-    }
-  </style>
-</head>
+@@ -550,169 +572,123 @@
 <body>
   <div class="sky-glow"></div>
   <div class="sparkles" aria-hidden="true">
@@ -553,8 +347,14 @@
         Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью,
         благими встречами и искренними молитвами.
       </p>
+      <div class="thanks">
+        Спасибо всем нашим пользователям за то, что весь этот месяц были с нами,
+        читали, поддерживали и разделяли атмосферу Рамадана. Пусть ваши добрые дела,
+        терпение и молитвы будут приняты.
+      </div>
       <div class="actions">
         <button class="share-btn" id="shareButton" type="button"><span>Поздравить близких в соцсетях</span></button>
+        <a class="action-link support-btn" href="https://pay.cloudtips.ru/p/8a27e9ab" target="_blank" rel="noopener noreferrer">Поблагодарить</a>
       </div>
 
       <div class="message-box" id="statusMessage" aria-live="polite"></div>
@@ -586,7 +386,6 @@
   <script>
     const shareButton = document.getElementById('shareButton');
     const statusMessage = document.getElementById('statusMessage');
-    const shareStage = document.getElementById('shareStage');
     const shareData = {
       title: 'Ораза байрам мубарек олсун!',
       text: 'Ораза байрам мубарек олсун! Пусть этот светлый праздник наполнит ваш дом миром, душевным теплом, радостью, благими встречами и искренними молитвами.'
@@ -597,58 +396,16 @@
       statusMessage.style.color = isError ? '#ffd5d5' : 'var(--accent)';
     };
 
-    const createShareImage = async () => {
-      if (document.fonts && document.fonts.ready) {
-        await document.fonts.ready;
+    const loadShareImage = async () => {
+      const imageUrl = new URL('OMU.png', window.location.href);
+      const response = await fetch(imageUrl);
+
+      if (!response.ok) {
+        throw new Error('Could not load OMU.png');
       }
 
-      const sceneMarkup = shareStage.innerHTML;
-      const styleMarkup = Array.from(document.querySelectorAll('style'))
-        .map((node) => node.textContent)
-        .join('\n');
-      const svgMarkup = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
-          <foreignObject width="100%" height="100%">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="share-preview-root">
-              <style>${styleMarkup}</style>
-              ${sceneMarkup}
-            </div>
-          </foreignObject>
-        </svg>
-      `;
-      const svgBlob = new Blob([svgMarkup], { type: 'image/svg+xml;charset=utf-8' });
-      const svgUrl = URL.createObjectURL(svgBlob);
-
-      const image = await new Promise((resolve, reject) => {
-        const img = new Image();
-        img.decoding = 'async';
-        img.onload = () => resolve(img);
-        img.onerror = () => {
-          URL.revokeObjectURL(svgUrl);
-          reject(new Error('Could not render share preview'));
-        };
-        img.src = svgUrl;
-      });
-
-      const canvas = document.createElement('canvas');
-      canvas.width = 1200;
-      canvas.height = 1500;
-      const ctx = canvas.getContext('2d');
-
-      if (!ctx) {
-        URL.revokeObjectURL(svgUrl);
-        throw new Error('Canvas is not supported');
-      }
-
-      ctx.drawImage(image, 0, 0);
-      URL.revokeObjectURL(svgUrl);
-
-      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 0.96));
-      if (!blob) {
-        throw new Error('Could not create image blob');
-      }
-
-      return new File([blob], 'orazabayram-card.png', { type: 'image/png' });
+      const blob = await response.blob();
+      return new File([blob], 'OMU.png', { type: blob.type || 'image/png' });
     };
 
     const copyGreeting = async () => {
@@ -661,18 +418,18 @@
         let imageFile = null;
 
         try {
-          imageFile = await createShareImage();
+          imageFile = await loadShareImage();
         } catch (imageError) {
           imageFile = null;
         }
 
-        if (imageFile && navigator.share && navigator.canShare && navigator.canShare({ files: [imageFile] })) {
-          await navigator.share({ ...shareData, files: [imageFile] });
-          setStatus('Открытка подготовлена как изображение и готова к отправке.');
-          return;
-        }
-
         if (navigator.share) {
+          if (imageFile && (!navigator.canShare || navigator.canShare({ files: [imageFile] }))) {
+            await navigator.share({ ...shareData, files: [imageFile] });
+            setStatus('Поздравление и OMU.png готовы к отправке.');
+            return;
+          }
+
           await navigator.share(shareData);
           setStatus('Поздравление готово к отправке.');
           return;
