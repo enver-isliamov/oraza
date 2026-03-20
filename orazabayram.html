@@ -40,7 +40,29 @@
       margin: 0;
       min-height: 100vh;
       font-family: 'Montserrat', system-ui, sans-serif;
-@@ -275,101 +275,109 @@
+@@ -253,50 +253,64 @@
+      margin: 0;
+      font-size: clamp(72px, 12vw, 124px);
+      line-height: 0.9;
+      font-family: 'Marck Script', cursive;
+      font-weight: 400;
+      color: var(--text-main);
+      text-wrap: balance;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+      background: linear-gradient(180deg, #fffdf5 0%, #ffe6a5 52%, #fffdf5 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: titleGlow 6s ease-in-out infinite;
+    }
+
+    .lead {
+      margin: 18px auto 0;
+      max-width: 590px;
+      font-size: clamp(13px, 1.5vw, 15px);
+      line-height: 1.7;
+      color: var(--text-soft);
+      text-wrap: pretty;
       animation: contentBreath 7s ease-in-out infinite;
     }
 
@@ -83,126 +105,7 @@
 
     button:hover,
     .action-link:hover {
-      transform: translateY(-2px);
-    }
-
-    .share-btn {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-main);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: none;
-      font-size: 11px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .share-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 28%, rgba(255, 211, 110, 0.26) 48%, transparent 66%);
-      transform: translateX(-160%);
-      animation: buttonShimmer 5.8s ease-in-out infinite;
-    }
-
-    .share-btn > span {
-      position: relative;
-      z-index: 1;
-    }
-
-    .support-btn {
-      background: linear-gradient(135deg, rgba(255, 211, 110, 0.94), rgba(211, 155, 32, 0.94));
-      color: #14342f;
-      box-shadow: 0 16px 30px rgba(211, 155, 32, 0.22);
-      font-size: 11px;
-    }
-
-    .message-box {
-      margin: 20px auto 0;
-      min-height: 24px;
-      font-size: 11px;
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { transform: scale(0.7); opacity: 0.4; }
-      50% { transform: scale(1.25); opacity: 1; }
-    }
-
-    @keyframes floatGlow {
-      0%, 100% { transform: translate3d(0, 0, 0); }
-      50% { transform: translate3d(0, 12px, 0); }
-    }
-
-    @keyframes backgroundSheen {
-      0% { transform: translate3d(-8%, -2%, 0) rotate(0deg); }
-      50% { transform: translate3d(8%, 2%, 0) rotate(3deg); }
-      100% { transform: translate3d(-8%, -2%, 0) rotate(0deg); }
-    }
-
-    @keyframes sway {
-      0%, 100% { transform: rotate(-4deg) translateY(0); }
-      50% { transform: rotate(4deg) translateY(10px); }
-    }
-
-    @keyframes pulseMoon {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 28px rgba(255, 220, 138, 0.45); }
-      50% { transform: scale(1.06); box-shadow: 0 0 42px rgba(255, 220, 138, 0.6); }
-    }
-@@ -384,161 +392,175 @@
-      50% { transform: translateX(54%) rotate(8deg); opacity: 1; }
-    }
-
-    @keyframes titleGlow {
-      0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 222, 147, 0)); }
-      50% { filter: drop-shadow(0 0 12px rgba(255, 222, 147, 0.18)); }
-    }
-
-    @keyframes contentBreath {
-      0%, 100% { opacity: 0.9; }
-      50% { opacity: 1; }
-    }
-
-    @keyframes buttonShimmer {
-      0%, 100% { transform: translateX(-170%); opacity: 0; }
-      20% { opacity: 0; }
-      45% { transform: translateX(170%); opacity: 1; }
-      46% { opacity: 0; }
-    }
-
-    .share-stage {
-      position: fixed;
-      left: -9999px;
-      top: 0;
-      width: 1200px;
-      height: 1500px;
-      overflow: hidden;
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    .share-preview-root {
-      width: 1200px;
-      height: 1500px;
-      overflow: hidden;
-      position: relative;
-      font-family: 'Montserrat', system-ui, sans-serif;
-      color: var(--text-main);
-      background:
-        radial-gradient(circle at top left, rgba(255, 220, 138, 0.35), transparent 30%),
-        radial-gradient(circle at top right, rgba(142, 241, 202, 0.14), transparent 28%),
-        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, #12735f 75%, var(--bg-bottom) 100%);
-    }
-
-    .share-preview-root .wrap {
-      min-height: 100%;
-      padding: 76px;
-    }
-
-    .share-preview-root .card {
-      width: 100%;
-      max-width: none;
+@@ -430,99 +444,106 @@
       min-height: 100%;
       padding: 88px 88px 82px;
       border-radius: 44px 44px 44px 18px;
@@ -309,24 +212,12 @@
     @media (max-width: 420px) {
       body {
         background:
-          radial-gradient(circle at top left, rgba(255, 220, 138, 0.28), transparent 32%),
-          linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 58%, #12735f 78%, var(--bg-bottom) 100%);
-      }
-      .card {
-        min-height: calc(100vh - 20px);
-        padding: 16px 12px;
-      }
-      .sparkles span:nth-child(n+7),
-      .lantern.right {
-        display: none;
+@@ -546,166 +567,128 @@
+        scroll-behavior: auto !important;
       }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-@@ -550,169 +572,123 @@
+  </style>
+</head>
 <body>
   <div class="sky-glow"></div>
   <div class="sparkles" aria-hidden="true">
