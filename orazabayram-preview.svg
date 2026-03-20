@@ -5,18 +5,18 @@
       <stop offset="0.58" stop-color="#0D4F44"/>
       <stop offset="1" stop-color="#D8B45F"/>
     </linearGradient>
-    <radialGradient id="glowLeft" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(225 132) rotate(90) scale(180 220)">
-      <stop stop-color="#FFE0A0" stop-opacity="0.44"/>
+    <radialGradient id="glowLeft" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(208 110) rotate(90) scale(186 238)">
+      <stop stop-color="#FFE0A0" stop-opacity="0.42"/>
       <stop offset="1" stop-color="#FFE0A0" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glowRight" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(972 164) rotate(90) scale(210 250)">
-      <stop stop-color="#9CF0D0" stop-opacity="0.26"/>
+    <radialGradient id="glowRight" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(975 148) rotate(90) scale(204 242)">
+      <stop stop-color="#9CF0D0" stop-opacity="0.22"/>
       <stop offset="1" stop-color="#9CF0D0" stop-opacity="0"/>
     </radialGradient>
-    <filter id="shadow" x="204" y="79" width="792" height="472" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <filter id="shadow" x="150" y="68" width="900" height="520" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
       <feFlood flood-opacity="0" result="BackgroundImageFix"/>
       <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-      <feOffset dy="20"/>
+      <feOffset dy="18"/>
       <feGaussianBlur stdDeviation="24"/>
       <feComposite in2="hardAlpha" operator="out"/>
       <feColorMatrix type="matrix" values="0 0 0 0 0.0117647 0 0 0 0 0.0627451 0 0 0 0 0.0705882 0 0 0 0.34 0"/>
@@ -26,8 +26,8 @@
   </defs>
 
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="225" cy="132" r="220" fill="url(#glowLeft)"/>
-  <circle cx="972" cy="164" r="250" fill="url(#glowRight)"/>
+  <circle cx="208" cy="110" r="224" fill="url(#glowLeft)"/>
+  <circle cx="975" cy="148" r="248" fill="url(#glowRight)"/>
 
   <g opacity="0.92" fill="#FFF0C8">
     <circle cx="122" cy="88" r="4"/>
@@ -39,26 +39,28 @@
     <circle cx="980" cy="486" r="4.5"/>
   </g>
 
+  <rect x="192" y="72" width="816" height="486" rx="34" fill="#F6F1E4" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12"/>
+
   <g filter="url(#shadow)">
-    <rect x="252" y="107" width="696" height="376" rx="34" fill="#0B2628" fill-opacity="0.72" stroke="#FFFFFF" stroke-opacity="0.14"/>
+    <rect x="252" y="114" width="696" height="388" rx="34" fill="#0B2628" fill-opacity="0.74" stroke="#FFFFFF" stroke-opacity="0.16"/>
   </g>
 
   <g>
-    <circle cx="600" cy="190" r="54" fill="#FFD66E"/>
-    <circle cx="626" cy="190" r="42" fill="#0B2628"/>
+    <circle cx="600" cy="192" r="54" fill="#FFD66E"/>
+    <circle cx="626" cy="192" r="42" fill="#0B2628"/>
   </g>
 
-  <text x="600" y="300" text-anchor="middle" fill="#FFF8EA" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="700">
+  <text x="600" y="300" text-anchor="middle" fill="#FFF8EA" font-family="Georgia, 'Times New Roman', serif" font-size="74" font-weight="700">
     Ораза байрам
   </text>
-  <text x="600" y="378" text-anchor="middle" fill="#FFF8EA" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="700">
+  <text x="600" y="376" text-anchor="middle" fill="#FFF8EA" font-family="Georgia, 'Times New Roman', serif" font-size="74" font-weight="700">
     мубарек олсун!
   </text>
 
-  <text x="600" y="434" text-anchor="middle" fill="#FFFAF0" fill-opacity="0.82" font-family="Arial, sans-serif" font-size="26">
-    Спасибо, что были с нами весь этот месяц.
+  <text x="600" y="432" text-anchor="middle" fill="#FFFAF0" fill-opacity="0.84" font-family="Arial, sans-serif" font-size="24">
+    Пусть этот светлый праздник наполнит ваш дом миром,
   </text>
-  <text x="600" y="470" text-anchor="middle" fill="#FFFAF0" fill-opacity="0.82" font-family="Arial, sans-serif" font-size="24">
-    Поделитесь праздничным поздравлением с близкими.
+  <text x="600" y="466" text-anchor="middle" fill="#FFFAF0" fill-opacity="0.84" font-family="Arial, sans-serif" font-size="24">
+    душевным теплом, радостью и благими встречами.
   </text>
 </svg>
