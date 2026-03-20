@@ -9,7 +9,12 @@
   <meta property="og:title" content="Ораза байрам мубарек олсун!">
   <meta property="og:description" content="Праздничная открытка с анимацией, словами благодарности и возможностью поздравить близких в соцсетях.">
   <meta property="og:url" content="https://oraza.ru/orazabayram.html">
-  <meta property="og:image" content="https://oraza.ru/logo.png">
+  <meta property="og:image" content="https://oraza.ru/orazabayram-preview.svg">
+  <meta property="og:image:alt" content="Праздничная открытка с поздравлением Ораза байрам мубарек олсун!">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ораза байрам мубарек олсун!">
+  <meta name="twitter:description" content="Праздничная открытка с благодарностью пользователям и возможностью поздравить близких.">
+  <meta name="twitter:image" content="https://oraza.ru/orazabayram-preview.svg">
   <title>Ораза байрам мубарек олсун!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -209,8 +214,8 @@
     }
     h1 {
       margin: 0;
-      font-size: clamp(42px, 7vw, 76px);
-      line-height: 0.96;
+      font-size: clamp(72px, 12vw, 124px);
+      line-height: 0.9;
       font-family: 'Marck Script', cursive;
       font-weight: 400;
       color: var(--text-main);
@@ -221,7 +226,7 @@
     .lead {
       margin: 18px auto 0;
       max-width: 590px;
-      font-size: clamp(16px, 2.2vw, 20px);
+      font-size: clamp(13px, 1.5vw, 15px);
       line-height: 1.7;
       color: var(--text-soft);
       text-wrap: pretty;
@@ -234,8 +239,8 @@
       border-radius: 22px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 12px;
+      line-height: 1.55;
       color: var(--text-soft);
     }
 
@@ -243,17 +248,17 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 14px;
-      margin-top: 28px;
+      gap: 10px;
+      margin-top: 22px;
     }
 
     button {
       border: none;
       cursor: pointer;
       border-radius: 999px;
-      padding: 16px 24px;
+      padding: 10px 16px;
       font: inherit;
-      font-weight: 800;
+      font-weight: 700;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
@@ -262,21 +267,23 @@
     }
 
     .share-btn {
-      background: linear-gradient(135deg, var(--gold) 0%, #ffefbc 100%);
-      color: #14302f;
-      box-shadow: 0 16px 28px rgba(255, 211, 110, 0.26);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: none;
+      font-size: 11px;
     }
     .message-box {
       margin: 20px auto 0;
       min-height: 24px;
-      font-size: 14px;
+      font-size: 11px;
       color: var(--accent);
       font-weight: 600;
     }
 
     .footer-note {
       margin-top: 26px;
-      font-size: 13px;
+      font-size: 10px;
       color: rgba(255, 250, 240, 0.72);
     }
 
@@ -317,13 +324,13 @@
         margin-bottom: 14px;
       }
       h1 {
-        font-size: clamp(34px, 11vw, 52px);
+        font-size: clamp(56px, 17vw, 82px);
         line-height: 1;
       }
       .lead,
       .thanks {
-        font-size: 14px;
-        line-height: 1.6;
+        font-size: 10px;
+        line-height: 1.4;
       }
       .thanks {
         margin-top: 18px;
@@ -334,9 +341,10 @@
         margin-top: 22px;
       }
       button {
-        width: 100%;
-        padding: 15px 18px;
-        font-size: 15px;
+        width: auto;
+        max-width: 100%;
+        padding: 8px 12px;
+        font-size: 11px;
       }
       .message-box {
         margin-top: 16px;
@@ -347,8 +355,8 @@
       }
       .footer-note {
         margin-top: 16px;
-        font-size: 12px;
-        line-height: 1.5;
+        font-size: 10px;
+        line-height: 1.4;
       }
       .lantern {
         opacity: 0.12;
@@ -363,7 +371,7 @@
       }
       .card {
         min-height: calc(100vh - 20px);
-        padding: 18px 14px;
+        padding: 16px 12px;
       }
       .sparkles span:nth-child(n+7),
       .lantern.right {
@@ -428,17 +436,131 @@
       statusMessage.style.color = isError ? '#ffd5d5' : 'var(--accent)';
     };
 
+    const createShareImage = async () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1200;
+      canvas.height = 1600;
+      const ctx = canvas.getContext('2d');
+
+      if (!ctx) {
+        throw new Error('Canvas is not supported');
+      }
+
+      const background = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      background.addColorStop(0, '#052f2d');
+      background.addColorStop(0.58, '#0d4f44');
+      background.addColorStop(1, '#d8b45f');
+      ctx.fillStyle = background;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const glowLeft = ctx.createRadialGradient(180, 160, 20, 180, 160, 240);
+      glowLeft.addColorStop(0, 'rgba(255, 224, 160, 0.36)');
+      glowLeft.addColorStop(1, 'rgba(255, 224, 160, 0)');
+      ctx.fillStyle = glowLeft;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const glowRight = ctx.createRadialGradient(980, 260, 20, 980, 260, 260);
+      glowRight.addColorStop(0, 'rgba(156, 240, 208, 0.22)');
+      glowRight.addColorStop(1, 'rgba(156, 240, 208, 0)');
+      ctx.fillStyle = glowRight;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (const [x, y, r] of [[120, 96, 5], [1030, 110, 6], [950, 220, 4], [240, 300, 4], [1080, 520, 5], [230, 1260, 6]]) {
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255, 240, 200, 0.9)';
+        ctx.shadowColor = 'rgba(255, 225, 140, 0.5)';
+        ctx.shadowBlur = 14;
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+
+      ctx.fillStyle = 'rgba(11, 38, 40, 0.76)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+      ctx.lineWidth = 2;
+      const cardX = 120;
+      const cardY = 190;
+      const cardW = 960;
+      const cardH = 1040;
+      const radius = 42;
+      ctx.beginPath();
+      ctx.moveTo(cardX + radius, cardY);
+      ctx.lineTo(cardX + cardW - radius, cardY);
+      ctx.quadraticCurveTo(cardX + cardW, cardY, cardX + cardW, cardY + radius);
+      ctx.lineTo(cardX + cardW, cardY + cardH - radius);
+      ctx.quadraticCurveTo(cardX + cardW, cardY + cardH, cardX + cardW - radius, cardY + cardH);
+      ctx.lineTo(cardX + radius, cardY + cardH);
+      ctx.quadraticCurveTo(cardX, cardY + cardH, cardX, cardY + cardH - radius);
+      ctx.lineTo(cardX, cardY + radius);
+      ctx.quadraticCurveTo(cardX, cardY, cardX + radius, cardY);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#ffd66e';
+      ctx.beginPath();
+      ctx.arc(600, 360, 72, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(11, 38, 40, 0.95)';
+      ctx.beginPath();
+      ctx.arc(636, 360, 56, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#fff8ea';
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 96px Georgia, serif';
+      ctx.fillText('Ораза байрам', 600, 560);
+      ctx.fillText('мубарек олсун!', 600, 660);
+
+      ctx.fillStyle = 'rgba(255, 250, 240, 0.88)';
+      ctx.font = '500 40px Arial, sans-serif';
+      ctx.fillText('Пусть праздник принесёт мир, тепло и радость вашему дому.', 600, 790);
+
+      ctx.fillStyle = 'rgba(255, 250, 240, 0.78)';
+      ctx.font = '500 34px Arial, sans-serif';
+      const lines = [
+        'Спасибо всем нашим пользователям за то, что были с нами весь этот месяц.',
+        'Пусть ваши добрые дела, терпение и молитвы будут приняты.'
+      ];
+      lines.forEach((line, index) => ctx.fillText(line, 600, 910 + index * 52));
+
+      ctx.fillStyle = 'rgba(255, 250, 240, 0.92)';
+      ctx.font = '600 28px Arial, sans-serif';
+      ctx.fillText('oraza.ru/orazabayram.html', 600, 1110);
+
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 0.96));
+      if (!blob) {
+        throw new Error('Could not create image blob');
+      }
+
+      return new File([blob], 'orazabayram-card.png', { type: 'image/png' });
+    };
+
     const copyGreeting = async () => {
       const textToCopy = `${shareData.text} ${shareData.url}`;
       await navigator.clipboard.writeText(textToCopy);
-      setStatus('Поздравление скопировано — теперь его можно отправить близким.');
+      setStatus('Поздравление и ссылка скопированы — теперь их можно отправить близким.');
     };
 
     shareButton.addEventListener('click', async () => {
       try {
+        let imageFile = null;
+
+        try {
+          imageFile = await createShareImage();
+        } catch (imageError) {
+          imageFile = null;
+        }
+
+        if (imageFile && navigator.share && navigator.canShare && navigator.canShare({ files: [imageFile] })) {
+          await navigator.share({ ...shareData, files: [imageFile] });
+          setStatus('Открытка подготовлена как изображение и готова к отправке.');
+          return;
+        }
+
         if (navigator.share) {
           await navigator.share(shareData);
-          setStatus('Поздравление готово к отправке вашим близким.');
+          setStatus('Ссылка на открытку готова к отправке.');
           return;
         }
 
@@ -451,7 +573,7 @@
         window.open(shareUrl, '_blank', 'noopener');
         setStatus('Открыли окно для отправки поздравления.');
       } catch (error) {
-        setStatus('Не удалось открыть меню отправки. Попробуйте ещё раз.', true);
+        setStatus('Не удалось подготовить открытку для отправки. Попробуйте ещё раз.', true);
       }
     });
   </script>
