@@ -2,33 +2,110 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=orazabayram.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Переадресация на открытку · Orazabayram</title>
-  <script>
-    window.location.replace('orazabayram.html');
-  </script>
+  <meta name="theme-color" content="#0f1720">
+  <title>Обновление PWA · oraza.ru</title>
+  <meta name="description" content="Инструкция для перехода на новый сайт www.oraza.ru и переустановки ярлыка на экран домой.">
   <style>
+    :root {
+      color-scheme: light dark;
+    }
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       min-height: 100vh;
       display: grid;
       place-items: center;
-      font-family: Arial, sans-serif;
-      background: #0f1720;
-      color: #f5f1e8;
-      text-align: center;
       padding: 24px;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0%, #0f1720 58%, #020617 100%);
+      color: #f8fafc;
     }
-    a {
+    .card {
+      width: min(100%, 460px);
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(15, 23, 32, 0.88);
+      border: 1px solid rgba(244, 201, 107, 0.24);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+    }
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: #f4c96b;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      line-height: 1.15;
+    }
+    p {
+      margin: 0 0 14px;
+      line-height: 1.55;
+      color: rgba(248, 250, 252, 0.88);
+    }
+    ol {
+      margin: 0 0 18px;
+      padding-left: 20px;
+      line-height: 1.6;
+      color: rgba(248, 250, 252, 0.9);
+    }
+    li + li {
+      margin-top: 8px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      border: 0;
+      border-radius: 14px;
+      background: #f4c96b;
+      color: #0f1720;
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button:active {
+      transform: scale(0.98);
+    }
+    .secondary-link {
+      display: inline-block;
+      margin-top: 14px;
+      color: #f4c96b;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .note {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(248, 250, 252, 0.82);
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <main>
-    <p>Перенаправляем вас на праздничную открытку…</p>
-    <p><a href="orazabayram.html">Если переход не сработал, откройте страницу вручную</a>.</p>
+  <main class="card">
+    <p class="eyebrow">Обновление приложения</p>
+    <h1>Откройте www.oraza.ru в браузере</h1>
+    <p>Мы убрали автоматическое перенаправление. Если у вас старая версия PWA на домашнем экране, откройте новый сайт вручную по кнопке ниже и затем переустановите ярлык.</p>
+    <ol>
+      <li>Нажмите кнопку ниже, чтобы открыть новый сайт <strong>www.oraza.ru</strong> в браузере.</li>
+      <li>После открытия удалите старую иконку приложения с домашнего экрана телефона.</li>
+      <li>Заново добавьте на экран домой уже новый сайт, чтобы установить актуальную версию PWA.</li>
+    </ol>
+    <a class="button" href="https://www.oraza.ru/" target="_blank" rel="noopener noreferrer">Открыть www.oraza.ru</a>
+    <a class="secondary-link" href="https://www.oraza.ru/">Если кнопка не сработала, нажмите сюда</a>
+    <div class="note">После перехода на новый сайт установите ярлык заново через меню браузера — так откроется уже актуальная версия приложения без старого кеша и старого сценария запуска.</div>
   </main>
 </body>
 </html>
