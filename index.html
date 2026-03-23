@@ -6,7 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Переадресация на сайт · www.oraza.ru</title>
   <script>
-    window.location.replace('https://www.oraza.ru/');
+    const TARGET_URL = 'https://www.oraza.ru/';
+
+    function redirectToMainSite() {
+      try {
+        window.location.replace(TARGET_URL);
+      } catch (error) {
+        window.location.href = TARGET_URL;
+      }
+    }
+
+    redirectToMainSite();
+    window.addEventListener('pageshow', redirectToMainSite);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        redirectToMainSite();
+      }
+    });
   </script>
   <style>
     body {
