@@ -8,6 +8,10 @@
   <script>
     const TARGET_URL = 'https://www.oraza.ru/';
 
+    function isStandaloneMode() {
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }
+
     function redirectToMainSite() {
       try {
         window.location.replace(TARGET_URL);
@@ -15,6 +19,32 @@
         window.location.href = TARGET_URL;
       }
     }
+
+    function revealFallbackNotice() {
+      const notice = document.getElementById('fallbackNotice');
+      if (!notice) return;
+      notice.hidden = false;
+      document.body.classList.add('fallback-visible');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const openButton = document.getElementById('openSiteButton');
+      if (openButton) {
+        openButton.addEventListener('click', () => {
+          window.location.href = TARGET_URL;
+        });
+      }
+
+      window.setTimeout(() => {
+        if (document.visibilityState === 'visible') {
+          revealFallbackNotice();
+        }
+      }, isStandaloneMode() ? 900 : 1800);
+
+      if (isStandaloneMode()) {
+        document.body.classList.add('standalone-mode');
+      }
+    });
 
     redirectToMainSite();
     window.addEventListener('pageshow', redirectToMainSite);
@@ -36,15 +66,75 @@
       text-align: center;
       padding: 24px;
     }
+    main {
+      max-width: 420px;
+    }
     a {
       color: #f4c96b;
+    }
+    .fallback-notice {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(244, 201, 107, 0.28);
+      text-align: left;
+    }
+    .fallback-notice[hidden] {
+      display: none;
+    }
+    .fallback-title {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+    .fallback-text {
+      margin: 0 0 12px;
+      line-height: 1.5;
+      color: rgba(245, 241, 232, 0.88);
+    }
+    .fallback-list {
+      margin: 0 0 14px;
+      padding-left: 18px;
+      line-height: 1.5;
+      color: rgba(245, 241, 232, 0.88);
+    }
+    .fallback-button {
+      width: 100%;
+      min-height: 44px;
+      border: 0;
+      border-radius: 12px;
+      background: #f4c96b;
+      color: #0f1720;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .standalone-hint {
+      display: none;
+    }
+    body.standalone-mode .standalone-hint,
+    body.fallback-visible .standalone-hint {
+      display: block;
     }
   </style>
 </head>
 <body>
   <main>
     <p>Перенаправляем вас на сайт www.oraza.ru…</p>
-    <p><a href="https://www.oraza.ru/">Если переход не сработал, откройте сайт вручную</a>.</p>
+    <p><a href="https://www.oraza.ru/" target="_blank" rel="noopener noreferrer">Если переход не сработал, откройте сайт вручную</a>.</p>
+
+    <section class="fallback-notice" id="fallbackNotice" hidden>
+      <h1 class="fallback-title">Если вы открыли старую версию с экрана телефона</h1>
+      <p class="fallback-text standalone-hint">
+        На старой установленной PWA автоматический переход может блокироваться системой. Ниже есть кнопка для ручного открытия сайта и короткая инструкция.
+      </p>
+      <ol class="fallback-list standalone-hint">
+        <li>Нажмите «Открыть www.oraza.ru».</li>
+        <li>После перехода удалите старую иконку приложения с домашнего экрана.</li>
+        <li>Добавьте сайт на экран заново уже с новой версии.</li>
+      </ol>
+      <button class="fallback-button" id="openSiteButton" type="button">Открыть www.oraza.ru</button>
+    </section>
   </main>
 </body>
 </html>
